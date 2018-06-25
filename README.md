@@ -27,7 +27,7 @@ A person to person parking app that connects users in an area that need parking,
 
 ## Wireframes
 
-![Design Documentation](https://github.com/nmhalloran/parking-sniffer/tree/master/wireframes)
+![Design Documentation](https://raw.githubusercontent.com/nmhalloran/parking-sniffer/master/wireframes/Parking.png)
 
 ## Accomplished over the weekend
 
@@ -83,4 +83,4 @@ Alfred Alejandrino, Maxim Grebennikov, Nick Halloran, Meenakshi Anand Narayan
 ## Day 7
 
 * Test the application for errors and deploy the app to heroku
-* Complete the project README 
+* Complete the project README
