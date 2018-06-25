@@ -26,7 +26,7 @@ mongoose
   .catch(err => console.log(err));
 
   console.log(__dirname);
-app.get("/", (req, res) => res.sendFile((__dirname+'/index.html')));
+app.get("/", (req, res) => res.sendFile((__dirname+'/map.html')));
 // Passport Middleware
 app.use(passport.initialize());
 
