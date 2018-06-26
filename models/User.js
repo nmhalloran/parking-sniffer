@@ -85,7 +85,7 @@ const UserSchema = new Schema({
   ],
   vehicles: [
     {
-      vehicle_type: {
+      vehicle_types: {
         type: String
       },
       plate_no: {

@@ -10,6 +10,7 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const validateSpotInput = require("../../validation/spot");
+const validateVehicleInput = require("../../validation/vehicle");
 // Load User model
 const User = require("../../models/User.js");
 
@@ -173,9 +174,9 @@ router.post(
 
 // Vehicles routes
 
-
+// add a vehicle
 // @route   POST api/users/vehicles
-// @desc    Add vehiclesto users
+// @desc    Add vehicles to users
 // @access  Private
 
 router.post(
@@ -193,7 +194,7 @@ router.post(
     User.findOne({ user: req.id }).then(user => {
       const newVehicle = {
 
-        vehicle_type: req.body.vehicle_type,
+        vehicle_types: req.body.vehicle_types,
         plate_no: req.body.plate_no,
         color: req.body.color,
         model: req.body.model,
@@ -202,15 +203,18 @@ router.post(
 
       };
 
-      // Add to experience array
-      user.spots.unshift(newVehicle);
+      // Add to vehicles array
+      user.vehicles.unshift(newVehicle);
 
       user.save().then(user1 => res.json(user1));
     });
   }
 );
 
-//delete
+// delete a vehicle
+// @route   POST api/users/vehicles/:id
+// @desc    Delete vehicle
+// @access  Private
 
 router.delete(
   "/vehicles/:id",
@@ -221,15 +225,15 @@ router.delete(
     User.findOne({ user: req.id })
       .then(user => {
         // Get remove index
-        const removeIndex = profile.experience
+        const removeIndex = user.vehicles
           .map(item => item.id)
-          .indexOf(req.params.exp_id);
+          .indexOf(req.params.vehicle_id);
 
         // Splice out of array
-        profile.experience.splice(removeIndex, 1);
+        user.vehicles.splice(removeIndex, 1);
 
         // Save
-        profile.save().then(profile => res.json(profile));
+        user.save().then(user1 => res.json(user1));
       })
       .catch(err => res.status(404).json(err));
   }
