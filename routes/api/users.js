@@ -9,6 +9,7 @@ const passport = require("passport");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateSpotInput = require("../../validation/spot");
 // Load User model
 const User = require("../../models/User.js");
 
@@ -122,6 +123,48 @@ router.get(
       id: req.user.id,
       name: req.user.name,
       email: req.user.email
+    });
+  }
+);
+
+// @route   POST api/profile/experience
+// @desc    Add experience to profile
+// @access  Private
+
+router.post(
+  "/spot",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateSpotInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    User.findOne({ user: req.id }).then(user => {
+      const newSpot = {
+        // address: {
+        //   line1: req.body.address.line1,
+        //   line2: req.body.address.lin2,
+        //   city: req.body.address.city,
+        //   state: req.body.address.state,
+        //   zipcode: req.body.address.zipcode
+        // },
+        description: req.body.description
+        // vehicle_types: req.body.vehicle_types,
+        // spot_type: req.body.spot_type,
+        // rental_rate: req.body.rental_rate,
+        // rental_type: req.body.rental_type,
+        // img_url: req.body.img_url,
+        // reservations: []
+      };
+
+      // Add to experience array
+      user.spots.unshift(newSpot);
+
+      user.save().then(user => res.json(user));
     });
   }
 );
