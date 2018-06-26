@@ -4,6 +4,7 @@ import React from 'react';
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Landing from "./components/layout/Landing";
+import CreateSpotContainer from "./components/spot/create_spot_container";
 
 import {
   Route,
@@ -21,6 +22,8 @@ const App = () => (
     <Navbar />
     <Landing />
     <Footer />
+    
+    <CreateSpotContainer />
   </div>
 );
 
