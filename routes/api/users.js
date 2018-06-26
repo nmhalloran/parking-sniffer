@@ -217,7 +217,7 @@ router.post(
 // @access  Private
 
 router.delete(
-  "/vehicles/:id",
+  "/vehicle/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateVehicleInput(req.body);
