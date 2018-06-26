@@ -19,7 +19,7 @@ const User = require("../../models/User.js");
 // @access  Public
 router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 
-// @route   GET api/users/register
+// @route   GET api/us ers/register
 // @desc    Register user
 // @access  Public
 router.post("/register", (req, res) => {
@@ -175,12 +175,12 @@ router.post(
 // Vehicles routes
 
 // add a vehicle
-// @route   POST api/users/vehicles
+// @route   POST api/users/:user_id/vehicles
 // @desc    Add vehicles to users
 // @access  Private
 
 router.post(
-  "/vehicle",
+  "/vehicles",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateVehicleInput(req.body);
@@ -191,7 +191,7 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    User.findOne({ user: req.id }).then(user => {
+    User.findOne({ _id: req.user.id}).then(user => {
       const newVehicle = {
 
         vehicle_types: req.body.vehicle_types,
@@ -217,12 +217,12 @@ router.post(
 // @access  Private
 
 router.delete(
-  "/vehicle/:id",
+  "/vehicles/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateVehicleInput(req.body);
 
-    User.findOne({ user: req.id })
+    User.findOne({ _id: req.user.id })
       .then(user => {
         // Get remove index
         const removeIndex = user.vehicles
@@ -240,19 +240,26 @@ router.delete(
 );
 
 
-//show
-router.get("/user/:user_id", (req, res) => {
+// show a vehicle
+// @route   POST api/users/vehicles/:id
+// @desc    Show vehicle
+// @access  Private
+router.get("/vehicles/:vehicle_id", (req, res) => {
   const errors = {};
 
-  Profile.findOne({ user: req.params.user_id })
-    .populate("user", ["name", "avatar"])
-    .then(profile => {
-      if (!profile) {
+  User.findOne({ user: req._id})
+    .then(user => {
+      if (!user) {
         errors.noprofile = "There is no profile for this user";
         res.status(404).json(errors);
       }
 
-      res.json(profile);
+      // Get vehicle index
+      const vehicleIndex = user.vehicles
+        .map(item => item.id)
+        .indexOf(req.params.vehicle_id);
+
+      req.json(user.vehicles.find({id: req.params.vehicle_id}));
     })
     .catch(err =>
       res.status(404).json({ profile: "There is no profile for this user" })
