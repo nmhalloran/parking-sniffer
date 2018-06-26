@@ -18,6 +18,7 @@ import {
 
 const App = () => (
   <div className="root-container">
+    <Navbar />
     <Landing />
     <Footer />
   </div>
