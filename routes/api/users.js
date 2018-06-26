@@ -247,7 +247,7 @@ router.delete(
 router.get("/vehicles/:vehicle_id", (req, res) => {
   const errors = {};
 
-  User.findOne({ user: req._id})
+  User.findOne({ _id: req.user.id})
     .then(user => {
       if (!user) {
         errors.noprofile = "There is no profile for this user";
