@@ -244,29 +244,44 @@ router.delete(
 // @route   POST api/users/vehicles/:id
 // @desc    Show vehicle
 // @access  Private
-router.get("/vehicles/:vehicle_id", (req, res) => {
+
+router.get("/vehicles/:vehicle_id",
+passport.authenticate("jwt", { session: false }),
+(req, res) => {
   const errors = {};
 
   User.findOne({ _id: req.user.id})
     .then(user => {
-      if (!user) {
-        errors.noprofile = "There is no profile for this user";
-        res.status(404).json(errors);
-      }
 
       // Get vehicle index
       const vehicleIndex = user.vehicles
         .map(item => item.id)
         .indexOf(req.params.vehicle_id);
-
-      req.json(user.vehicles.find({id: req.params.vehicle_id}));
+         res.json(user.vehicles[vehicleIndex]);
     })
     .catch(err =>
       res.status(404).json({ profile: "There is no profile for this user" })
     );
 });
 
-//index
+// show all vehicles
+// @route   POST api/users/vehicles
+// @desc    Show all vehicles
+// @access  Private
 
+router.get("/vehicles",
+passport.authenticate("jwt", { session: false }),
+(req, res) => {
+  const errors = {};
+
+  User.findOne({ _id: req.user.id})
+    .then(user => {
+
+      res.json(user.vehicles);
+    })
+    .catch(err =>
+      res.status(404).json({ profile: "There is no profile for this user" })
+    );
+});
 
 module.exports = router;
