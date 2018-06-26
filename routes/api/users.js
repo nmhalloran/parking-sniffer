@@ -179,10 +179,10 @@ router.post(
 // @access  Private
 
 router.post(
-  "/spot",
+  "/vehicle",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateSpotInput(req.body);
+    const { errors, isValid } = validateVehicleInput(req.body);
 
     // Check Validation
     if (!isValid) {
@@ -209,6 +209,53 @@ router.post(
     });
   }
 );
+
+//delete
+
+router.delete(
+  "/vehicles/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateVehicleInput(req.body);
+
+    User.findOne({ user: req.id })
+      .then(user => {
+        // Get remove index
+        const removeIndex = profile.experience
+          .map(item => item.id)
+          .indexOf(req.params.exp_id);
+
+        // Splice out of array
+        profile.experience.splice(removeIndex, 1);
+
+        // Save
+        profile.save().then(profile => res.json(profile));
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+
+//show
+router.get("/user/:user_id", (req, res) => {
+  const errors = {};
+
+  Profile.findOne({ user: req.params.user_id })
+    .populate("user", ["name", "avatar"])
+    .then(profile => {
+      if (!profile) {
+        errors.noprofile = "There is no profile for this user";
+        res.status(404).json(errors);
+      }
+
+      res.json(profile);
+    })
+    .catch(err =>
+      res.status(404).json({ profile: "There is no profile for this user" })
+    );
+});
+
+//index
 
 
 module.exports = router;
