@@ -175,7 +175,7 @@ router.post(
 // Vehicles routes
 
 // add a vehicle
-// @route   POST api/users/:user_id/vehicles
+// @route   POST api/users/vehicles
 // @desc    Add vehicles to users
 // @access  Private
 
@@ -276,7 +276,6 @@ passport.authenticate("jwt", { session: false }),
 
   User.findOne({ _id: req.user.id})
     .then(user => {
-
       res.json(user.vehicles);
     })
     .catch(err =>
@@ -284,4 +283,42 @@ passport.authenticate("jwt", { session: false }),
     );
 });
 
+// Vehicle Reservation Routes
+
+// add a vehicle
+// @route   POST api/users/vehicles/:id/reservation
+// @desc    Add vehicles to users
+// @access  Private
+
+router.post(
+  "/vehicles",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateVehicleReservationInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    User.findOne({ _id: req.user.id}).then(user => {
+      const newVehicle = {
+
+        vehicle_types: req.body.vehicle_types,
+        plate_no: req.body.plate_no,
+        color: req.body.color,
+        model: req.body.model,
+        year: req.body.year,
+        reservations: []
+
+      };
+
+      // Add to vehicles array
+      user.vehicles.unshift(newVehicle);
+
+      user.save().then(user1 => res.json(user1));
+    });
+  }
+);
 module.exports = router;

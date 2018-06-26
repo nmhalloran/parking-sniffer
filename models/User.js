@@ -1,5 +1,21 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+//Create vehicle reservation schema
+
+const vehicleReservationSchema = new Schema({
+      start_date: {
+        type: Date
+      },
+      end_date: {
+        type: Date
+      },
+      booking_status: {
+        type: String
+      },
+      spot_id: {
+        type: Number
+      }
+});
 
 // Create Schema
 const UserSchema = new Schema({
