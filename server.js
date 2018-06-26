@@ -25,7 +25,7 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-app.get("/", (req, res) => res.sendFile('/client/public/index.jsx'));
+app.get("/", (req, res) => res.sendFile(__dirname + '/client/src/index.js'));
 // Passport Middleware
 app.use(passport.initialize());
 
