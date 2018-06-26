@@ -164,9 +164,51 @@ router.post(
       // Add to experience array
       user.spots.unshift(newSpot);
 
-      user.save().then(user => res.json(user));
+      user.save().then(user1 => res.json(user1));
     });
   }
 );
+
+
+
+// Vehicles routes
+
+
+// @route   POST api/users/vehicles
+// @desc    Add vehiclesto users
+// @access  Private
+
+router.post(
+  "/spot",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateSpotInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    User.findOne({ user: req.id }).then(user => {
+      const newVehicle = {
+
+        vehicle_type: req.body.vehicle_type,
+        plate_no: req.body.plate_no,
+        color: req.body.color,
+        model: req.body.model,
+        year: req.body.year,
+        reservations: []
+
+      };
+
+      // Add to experience array
+      user.spots.unshift(newVehicle);
+
+      user.save().then(user1 => res.json(user1));
+    });
+  }
+);
+
 
 module.exports = router;
