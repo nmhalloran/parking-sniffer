@@ -5,21 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
-  <!-- move to a css file later -->
   
-  <style>
-    #map {
-      position: absolute;
-      z-index: 100;
-      height: 600px;
-      width: 400px;
-      border: 10px solid rgb(50, 115, 117);
-      top: 100px;
-      left: 25px;
-    }
-  </style>
-  <!-- css -->
-  <!--
+    <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
@@ -45,33 +32,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
 
-    <div id="map"></div>
-    <script>
 
-
-      // javascript code
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: { lat: 37.7989650, lng: -122.4013603 }, // App Academy coordinates
-          zoom: 18
-        });
-
-        addMarker();
-      }
-
-      function addMarker() {
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(37.7989650, -122.4013603),
-          title: "App Academy, SF",
-          map: map
-        })
-      }
-            // could be imported from another .js file to make the longtitude/latitude/address dynamic
-
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAidLpThnbgE6N1QcSteTh3kdzkPR6W7dE&callback=initMap" async
-      defer></script>
 
 </body>
 

@@ -1,5 +1,13 @@
 import React from "react";
+import axios from 'axios';
 import { withRouter } from "react-router-dom";
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker
+} from "react-google-maps";
+
 
 class CreateSpot extends React.Component {
     constructor(props) {
@@ -21,51 +29,62 @@ class CreateSpot extends React.Component {
             img_url: '',
             reservations: []
         }
+
+        this.geocode();
     }
 
-    renderMap() {
-        var map;
-        var marker;
+    handleChange(val) {
+        return (e) => this.setState({[val]: e.currentTarget.value})
+    }
 
-        map = new google.maps.Map(document.getElementById("map2"), {
-          center: { lat: 37.798965, lng: -122.4013603 }, // App Academy coordinates
-          zoom: 18
-        });
-
-        marker = new google.maps.Marker({
-            position: new google.maps.LatLng(37.7989650, -122.4013603),
-            title: "App Academy, SF",
-            map: map
+    geocode() {
+        var location = '825 battery st. san francisco ca';
+        
+        axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
+          params: {
+            address: location,
+            key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
+          }
         })
+        .then(res => {
+
+            this.lat = res.data.results[0].geometry.location.lat;
+            this.lng = res.data.results[0].geometry.location.lng;
+        })
+        .catch(err => console.log(err))
     }
 
     render() {
-        return (
 
-        <div>
+
+        const MyMapComponent = withScriptjs(withGoogleMap((props) => (
+            <GoogleMap
+                defaultZoom={18}
+                defaultCenter={{ lat: this.lat, lng: this.lng }}
+            >
+            </GoogleMap>
+        )))
+
+        return <div>
             <h4> Create a new Parking Spot </h4>
 
             <button>Upload Image</button>
 
             <div className="Address">
-                <label> Address: </label>
-                <div id="building-street">
-                    <input type="text" placeholder="Building" value={this.state.line1} />
-                    <input type="text" placeholder="Street"  value={this.state.line2} />
-                </div>
-                <div id="city-state-zip">
-                    <input type="text" placeholder="City/Town" value={this.state.city} />
-                    <input type="text" placeholder="State" value={this.state.state} />
-                    <input type="number" placeholder="Zip Code" value={this.state.zipcode} />
-                </div>
+              <label> Address: </label>
+              <div id="building-street">
+                <input type="text" placeholder="Building" onChange={this.handleChange('line1')} value={this.state.line1} />
+                <input type="text" placeholder="Street" value={this.state.line2} />
+              </div>
+              <div id="city-state-zip">
+                <input type="text" placeholder="City/Town" value={this.state.city} />
+                <input type="text" placeholder="State" value={this.state.state} />
+                <input type="number" placeholder="Zip Code" value={this.state.zipcode} />
+              </div>
             </div>
 
-            <div id="map2"></div>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAidLpThnbgE6N1QcSteTh3kdzkPR6W7dE&callback=initMap" async
-                defer></script>
-        </div>
-
-        )
+            <MyMapComponent googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg&callback=initMapes" loadingElement={<div style={{ height: `100%` }} />} containerElement={<div style={{ height: `300px`, width: `800px` }} />} mapElement={<div style={{ height: `100%` }} />} />
+          </div>;
         
     }
 };
