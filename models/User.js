@@ -1,27 +1,26 @@
 const mongoose = require("mongoose");
-// const Spot = require("./Spot");
-
 const Schema = mongoose.Schema;
 
-const ReservationSchema = new Schema({
-  start_date: {
-    type: Date
-  },
-  end_date: {
-    type: Date
-  },
-  booking_status: {
+// Create Vehicle Schema
+const VehicleSchema = new Schema({
+  vehicle_type: {
     type: String
   },
-  vehicle_id: {
+  plate_no: {
+    type: String
+  },
+  color: {
+    type: String
+  },
+  model: {
+    type: String
+  },
+  year: {
     type: Number
   }
-  // parker: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "users"
-  // }
 });
 
+// Create Spot Schema
 const SpotSchema = new Schema({
   address: {
     line1: {
@@ -57,22 +56,7 @@ const SpotSchema = new Schema({
   },
   img_url: {
     type: String
-  },
-  reservations: [ReservationSchema]
-  // {
-  //   start_date: {
-  //     type: Date
-  //   },
-  //   end_date: {
-  //     type: Date
-  //   },
-  //   booking_status: {
-  //     type: String
-  //   },
-  //   vehicle_id: {
-  //     type: Number
-  //   }
-  // }
+  }
 });
 
 // Create Schema
@@ -102,26 +86,11 @@ const UserSchema = new Schema({
       type: String
     }
   },
+
   spots: [SpotSchema],
-  vehicles: [
-    {
-      vehicle_type: {
-        type: String
-      },
-      plate_no: {
-        type: String
-      },
-      color: {
-        type: String
-      },
-      model: {
-        type: String
-      },
-      year: {
-        type: Number
-      }
-    }
-  ]
+
+  vehicles: [VehicleSchema]
+  
 });
 
 module.exports = User = mongoose.model("users", UserSchema);
