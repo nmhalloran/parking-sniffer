@@ -1,5 +1,79 @@
 const mongoose = require("mongoose");
+// const Spot = require("./Spot");
+
 const Schema = mongoose.Schema;
+
+const ReservationSchema = new Schema({
+  start_date: {
+    type: Date
+  },
+  end_date: {
+    type: Date
+  },
+  booking_status: {
+    type: String
+  },
+  vehicle_id: {
+    type: Number
+  }
+  // parker: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "users"
+  // }
+});
+
+const SpotSchema = new Schema({
+  address: {
+    line1: {
+      type: String
+    },
+    line2: {
+      type: String
+    },
+    city: {
+      type: String
+    },
+    state: {
+      type: String
+    },
+    zipcode: {
+      type: Number
+    }
+  },
+  description: {
+    type: String
+  },
+  vehicle_types: {
+    type: [String]
+  },
+  spot_type: {
+    type: String
+  },
+  rental_rate: {
+    type: Number
+  },
+  rental_type: {
+    type: String
+  },
+  img_url: {
+    type: String
+  },
+  reservations: [ReservationSchema]
+  // {
+  //   start_date: {
+  //     type: Date
+  //   },
+  //   end_date: {
+  //     type: Date
+  //   },
+  //   booking_status: {
+  //     type: String
+  //   },
+  //   vehicle_id: {
+  //     type: Number
+  //   }
+  // }
+});
 
 // Create Schema
 const UserSchema = new Schema({
@@ -28,64 +102,10 @@ const UserSchema = new Schema({
       type: String
     }
   },
-  spots: [
-    {
-      // address: {
-      //   line1: {
-      //     type: String
-      //   },
-      //   line2: {
-      //     type: String
-      //   },
-      //   city: {
-      //     type: String
-      //   },
-      //   state: {
-      //     type: String
-      //   },
-      //   zipcode: {
-      //     type: Number
-      //   }
-      // },
-      description: {
-        type: String
-      }
-      // vehicle_types: {
-      //   type: [String]
-      // },
-      // spot_type: {
-      //   type: String
-      // },
-      // rental_rate: {
-      //   type: Number
-      // },
-      // rental_type: {
-      //   type: String
-      // },
-      // img_url: {
-      //   type: String
-      // },
-      // reservations: [
-      //   {
-      //     start_date: {
-      //       type: Date
-      //     },
-      //     end_date: {
-      //       type: Date
-      //     },
-      //     booking_status: {
-      //       type: String
-      //     },
-      //     vehicle_id: {
-      //       type: Number
-      //     }
-      //   }
-      // ]
-    }
-  ],
+  spots: [SpotSchema],
   vehicles: [
     {
-      vehicle_types: {
+      vehicle_type: {
         type: String
       },
       plate_no: {
