@@ -22,15 +22,11 @@ const App = () => (
     <Route path="/" component={Navbar} />
     <Route exact path="/signup" component={SignUpContainer} />
     <Route exact path="/signin" component={SignInContainer} />
-<<<<<<< HEAD
-    <Route exact path="/" component={Landing} />
+
     <Route exact path="/createspot" component={CreateSpotContainer} />
     <Route path="/" component={Footer} />
-=======
 
-    <Route exact path="/" component={Footer} />
 
->>>>>>> navbar
   </div>
 );
 
