@@ -8,6 +8,7 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Landing from "./components/layout/Landing";
 import CreateSpotContainer from "./components/spot/create_spot_container";
+import ShowSpotContainer from "./components/spot/show_spot_container";
 
 import {  Route,  Redirect,  Switch,  Link,  HashRouter} from 'react-router-dom';
 
@@ -22,8 +23,8 @@ const App = () => (
     <Route path="/" component={Navbar} />
     <Route exact path="/signup" component={SignUpContainer} />
     <Route exact path="/signin" component={SignInContainer} />
-
     <Route exact path="/createspot" component={CreateSpotContainer} />
+    <Route exact path="/showspot" component={ShowSpotContainer} />
     <Route path="/" component={Footer} />
 
 
