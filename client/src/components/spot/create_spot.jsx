@@ -22,11 +22,12 @@ class CreateSpot extends React.Component {
             description: '',
             vehicle_types: [],
             spot_type: '',
-            rental_rate: undefined,
+            rental_rate: '',
             rental_type: '',
             img_url: '',
             reservations: [],
-            // add lat and lng
+            latitude: '',
+            longitude: ''
         }
 
         this.lat = 37.798965;
@@ -44,7 +45,7 @@ class CreateSpot extends React.Component {
                 this.setState({ [val]: e.currentTarget.value });
                 // this.state.state = '';
                 // this.state.zipcode = '';
-                debugger
+                // debugger
             } else if (val === 'line2') {
                 this.state.line2 = e.currentTarget.value;
             } else if (val === 'city') {
@@ -52,6 +53,8 @@ class CreateSpot extends React.Component {
             } else if (val === 'state' || val === 'zipcode') {
                 this.setState({ [val]: e.currentTarget.value });
             } 
+
+
         }
     }
 
@@ -90,14 +93,20 @@ class CreateSpot extends React.Component {
             <GoogleMap
             defaultZoom={18}
             defaultCenter={{ lat: this.lat, lng: this.lng }}
-            />
+            >
+                {props.isMarkerShown && <Marker position={{ lat: this.lat, lng: this.lng }} />}
+            </GoogleMap>
             )))
         
         let renderMap;
             // debugger
         if (this.state.line1 !== '' && this.state.city !== '' && this.state.state.length >= 2 && this.state.zipcode.length >= 5 ) {
 
+            this.state.latitude = this.lat;
+            this.state.longitude = this.lng;
+
             renderMap = <MyMapComponent
+                isMarkerShown
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg"
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div className="myMapComponent" style={{ height: `400px`, width: `800px` }} />}
@@ -105,11 +114,12 @@ class CreateSpot extends React.Component {
         } else {
             renderMap = <h3
                 className="noMapComponent"
-                style={{ height: `0px`, width: `800px`, border: `1px solid black` }}
+                style={{ height: `0px`, width: `0px` }}
               >
               </h3>;
         }
 
+        // console.log(this.state) // for testing purposes
 
         return <div>
             <h4> Create a new Parking Spot </h4>
@@ -130,6 +140,7 @@ class CreateSpot extends React.Component {
                 </div>
 
                 {renderMap}
+                
 
                 <div>
                     <label> Parking Space # (optional): </label>
