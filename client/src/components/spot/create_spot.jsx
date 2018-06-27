@@ -119,7 +119,7 @@ class CreateSpot extends React.Component {
               </h3>;
         }
 
-        // console.log(this.state) // for testing purposes
+        console.log(this.state) // for testing purposes
 
         return <div>
             <h4> Create a new Parking Spot </h4>
