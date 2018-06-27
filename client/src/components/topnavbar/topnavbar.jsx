@@ -18,7 +18,6 @@ constructor(props){
 }
 
 onSubmit(e) {
-  debugger
   e.preventDefault();
   const userData = {
     email: this.state.email,
@@ -37,8 +36,6 @@ componentDidMount(){
 
 render(){
       const { errors } = this.props.errors;
-
-console.log(this.props.currentUser.avatar)
   return(
     <div>
     <div className="top-nav-bar">
@@ -47,29 +44,38 @@ console.log(this.props.currentUser.avatar)
       <div className="top-nav-bar-links">
       </div>
       <div className="top-nav-bar-info">
+
         {typeof this.props.currentUser.name === 'undefined' ? (
+          <div className="top-nav-bar-info-form" >
+
           <form onSubmit={this.onSubmit}>
-            <input type="text"
-              placeholder="Email Address"
+
+            <input className="top-nav-bar-input"
+              type="text"
+              placeholder="Email address"
               name="email"
               type="email"
               value={this.state.email}
               onChange={this.onChange}
             />
 
-          <input type="text"
+          <input className="top-nav-bar-input"
+              type="text"
               placeholder="Password"
               name="password"
               type="password"
               value={this.state.password}
               onChange={this.onChange}
             />
-            <input type="submit" className="btn btn-info btn-block mt-4" />
-          </form>
+          <button type="submit" className="top-nav-bar-signout" >Sign in</button>
+        </form>
+
+          <Link className="generic-link-1" to={'/signup'}>  I don't have an account</Link>
+        </div>
         ) : (
-          <div>
-            <img src={this.props.currentUser.avatar}/>
-            <span>{this.props.currentUser.name}</span>
+          <div className="top-nav-bar-info-logged" >
+            <div><img src={this.props.currentUser.avatar}/></div>
+            <div><span>{this.props.currentUser.name}</span></div>
             <div className="top-nav-bar-info-buttons">
               <button className="top-nav-bar-signout" onClick={()=> this.props.logoutUser()}>Sign out</button>
             </div>

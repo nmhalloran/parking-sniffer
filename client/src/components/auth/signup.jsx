@@ -56,7 +56,7 @@ class SignUp extends React.Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">
-                Create your DevConnector account
+                Create your Parking Sniffer account
               </p>
               <form noValidate onSubmit={this.onSubmit}>
                 <input type='text'

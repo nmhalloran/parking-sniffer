@@ -73,15 +73,15 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  avatar: {
+    type: String
+  },
 
   date: {
     type: Date,
     default: Date.now
   },
   profile: {
-    avatar: {
-      type: String
-    },
     bio: {
       type: String
     }
@@ -90,7 +90,7 @@ const UserSchema = new Schema({
   spots: [SpotSchema],
 
   vehicles: [VehicleSchema]
-  
+
 });
 
 module.exports = User = mongoose.model("users", UserSchema);
