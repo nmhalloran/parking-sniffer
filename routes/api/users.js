@@ -13,6 +13,7 @@ const validateSpotInput = require("../../validation/spot");
 const validateVehicleInput = require("../../validation/vehicle");
 // Load User model
 const User = require("../../models/User.js");
+const Reservation = require("../../models/Reservation.js");
 
 // @route   GET api/users/test
 // @desc    TEsts users route
@@ -23,7 +24,6 @@ router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 // @desc    Register user
 // @access  Public
 router.post("/register", (req, res) => {
-
   const { errors, isValid } = validateRegisterInput(req.body);
   // Check Validation
   if (!isValid) {
@@ -162,6 +162,48 @@ router.post(
       };
       // Add to experience array
       user.spots.unshift(newSpot);
+
+      user.save().then(user => res.json(user));
+    });
+  }
+);
+
+router.patch(
+  "/spot/:spot_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateSpotInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    User.findById({ _id: req.user.id }).then(user => {
+      // Add to experience array
+      const spotIndex = user.spots
+        .map(item => item.id)
+        .indexOf(req.params.spot_id);
+
+      const updatedSpot = {
+        _id: req.params.spot_id,
+        address: {
+          line1: req.body.line1,
+          line2: req.body.line2,
+          city: req.body.city,
+          state: req.body.state,
+          zipcode: req.body.zipcode
+        },
+        description: req.body.description,
+        vehicle_type: req.body.vehicle_type,
+        spot_type: req.body.spot_type,
+        rental_rate: req.body.rental_rate,
+        rental_type: req.body.rental_type,
+        img_url: req.body.img_url,
+        reservations: []
+      };
+      user.spots[spotIndex] = updatedSpot;
 
       user.save().then(user => res.json(user));
     });
