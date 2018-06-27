@@ -2,17 +2,20 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import TopNavBar from './topnavbar'
-import { logoutUser } from '../../actions/auth_actions'
-
+import { logoutUser , loginUser  } from '../../actions/auth_actions'
+import { clearErrors } from '../../actions/errors_actions';
 
 const msp = (state) =>({
   currentUser: state.isAuthenticated.user,
   isAuthenticated: state.isAuthenticated.isAuthenticated,
+  errors: state.errors
 })
 
 
 const mdp = (dispatch) =>({
-logoutUser: () => dispatch(logoutUser())
+logoutUser: () => dispatch(logoutUser()),
+loginUser: (user) => dispatch(loginUser(user)),
+clearErrors: () => dispatch(clearErrors()),
 })
 
 
