@@ -22,22 +22,21 @@ const VehicleSchema = new Schema({
 
 // Create Spot Schema
 const SpotSchema = new Schema({
-  address: {
-    line1: {
-      type: String
-    },
-    line2: {
-      type: String
-    },
-    city: {
-      type: String
-    },
-    state: {
-      type: String
-    },
-    zipcode: {
-      type: Number
-    }
+
+  line1: {
+    type: String
+  },
+  line2: {
+    type: String
+  },
+  city: {
+    type: String
+  },
+  state: {
+    type: String
+  },
+  zipcode: {
+    type: Number
   },
   description: {
     type: String
