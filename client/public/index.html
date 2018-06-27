@@ -9,9 +9,13 @@
 
   <style>
     #map {
-      height: 500px;
-      width: 500px;
+      position: absolute;
+      z-index: 100;
+      height: 600px;
+      width: 400px;
       border: 10px solid rgb(50, 115, 117);
+      top: 100px;
+      left: 25px;
     }
   </style>
   <!-- css -->
@@ -29,6 +33,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
 
 
   <noscript>
@@ -43,6 +48,48 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
 
+=======
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  
+  <div id="root"></div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+
+    <div id="map"></div>
+    <script>
+
+
+      // javascript code
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: 37.7989650, lng: -122.4013603 }, // App Academy coordinates
+          zoom: 18
+        });
+
+        addMarker();
+      }
+
+      function addMarker() {
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(37.7989650, -122.4013603),
+          title: "App Academy, SF",
+          map: map
+        })
+      }
+            // could be imported from another .js file to make the longtitude/latitude/address dynamic
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAidLpThnbgE6N1QcSteTh3kdzkPR6W7dE&callback=initMap" async
+      defer></script>
+
+>>>>>>> d28c911163aa97b95bc12ca39a3ab5c2fb8f17cd
 </body>
 
 </html>

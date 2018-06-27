@@ -5,6 +5,7 @@ import App from './app'
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 
+<<<<<<< HEAD
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './util/setAuthToken.js';
 import { setCurrentUser, logoutUser } from './actions/auth_actions';
@@ -46,6 +47,13 @@ class Root extends React.Component{
 render(){
   return(
   <Provider store={this.store}>
+=======
+import "./App.css";
+import App from './app'
+
+const Root = ({ store }) =>(
+  <Provider store={store}>
+>>>>>>> d28c911163aa97b95bc12ca39a3ab5c2fb8f17cd
     <HashRouter>
       <App />
     </HashRouter>
