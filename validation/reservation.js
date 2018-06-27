@@ -9,7 +9,8 @@ module.exports = function validateReservationInput(data) {
   data.booking_status = !isEmpty(data.booking_status) ? data.booking_status : "";
   data.vehicle_id = !isEmpty(data.vehicle_id) ? data.vehicle_id : "";
   data.spot_id = !isEmpty(data.spot_id) ? data.spot_id : "";
-
+  data.parker_id = !isEmpty(data.parker_id) ? data.parker_id : "";
+  data.seller_id = !isEmpty(data.seller_id) ? data.seller_id : "";
 
   if (Validator.isEmpty(data.start_date)) {
     errors.start_date = "Enter in a start_date!";
@@ -25,6 +26,12 @@ module.exports = function validateReservationInput(data) {
   }
   if (Validator.isEmpty(data.spot_id)) {
     errors.spot_id = "Enter in a spot_id!";
+  }
+  if (Validator.isEmpty(data.parker_id)) {
+    errors.parker_id = "Enter in a parker_id!";
+  }
+  if (Validator.isEmpty(data.seller_id)) {
+    errors.seller_id = "Enter in a seller_id!";
   }
 
   return {

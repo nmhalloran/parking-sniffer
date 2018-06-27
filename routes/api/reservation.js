@@ -37,11 +37,13 @@ router.post(
         booking_status: req.body.booking_status,
         vehicle_id: req.body.vehicle_id,
         spot_id: req.body.spot_id,
+        parker_id: req.body.parker_id,
+        seller_id: req.body.seller_id,
       };
       // Add to experience array
-      user.spots.unshift(newSpot);
+      reservation.unshift(newReservation);
 
-      user.save().then(user => res.json(user));
+      reservation.save().then(reserve => res.json(reserve));
     });
   }
 );
