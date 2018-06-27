@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "concurrently": "^3.6.0",
+    "jwt-decode": "^2.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-google-maps": "^9.4.5",
