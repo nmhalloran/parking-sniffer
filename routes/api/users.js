@@ -153,7 +153,7 @@ router.post(
           zipcode: req.body.zipcode
         },
         description: req.body.description,
-        vehicle_types: req.body.vehicle_types,
+        vehicle_type: req.body.vehicle_type,
         spot_type: req.body.spot_type,
         rental_rate: req.body.rental_rate,
         rental_type: req.body.rental_type,
@@ -256,7 +256,7 @@ router.post(
 
     User.findOne({ _id: req.user.id }).then(user => {
       const newVehicle = {
-        vehicle_types: req.body.vehicle_types,
+        vehicle_type: req.body.vehicle_type,
         plate_no: req.body.plate_no,
         color: req.body.color,
         model: req.body.model,
