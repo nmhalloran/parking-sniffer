@@ -13,7 +13,7 @@ const validateSpotInput = require("../../validation/spot");
 const validateVehicleInput = require("../../validation/vehicle");
 // Load User model
 const User = require("../../models/User.js");
-const Reservation = require("../../models/Reservation.js");
+
 
 // @route   GET api/users/test
 // @desc    TEsts users route
@@ -127,8 +127,8 @@ router.get(
   }
 );
 
-// @route   POST api/profile/experience
-// @desc    Add experience to profile
+// @route   POST api/users/spot
+// @desc    Add spot to users
 // @access  Private
 
 router.post(
@@ -168,6 +168,11 @@ router.post(
   }
 );
 
+
+// @route  PATCH api/users/spot/:spot_id
+// @desc    Update user spot
+// @access  Private
+
 router.patch(
   "/spot/:spot_id",
   passport.authenticate("jwt", { session: false }),
@@ -181,7 +186,7 @@ router.patch(
     }
 
     User.findById({ _id: req.user.id }).then(user => {
-      // Add to experience array
+      // Add to spots array
       const spotIndex = user.spots
         .map(item => item.id)
         .indexOf(req.params.spot_id);
@@ -210,8 +215,8 @@ router.patch(
   }
 );
 
-/// @route  GET api/users/spot/:spot_id
-// @desc    Show user vehicle
+// @route  GET api/users/spot/:spot_id
+// @desc    Show user spot
 // @access  Private
 
 router.get(
