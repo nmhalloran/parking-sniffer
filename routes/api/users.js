@@ -187,7 +187,7 @@ router.patch(
         .indexOf(req.params.spot_id);
 
       const updatedSpot = {
-        _id: req.params.spot_id,
+        // _id: req.params.spot_id,
         address: {
           line1: req.body.line1,
           line2: req.body.line2,
@@ -230,12 +230,12 @@ router.get(
   }
 );
 
-/// @route  GET api/users/spots
+/// @route  GET api/users/myspots
 // @desc    gets all of a user's vehicles
 // @access  Private
 
 router.get(
-  "/spots",
+  "/myspots",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateSpotInput(req.body);
@@ -243,6 +243,28 @@ router.get(
     User.findOne({ _id: req.user.id })
       .then(user => {
         res.json(user.spots);
+      })
+      .catch(err =>
+        res.status(404)({ profile: "You messed up something, bro" })
+      );
+  }
+);
+
+/// @route  GET api/users/allspots
+// @desc    gets all the spots in the database
+// @access  Private
+
+router.get(
+  "/allspots",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let allSpots = [];
+    User.find()
+      .then(users => {
+        users.forEach(user => {
+          allSpots = allSpots.concat(user.spots);
+        });
+        res.json(allSpots);
       })
       .catch(err =>
         res.status(404)({ profile: "You messed up something, bro" })
