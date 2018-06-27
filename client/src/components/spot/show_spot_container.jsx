@@ -6,7 +6,7 @@ import ShowSpot from "./show_spot";
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    // add to this later
+    spot: state.entities.spots[ownProps.match.params.id]
   };
 };
 
