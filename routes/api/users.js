@@ -145,13 +145,11 @@ router.post(
 
     User.findOne({ _id: req.user.id }).then(user => {
       const newSpot = {
-        address: {
-          line1: req.body.line1,
-          line2: req.body.line2,
-          city: req.body.city,
-          state: req.body.state,
-          zipcode: req.body.zipcode
-        },
+        line1: req.body.line1,
+        line2: req.body.line2,
+        city: req.body.city,
+        state: req.body.state,
+        zipcode: req.body.zipcode,
         description: req.body.description,
         vehicle_type: req.body.vehicle_type,
         spot_type: req.body.spot_type,
