@@ -34,6 +34,9 @@ class CreateSpot extends React.Component {
         this.lng = -122.4013603;
         // App Academy Coordinates
 
+        this.markerLat;
+        this.markerLng;
+
     }
 
     handleAddressChange(val) {
@@ -58,6 +61,12 @@ class CreateSpot extends React.Component {
         }
     }
 
+    // addMarker(coords) {
+    //     var marker = new google.maps.Marker({
+
+    //     });
+    // }
+
     handleChange(val) {
         return (e) => {
             // debugger
@@ -69,9 +78,13 @@ class CreateSpot extends React.Component {
 
     geocode() {
         // var location = '825 battery st. sf, ca';
+        let axiosRequest = axios.create();
+        axiosRequest.defaults.headers.common['Content-Type'] = 'application/json';
+        delete axiosRequest.defaults.headers.common['Authorization'];
+        // debugger
         var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state} + ${this.state}`;
         
-        axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
+        axiosRequest.get("https://maps.googleapis.com/maps/api/geocode/json", {
           params: {
             address: location,
             key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
@@ -87,20 +100,24 @@ class CreateSpot extends React.Component {
     }
 
     render() {
-        this.geocode();
         
-        var MyMapComponent = withScriptjs(withGoogleMap((props) => (
-            <GoogleMap
-            defaultZoom={18}
-            defaultCenter={{ lat: this.lat, lng: this.lng }}
-            >
-                {props.isMarkerShown && <Marker position={{ lat: this.lat, lng: this.lng }} />}
-            </GoogleMap>
-            )))
-        
-        let renderMap;
-            // debugger
+        var MyMapComponent = withScriptjs(withGoogleMap((props) => {
+
+            return (
+                <GoogleMap
+                defaultZoom={18}
+                defaultCenter={{ lat: this.lat, lng: this.lng }}
+                >
+                    {props.isMarkerShown && <Marker position={{ lat: this.lat, lng: this.lng }} />}
+                </GoogleMap>
+                )
+        }))
+            
+            let renderMap;
+
+            
         if (this.state.line1 !== '' && this.state.city !== '' && this.state.state.length >= 2 && this.state.zipcode.length >= 5 ) {
+            this.geocode();
 
             this.state.latitude = this.lat;
             this.state.longitude = this.lng;
@@ -119,7 +136,7 @@ class CreateSpot extends React.Component {
               </h3>;
         }
 
-        console.log(this.state) // for testing purposes
+        // console.log(this.state) // for testing purposes
 
         return <div>
             <h4> Create a new Parking Spot </h4>
@@ -190,7 +207,7 @@ class CreateSpot extends React.Component {
                 <div>
                 <label> Term </label>
                 <select>
-                    <option value="none" disabled selected>--Select One--</option>
+                    <option hidden value="">--Select One--</option>
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
