@@ -21,9 +21,9 @@ const App = () => (
     <TopNavBarContainer />
     <Route exact path="/signup" component={SignUpContainer} />
     <Route exact path="/signin" component={SignInContainer} />
-    <Route exact path="/" component={Landing} />
+
     <Route exact path="/" component={Footer} />
-    <CreateSpotContainer />
+
   </div>
 );
 
