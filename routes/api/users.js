@@ -155,8 +155,7 @@ router.post(
         spot_type: req.body.spot_type,
         rental_rate: req.body.rental_rate,
         rental_type: req.body.rental_type,
-        img_url: req.body.img_url,
-        reservations: []
+        img_url: req.body.img_url
       };
       // Add to experience array
       user.spots.unshift(newSpot);
@@ -203,8 +202,7 @@ router.patch(
         spot_type: req.body.spot_type,
         rental_rate: req.body.rental_rate,
         rental_type: req.body.rental_type,
-        img_url: req.body.img_url,
-        reservations: []
+        img_url: req.body.img_url
       };
       user.spots[spotIndex] = updatedSpot;
 
@@ -327,8 +325,7 @@ router.post(
         plate_no: req.body.plate_no,
         color: req.body.color,
         model: req.body.model,
-        year: req.body.year,
-        reservations: []
+        year: req.body.year
       };
 
       // Add to vehicles array

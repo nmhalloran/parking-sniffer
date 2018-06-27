@@ -30,22 +30,13 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    User.findOne({ _id: req.user.id }).then(user => {
-      const newSpot = {
-        address: {
-          line1: req.body.line1,
-          line2: req.body.line2,
-          city: req.body.city,
-          state: req.body.state,
-          zipcode: req.body.zipcode
-        },
-        description: req.body.description,
-        vehicle_type: req.body.vehicle_type,
-        spot_type: req.body.spot_type,
-        rental_rate: req.body.rental_rate,
-        rental_type: req.body.rental_type,
-        img_url: req.body.img_url,
-        reservations: []
+    Reservation.findOne({ _id: req.reservation.id }).then(reservation => {
+      const newReservation = {
+        start_date: req.body.start_date,
+        end_date: req.body.end_date,
+        booking_status: req.body.booking_status,
+        vehicle_id: req.body.vehicle_id,
+        spot_id: req.body.spot_id,
       };
       // Add to experience array
       user.spots.unshift(newSpot);
