@@ -1,24 +1,21 @@
 import React, { Component } from "react";
-import "./app.css";
-import App from './app'
+import "./App.css";
+import App from "./app";
 
-import { Provider } from 'react-redux';
-import { HashRouter } from 'react-router-dom';
+import { Provider } from "react-redux";
+import { HashRouter } from "react-router-dom";
 
-import jwt_decode from 'jwt-decode';
-import setAuthToken from './util/setAuthToken.js';
-import { setCurrentUser, logoutUser } from './actions/auth_actions';
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./util/setAuthToken.js";
+import { setCurrentUser, logoutUser } from "./actions/auth_actions";
 // import { clearCurrentProfile } from './actions/profileActions';
-
-
 
 // const Root = ({ store }) =>{
 
-class Root extends React.Component{
-
-  constructor(props){
-    super(props)
-    this.store = props.store
+class Root extends React.Component {
+  constructor(props) {
+    super(props);
+    this.store = props.store;
     //Bootstrap user info from cookies
 
     // Check for token
@@ -38,21 +35,20 @@ class Root extends React.Component{
         // Clear current Profile
         // store.dispatch(clearCurrentProfile());
         // Redirect to login
-        window.location.href = '/login';
+        window.location.href = "/login";
       }
     }
   }
 
-render(){
-  return(
-  <Provider store={this.store}>
-    <HashRouter>
-      <App />
-    </HashRouter>
-  </Provider>
-)
-}
-
+  render() {
+    return (
+      <Provider store={this.store}>
+        <HashRouter>
+          <App />
+        </HashRouter>
+      </Provider>
+    );
+  }
 }
 
 export default Root;
