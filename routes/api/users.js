@@ -9,6 +9,8 @@ const passport = require("passport");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateSpotInput = require("../../validation/spot");
+const validateVehicleInput = require("../../validation/vehicle");
 // Load User model
 const User = require("../../models/User.js");
 
@@ -17,7 +19,7 @@ const User = require("../../models/User.js");
 // @access  Public
 router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 
-// @route   GET api/users/register
+// @route   GET api/us ers/register
 // @desc    Register user
 // @access  Public
 router.post("/register", (req, res) => {
@@ -122,6 +124,225 @@ router.get(
       name: req.user.name,
       email: req.user.email
     });
+  }
+);
+
+// @route   POST api/profile/experience
+// @desc    Add experience to profile
+// @access  Private
+
+router.post(
+  "/spot",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateSpotInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    User.findOne({ _id: req.user.id }).then(user => {
+      const newSpot = {
+        address: {
+          line1: req.body.line1,
+          line2: req.body.line2,
+          city: req.body.city,
+          state: req.body.state,
+          zipcode: req.body.zipcode
+        },
+        description: req.body.description,
+        vehicle_types: req.body.vehicle_types,
+        spot_type: req.body.spot_type,
+        rental_rate: req.body.rental_rate,
+        rental_type: req.body.rental_type,
+        img_url: req.body.img_url,
+        reservations: []
+      };
+      // Add to experience array
+      user.spots.unshift(newSpot);
+
+      user.save().then(user => res.json(user));
+    });
+  }
+);
+
+/// @route  GET api/users/spot/:spot_id
+// @desc    Show user vehicle
+// @access  Private
+
+router.get(
+  "/spot/:spot_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateSpotInput(req.body);
+
+    User.findOne({ _id: req.user.id }).then(user => {
+      const spotIndex = user.spots
+        .map(item => item.id)
+        .indexOf(req.params.spot_id);
+
+      res.json(user.spots[spotIndex]);
+    });
+  }
+);
+
+/// @route  GET api/users/spots
+// @desc    gets all of a user's vehicles
+// @access  Private
+
+router.get(
+  "/spots",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateSpotInput(req.body);
+
+    User.findOne({ _id: req.user.id })
+      .then(user => {
+        res.json(user.spots);
+      })
+      .catch(err =>
+        res.status(404)({ profile: "You messed up something, bro" })
+      );
+  }
+);
+
+/// @route  DELETE api/users/spot
+// @desc    delete user vehicles
+// @access  Private
+
+router.delete(
+  "/spot/:spot_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateSpotInput(req.body);
+
+    User.findOne({ _id: req.user.id })
+      .then(user => {
+        // Get remove index
+        const removeIndex = user.spots
+          .map(item => item.id)
+          .indexOf(req.params.spot_id);
+
+        // Splice out of array
+        user.spots.splice(removeIndex, 1);
+
+        // Save
+        user.save().then(user => res.json(user));
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// Vehicles routes
+
+// add a vehicle
+// @route   POST api/users/vehicles
+// @desc    Add vehicles to users
+// @access  Private
+
+router.post(
+  "/vehicles",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateVehicleInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    User.findOne({ _id: req.user.id }).then(user => {
+      const newVehicle = {
+        vehicle_types: req.body.vehicle_types,
+        plate_no: req.body.plate_no,
+        color: req.body.color,
+        model: req.body.model,
+        year: req.body.year,
+        reservations: []
+      };
+
+      // Add to vehicles array
+      user.vehicles.unshift(newVehicle);
+
+      user.save().then(user1 => res.json(user1));
+    });
+  }
+);
+
+// delete a vehicle
+// @route   POST api/users/vehicles/:id
+// @desc    Delete vehicle
+// @access  Private
+
+router.delete(
+  "/vehicles/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateVehicleInput(req.body);
+
+    User.findOne({ _id: req.user.id })
+      .then(user => {
+        // Get remove index
+        const removeIndex = user.vehicles
+          .map(item => item.id)
+          .indexOf(req.params.vehicle_id);
+
+        // Splice out of array
+        user.vehicles.splice(removeIndex, 1);
+
+        // Save
+        user.save().then(user1 => res.json(user1));
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// show a vehicle
+// @route   POST api/users/vehicles/:id
+// @desc    Show vehicle
+// @access  Private
+
+router.get(
+  "/vehicles/:vehicle_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+
+    User.findOne({ _id: req.user.id })
+      .then(user => {
+        // Get vehicle index
+        const vehicleIndex = user.vehicles
+          .map(item => item.id)
+          .indexOf(req.params.vehicle_id);
+        res.json(user.vehicles[vehicleIndex]);
+      })
+      .catch(err =>
+        res.status(404).json({ profile: "There is no profile for this user" })
+      );
+  }
+);
+
+// show all vehicles
+// @route   POST api/users/vehicles
+// @desc    Show all vehicles
+// @access  Private
+
+router.get(
+  "/vehicles",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+
+    User.findOne({ _id: req.user.id })
+      .then(user => {
+        res.json(user.vehicles);
+      })
+      .catch(err =>
+        res.status(404).json({ profile: "There is no profile for this user" })
+      );
   }
 );
 
