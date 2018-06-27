@@ -25,7 +25,8 @@ class CreateSpot extends React.Component {
             rental_rate: undefined,
             rental_type: '',
             img_url: '',
-            reservations: []
+            reservations: [],
+            // add lat and lng
         }
 
         this.lat = 37.798965;
@@ -41,8 +42,8 @@ class CreateSpot extends React.Component {
 
             if (val === 'line1') {
                 this.setState({ [val]: e.currentTarget.value });
-                this.state.state = '';
-                this.state.zipcode = '';
+                // this.state.state = '';
+                // this.state.zipcode = '';
                 debugger
             } else if (val === 'line2') {
                 this.state.line2 = e.currentTarget.value;
@@ -65,7 +66,7 @@ class CreateSpot extends React.Component {
 
     geocode() {
         // var location = '825 battery st. sf, ca';
-        var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state}`;
+        var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state} + ${this.state}`;
         
         axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
           params: {
@@ -104,9 +105,8 @@ class CreateSpot extends React.Component {
         } else {
             renderMap = <h3
                 className="noMapComponent"
-                style={{ height: `400px`, width: `800px`, border: `1px solid black` }}
+                style={{ height: `0px`, width: `800px`, border: `1px solid black` }}
               >
-                Please enter Address to display the map!
               </h3>;
         }
 
