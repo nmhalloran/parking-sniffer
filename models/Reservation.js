@@ -16,14 +16,6 @@ const ReservationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  seller_id: {
-    type: Schema.Types.ObjectId,
-    ref: "users"
-  },
-  parker_id: {
-    type: Schema.Types.ObjectId,
-    ref: "users"
-  },
   spot_id: {
     type: Schema.Types.ObjectId,
     ref: "users"
