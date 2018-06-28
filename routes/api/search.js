@@ -53,7 +53,7 @@ router.get(
         allSpots.forEach(spot => {
           if (spot.geometry.coordinates) {
             let point = spot.geometry.coordinates;
-            if (distance(lat, long, point[0], point[1]) <= 200) {
+            if (distance(lat, long, point[0], point[1]) <= req.query.distance) {
               newSpots.push(spot);
             }
           }

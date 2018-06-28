@@ -1,11 +1,16 @@
 import axios from 'axios';
 
-export const fetchSpots = () => (
-    axios({
-        method: 'get',
-        url: '/api/spots'
-    })
+export const fetchSpots = (spots) => (
+  axios
+  .post('/api/search',spots)
 );
+// export const fetchSpots = (spots) => (
+//     axios({
+//         method: 'get',
+//         url: '/api/search',
+//         data: {spots}
+//     })
+// );
 
 export const fetchSpot = (id) => (
     axios({

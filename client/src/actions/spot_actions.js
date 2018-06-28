@@ -25,8 +25,8 @@ const receiveErrors = errors => ({
     errors
 })
 
-export const fetchSpots = () => dispatch => (
-    SpotAPIUtil.fetchSpots()
+export const fetchSpots = (spots) => dispatch => (
+    SpotAPIUtil.fetchSpots(spots)
         .then(spots => dispatch(receiveSpots(spots)))
         .catch(err => console.log(err)) //deal with errors later
 )

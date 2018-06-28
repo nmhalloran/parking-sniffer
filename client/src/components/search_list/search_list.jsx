@@ -5,11 +5,12 @@ import Image from 'react-image'
 import "./searchlist.css";
 import { ARROW_DOWN, ARROW_UP } from '../../img/index';
 
-
 class SearchList extends React.Component{
 
 constructor(props){
   super(props)
+
+
 this.state = {
   searchDivVisible: 'search-list-filters-off',
   garage:false,
@@ -28,14 +29,33 @@ this.state = {
   compact: true,
   other: false,
 
+  lat:'',
+  long: '',
 
-
+  range: 5,
+  zip:'',
 
 }
 
 this.toggleSearchDiv = this.toggleSearchDiv.bind(this)
 this.handleCheckBox = this.handleCheckBox.bind(this)
+this.handleField = this.handleField.bind(this)
 }
+
+componentDidMount(){
+  navigator.geolocation.getCurrentPosition( (pos)=>{
+    this.setState({pos:pos})
+    this.props.fetchSpots({
+      latitude:pos.coords.latitude,
+      longitude:pos.coords.longitude,
+      range: this.state.range
+    })
+  },()=>this.setState({pos:-1}))
+
+}
+
+
+
 
 
 toggleSearchDiv(){
@@ -44,6 +64,11 @@ toggleSearchDiv(){
   }else{
       this.setState({searchDivVisible:'search-list-filters-off'})
   }
+}
+
+
+handleField(e, field){
+  this.setState({[field]:e.target.value})
 }
 
 handleCheckBox(e){
@@ -70,28 +95,24 @@ handleCheckBox(e){
         this.setState({[e]:true})
       }
     }
-
   }
-
-  // if(this.state.car === false){
-  //   this.setState({fullSize:false,
-  //                   compact:false  })
-  // }else if (this.state.car === true){
-  //   this.setState({fullSize:true,
-  //                   compact:true})
-  // }
-
 }
 
 render(){
-
+console.log(this.state)
   return(<div>
 
 
 
           <div className={this.state.searchDivVisible}>
-            <div>
-              <div><span>Search</span><input type='text'/></div><div></div>
+            <div className="search-list-zip">
+              <div ><span>Search</span><input onChange={(e)=>this.handleField(e,'range')} value={this.state.range} type='text'style={{width:'40px'}}/><span>miles</span></div><div><span>around</span><input onChange={(e)=>this.handleField(e,'zip')} value={this.state.zip}  type='text' style={{width:'60px'}} /></div>
+            </div>
+
+            <div className="search-list-checkbox-row">
+              <div className="search-list-checkbox"><span>Type</span></div>
+              <div className="search-list-checkbox"><span>Term</span></div>
+              <div className="search-list-checkbox"><span>Vehicle</span></div>
             </div>
 
 
