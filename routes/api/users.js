@@ -152,13 +152,15 @@ router.post(
           state: req.body.state,
           zipcode: req.body.zipcode
         },
+        geometry: {
+          coordinates: [req.body.longitude, req.body.latitude]
+        },
         description: req.body.description,
         vehicle_type: req.body.vehicle_type,
         spot_type: req.body.spot_type,
         rental_rate: req.body.rental_rate,
         rental_type: req.body.rental_type,
-        img_url: req.body.img_url,
-        reservations: []
+        img_url: req.body.img_url
       };
       // Add to experience array
       user.spots.unshift(newSpot);
@@ -200,8 +202,7 @@ router.patch(
         spot_type: req.body.spot_type,
         rental_rate: req.body.rental_rate,
         rental_type: req.body.rental_type,
-        img_url: req.body.img_url,
-        reservations: []
+        img_url: req.body.img_url
       };
       user.spots[spotIndex] = updatedSpot;
 
@@ -259,9 +260,11 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let allSpots = [];
+    // Gets all users
     User.find()
       .then(users => {
         users.forEach(user => {
+          // Creates array of spots
           allSpots = allSpots.concat(user.spots);
         });
         res.json(allSpots);
@@ -304,7 +307,7 @@ router.delete(
 // add a vehicle
 // @route   POST api/users/vehicles
 // @desc    Add vehicles to users
-// @access  Private
+// @access  Privat
 
 router.post(
   "/vehicles",
