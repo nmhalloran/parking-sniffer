@@ -495,4 +495,23 @@ passport.authenticate("jwt", { session: false }),
 });
 
 
+// @route  GET api/users/spot/:spot_id/reservations/:reservation_id
+// @desc    Show reservation
+// @access  Private
+
+router.get(
+  "/spot/:spot_id/reservations/:reservation_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateReservationInput(req.body);
+
+    Reservation.findOne({ _id: req.params.reservation_id})
+    .then(reservation => {
+      res.json(reservation);
+    });
+  }
+);
+
+
+
 module.exports = router;
