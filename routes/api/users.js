@@ -11,6 +11,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const validateSpotInput = require("../../validation/spot");
 const validateVehicleInput = require("../../validation/vehicle");
+const overlappingRequests = require("../../validation/reservation-request");
 // Load User model
 const User = require("../../models/User.js");
 // Load input validation
@@ -174,6 +175,7 @@ router.post(
 // @desc    Update user spot
 // @access  Private
 
+
 router.patch(
   "/spot/:spot_id",
   passport.authenticate("jwt", { session: false }),
@@ -185,35 +187,37 @@ router.patch(
       // Return any errors with 400 status
       return res.status(400).json(errors);
     }
+    // Get fields
+    let profileFields={};
 
-    User.findById({ _id: req.user.id }).then(user => {
-      // Add to spots array
-      const spotIndex = user.spots
-        .map(item => item.id)
-        .indexOf(req.params.spot_id);
+     profileFields.spots = {};
+     profileFields.spots._id = req.params.spot_id;
+    if (req.body.line1) profileFields.spots.line1 = req.body.line1;
+    if (req.body.line2) profileFields.spots.line2 = req.body.line2;
+    if (req.body.city) profileFields.spots.city = req.body.city;
+    if (req.body.state) profileFields.spots.state = req.body.state;
+    if (req.body.zipcode) profileFields.spots.zipcode = req.body.zipcode;
+    if (req.body.description) profileFields.spots.description = req.body.description;
+    if (req.body.vehicle_type) profileFields.spots.vehicle_type = req.body.vehicle_type;
+    if (req.body.spot_type) profileFields.spots.spot_type = req.body.spot_type;
+    if (req.body.rental_rate) profileFields.spots.rental_rate = req.body.rental_rate;
+    if (req.body.rental_type) profileFields.spots.rental_type = req.body.rental_type;
+    if (req.body.img_url) profileFields.spots.img_url = req.body.img_url;
 
-      const updatedSpot = {
-        // _id: req.params.spot_id,
-        address: {
-          line1: req.body.line1,
-          line2: req.body.line2,
-          city: req.body.city,
-          state: req.body.state,
-          zipcode: req.body.zipcode
-        },
-        description: req.body.description,
-        vehicle_type: req.body.vehicle_type,
-        spot_type: req.body.spot_type,
-        rental_rate: req.body.rental_rate,
-        rental_type: req.body.rental_type,
-        img_url: req.body.img_url
-      };
-      user.spots[spotIndex] = updatedSpot;
-
-      user.save().then(user => res.json(user));
+    User.findOne({_id: req.user.id}).then(user => {
+      if(user){
+        // Update
+        User.findOneAndUpdate(
+          { _id: req.user.id },
+          { $set: profileFields },
+          { new: true }
+        ).then(user1 => res.json(user1)).catch(err =>
+          res.status(404).json({ spots:
+            "There is no spot for user" })
+        );
+      }
     });
-  }
-);
+  });
 
 // @route  GET api/users/spot/:spot_id
 // @desc    Show user spot
@@ -427,7 +431,9 @@ passport.authenticate("jwt", { session: false }),
     return res.status(400).json(errors);
   }
   Reservation.findOne({ spot_id: req.params.spot_id }).then(reservation => {
-
+      if(overlappingRequests(req.body,req.params.spot_id)){
+        return res.json("overlappingRequests");
+      }
       const newReservation = new Reservation({
         start_date: req.body.start_date,
         end_date: req.body.end_date,
