@@ -504,7 +504,11 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateReservationInput(req.body);
-
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
     Reservation.findOne({ _id: req.params.reservation_id})
     .then(reservation => {
       res.json(reservation);
@@ -512,6 +516,48 @@ router.get(
   }
 );
 
+// @route  PATCH api/users/spot/:spot_id/reservations/:reservation_id
+// @desc    Update user spot
+// @access  Private
+
+router.patch(
+  "/spot/:spot_id/reservations/:reservation_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    // const { errors, isValid } = validateReservationInput(req.body);
+    //
+    // // Check Validation
+    // if (!isValid) {
+    //   // Return any errors with 400 status
+    //   return res.status(400).json(errors);
+    // }
+
+    // Get fields
+    const profileFields = {};
+    if (req.body.start_date) profileFields.start_date = req.body.start_date;
+    if (req.body.end_date) profileFields.end_date = req.body.end_date;
+    if (req.body.booking_status) profileFields.booking_status = req.body.booking_status;
+    if (req.body.vehicle_id) profileFields.vehicle_id = req.body.vehicle_id;
+    if (req.body.spot_id) profileFields.spot_id = req.body.spot_id;
+    if (req.body.parker_id) profileFields.parker_id = req.body.parker_id;
+    if (req.body.seller_id) profileFields.seller_id = req.body.seller_id;
+
+    Reservation.findOne({_id: req.params.reservation_id}).then(reservation => {
+      if(reservation){
+        // Update
+        Reservation.findOneAndUpdate(
+          { _id: req.params.reservation_id },
+          { $set: profileFields },
+          { new: true }
+        ).then(reserve => res.json(reserve)).catch(err =>
+          res.status(404).json({ reservation:
+            "There is no reservation for spot" })
+        );
+      }
+    });
+  }
+);
 
 
 module.exports = router;
