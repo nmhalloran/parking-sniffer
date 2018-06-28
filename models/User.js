@@ -103,10 +103,6 @@ const UserSchema = new Schema({
   avatar: {
     type: String
   },
-<<<<<<< HEAD
-=======
-
->>>>>>> navbar
   date: {
     type: Date,
     default: Date.now

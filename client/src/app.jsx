@@ -10,6 +10,7 @@ import Landing from "./components/layout/Landing";
 import CreateSpotContainer from "./components/spot/create_spot_container";
 import ShowSpotContainer from "./components/spot/show_spot_container";
 import SearchListContainer from "./components/search_list/search_list_container";
+import ProfileContainer from "./components/profile/profile_container";
 import {  Route,  Redirect,  Switch,  Link,  HashRouter} from 'react-router-dom';
 
 
@@ -26,6 +27,7 @@ const App = () => (
     <Route exact path="/signin" component={SignInContainer} />
     <Route exact path="/spots/new" component={CreateSpotContainer} />
     <Route exact path="/showspot" component={ShowSpotContainer} />
+    <Route exact path="/user/profile" component={ProfileContainer} />
 
   </Switch>
       <Route path="/" component={Footer} />
