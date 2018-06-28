@@ -277,8 +277,8 @@ router.get(
   }
 );
 
-/// @route  DELETE api/users/spot
-// @desc    delete user vehicles
+// @route  DELETE api/users/spot
+// @desc    delete user spots
 // @access  Private
 
 router.delete(
@@ -517,7 +517,7 @@ router.get(
 );
 
 // @route  PATCH api/users/spot/:spot_id/reservations/:reservation_id
-// @desc    Update user spot
+// @desc    Update reservation
 // @access  Private
 
 router.patch(
@@ -537,7 +537,8 @@ router.patch(
     const profileFields = {};
     if (req.body.start_date) profileFields.start_date = req.body.start_date;
     if (req.body.end_date) profileFields.end_date = req.body.end_date;
-    if (req.body.booking_status) profileFields.booking_status = req.body.booking_status;
+    if (req.body.booking_status) profileFields.booking_status =
+    req.body.booking_status;
     if (req.body.vehicle_id) profileFields.vehicle_id = req.body.vehicle_id;
     if (req.body.spot_id) profileFields.spot_id = req.body.spot_id;
     if (req.body.parker_id) profileFields.parker_id = req.body.parker_id;
@@ -559,5 +560,22 @@ router.patch(
   }
 );
 
+// @route  DELETE api/users/spot/:spot_id/reservations/:reservation_id
+// @desc    delete reservations
+// @access  Private
+
+router.delete(
+  "/spot/:spot_id/reservations/:reservation_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateReservationInput(req.body);
+
+    Reservation.deleteOne({ _id: req.params.reservation_id})
+      .then(reservation => {
+        res.json(reservation);
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
 
 module.exports = router;
