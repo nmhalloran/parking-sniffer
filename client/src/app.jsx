@@ -26,7 +26,9 @@ const App = () => (
     <Route exact path="/signin" component={SignInContainer} />
     <Route exact path="/spots/new" component={CreateSpotContainer} />
     <Route exact path="/showspot" component={ShowSpotContainer} />
-    <Route path="/" component={Footer} />
+
+  </Switch>
+      <Route path="/" component={Footer} />
   </div>
 );
 
