@@ -34,7 +34,7 @@ class ShowSpot extends React.Component {
         var MyMapComponent = withScriptjs(withGoogleMap((props) => {
 
             return <GoogleMap defaultZoom={18} defaultCenter={{ lat: this.state.latitude, lng: this.state.longitude }}>
-                {props.isMarkerShown && <Marker draggable={true} position={{ lat: this.state.latitude, lng: this.state.longitude }} />}
+                {props.isMarkerShown && <Marker position={{ lat: this.state.latitude, lng: this.state.longitude }} />}
               </GoogleMap>;
         }))
 

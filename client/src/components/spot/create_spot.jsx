@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
+import { compose, withStateHandlers } from "recompose";
 import {
   withScriptjs,
   withGoogleMap,
@@ -106,25 +107,68 @@ class CreateSpot extends React.Component {
         
         if (this.state.line1 !== '' && this.state.city !== '' && this.state.state.length >= 2 && this.state.zipcode.length >= 5 ) {
             
-            var MyMapComponent = withScriptjs(withGoogleMap((props) => {
-    
-                return (
-                    <GoogleMap
-                    defaultZoom={18}
-                    defaultCenter={{ lat: this.lat, lng: this.lng }}
-                    >
-                        {props.isMarkerShown && 
-                            <Marker 
-                            draggable={true} 
-                            position={{ lat: this.lat, lng: this.lng }} 
-                            />}
-                            
-                    </GoogleMap>
-                    )
-            }))
+            // var MyMapComponent = withScriptjs(withGoogleMap((props) => {
 
-            this.state.latitude = this.lat;
-            this.state.longitude = this.lng;
+            //     return (
+            //         <GoogleMap
+            //         defaultZoom={18}
+            //         defaultCenter={{ lat: this.lat, lng: this.lng }}
+            //         >
+            //             {props.isMarkerShown && 
+            //                 <Marker 
+            //                 draggable={true}
+            //                 onDragEnd={ () => {console.log(this)}}
+            //                 position={{ lat: this.lat, lng: this.lng }}
+            //                 onClick={props.onMarkerClick} 
+            //                 />}
+                            
+            //         </GoogleMap>
+            //         )
+            // }))
+
+            var MyMapComponent = compose(
+                withStateHandlers(() => ({
+                    isMarkerShown: false,
+                    markerPosition: null
+                }), {
+                        onMapClick: ({ isMarkerShown }) => (e) => {
+                            // console.log(this)
+                            return ({
+                                markerPosition: e.latLng,
+                                isMarkerShown: true
+                            })
+                        }
+                    }),
+                withScriptjs,
+                withGoogleMap
+            )
+                (props => {
+                    
+                    // when the map is clicked, a marker is created and lat/lng is stored in this.state
+                    if (props.markerPosition) {
+                        this.state.latitude = props.markerPosition.lat();
+                        this.state.longitude = props.markerPosition.lng();
+                        
+                        //tests out lat/lng coordinates
+                        // console.log("latitude:");
+                        // console.log(this.state.latitude);
+                        // console.log("longitude:");
+                        // console.log(this.state.longitude);
+                        console.log(this.state)
+                    }
+
+                    return (
+                        <GoogleMap
+                            defaultZoom={18}
+                            defaultCenter={{ lat: this.lat, lng: this.lng }}
+                            onClick={props.onMapClick}
+                        >
+                            {props.isMarkerShown && <Marker position={props.markerPosition} />}
+
+                        </GoogleMap>
+
+                    )
+                })
 
             renderMap = <MyMapComponent
                 isMarkerShown
