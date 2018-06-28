@@ -416,8 +416,8 @@ router.get(
 
 //Reservation routes
 
-// @route   GET api/users/spot/spot_id/request
-// @desc    Request Reservation
+// @route   POST api/users/spot/spot_id/reservations
+// @desc    add reservations for a spot
 // @access  Public
 router.post("/spot/:spot_id/reservations",
 passport.authenticate("jwt", { session: false }),
@@ -444,8 +444,34 @@ passport.authenticate("jwt", { session: false }),
   });
 });
 
+// @route   GET api/users/spot/spot_id/reservations
+// @desc    Get all reservations for a spot
+// @access  Public
 
 
+router.get("/spot/:spot_id/reservations",
+passport.authenticate("jwt", { session: false }),
+(req,res)=>{
+  const errors = {};
+  Reservation.find({spot_id:req.params.spot_id})
+    .then(reservations => {
+      res.json(reservations);
+    });
 
+});
 
+// @route   GET api/users/spot/spot_id/accepted_reservations
+// @desc    Get all reservations for a spot
+// @access  Public
+
+router.get("/spot/:spot_id/reservations",
+passport.authenticate("jwt", { session: false }),
+(req,res)=>{
+  const errors = {};
+  Reservation.find({spot_id:req.params.spot_id})
+    .then(reservations => {
+      res.json(reservations);
+    });
+
+});
 module.exports = router;
