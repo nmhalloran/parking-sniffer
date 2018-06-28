@@ -26,9 +26,32 @@
 
 .search-list-filters-on{
   background-color: yellow;
-  height: 200px;
+  height: 160px;
 }
 .search-list-filters-off{
-  background-color: yellow;
-  height: 0px;
+  display: none;
+}
+
+
+.search-list-checkbox-row{
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-start;
+}
+
+.search-list-checkbox{
+  margin-left: 40px;
+  width:120px;
+}
+
+.search-list-checkbox input{
+  height: 15px;
+  width: 15px;
+
+}
+.search-list-checkbox input:checked{
+
+}
+.search-list-checkbox span{
+  margin-left: 5px;
 }
