@@ -4,6 +4,7 @@
   /* background: linear-gradient(#dadfdd, #F4F7F6); */
   background: linear-gradient(#c6ccca, #F4F7F6);
   display: flex;
+    border-bottom: 1px solid #343A40;
 
 }
 
@@ -95,21 +96,9 @@ color:black
 .top-nav-bar-info span{
 color:#343A3F;
 }
-.top-nav-bar-toggle{
-  display: flex;
-  justify-content: center;
-  height:20px;
-  background-color: yellow;
-}
 
-.top-nav-bar-toggle span{
-  margin-left: 100px;
-  margin-right: 100px;
-}
 
-.top-nav-bar-toggle img{
-  margin-top: 4px;
-}
+
 
 .top-nav-bar-input{
 border-radius: 3px;
@@ -181,9 +170,5 @@ color:#343A40;
   margin-bottom: 5px;
 }
 
-.top-nav-bar-arrow{
-  width: 15px;
-  height: 12px;
-}
 
 /* 16A2B6 */

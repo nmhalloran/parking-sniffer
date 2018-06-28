@@ -1,0 +1,34 @@
+
+.search-list-toggle{
+  display: flex;
+  justify-content: center;
+  height:25px;
+  background-color: #F4F7F6;
+  cursor: pointer;
+  border-radius: 15px;
+  border-bottom: 1px solid #343A40;
+
+}
+
+.search-list-arrow{
+  width: 15px;
+  height: 12px;
+}
+
+.search-list-toggle span{
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.search-list-toggle img{
+  margin-top: 7px;
+}
+
+.search-list-filters-on{
+  background-color: yellow;
+  height: 200px;
+}
+.search-list-filters-off{
+  background-color: yellow;
+  height: 0px;
+}

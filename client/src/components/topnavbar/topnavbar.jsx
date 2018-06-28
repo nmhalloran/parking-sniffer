@@ -54,7 +54,8 @@ render(){
       <Link className="logo-link" to={'/'}>  <Image className="top-nav-bar-logo-img" src={ LOGO } /><span>Parking Sniffer</span></Link>
       </div>
       <div className="top-nav-bar-links">
-          {this.props.history.location.pathname === '/spots/new' ? (null) : ( <Link to={'/spots/new'} className='top-nav-bar-links-rent'>Rent my own parking spot</Link>)}
+          {(this.props.history.location.pathname === '/spots/new' || this.props.history.location.pathname === '/signup') ? 
+            (null) : ( <Link to={'/spots/new'} className='top-nav-bar-links-rent'>Rent my own parking spot</Link>)}
       </div>
       <div className="top-nav-bar-info">
 
