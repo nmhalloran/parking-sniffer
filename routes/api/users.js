@@ -150,18 +150,14 @@ router.post(
 
     User.findOne({ _id: req.user.id }).then(user => {
       const newSpot = {
-<<<<<<< HEAD
-
         geometry: {
           coordinates: [req.body.longitude, req.body.latitude]
         },
-=======
         line1: req.body.line1,
         line2: req.body.line2,
         city: req.body.city,
         state: req.body.state,
         zipcode: req.body.zipcode,
->>>>>>> reservation
         description: req.body.description,
         vehicle_type: req.body.vehicle_type,
         spot_type: req.body.spot_type,
@@ -172,7 +168,7 @@ router.post(
       // Add to spots array
       user.spots.unshift(newSpot);
 
-      user.save().then(user => res.json(user));
+      user.save().then(user1 => res.json(user1));
     });
   }
 );
@@ -194,14 +190,13 @@ router.patch(
       // Return any errors with 400 status
       return res.status(400).json(errors);
     }
-<<<<<<< HEAD
 
-=======
     // Get fields
     let profileFields={};
 
      profileFields.spots = {};
      profileFields.spots._id = req.params.spot_id;
+    if (req.body.geometry) profileFields.spots.geometry = req.body.geometry;
     if (req.body.line1) profileFields.spots.line1 = req.body.line1;
     if (req.body.line2) profileFields.spots.line2 = req.body.line2;
     if (req.body.city) profileFields.spots.city = req.body.city;
@@ -226,7 +221,6 @@ router.patch(
             "There is no spot for user" })
         );
       }
->>>>>>> reservation
     });
   });
 
@@ -315,7 +309,7 @@ router.delete(
         user.spots.splice(removeIndex, 1);
 
         // Save
-        user.save().then(user => res.json(user));
+        user.save().then(user1 => res.json(user1));
       })
       .catch(err => res.status(404).json(err));
   }
