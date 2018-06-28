@@ -22,15 +22,20 @@ class CreateSpot extends React.Component {
             description: '',
             vehicle_types: [],
             spot_type: '',
-            rental_rate: undefined,
+            rental_rate: '',
             rental_type: '',
             img_url: '',
-            reservations: []
+            reservations: [],
+            latitude: '',
+            longitude: ''
         }
 
         this.lat = 37.798965;
         this.lng = -122.4013603;
         // App Academy Coordinates
+
+        this.markerLat;
+        this.markerLng;
 
     }
 
@@ -41,8 +46,8 @@ class CreateSpot extends React.Component {
 
             if (val === 'line1') {
                 this.setState({ [val]: e.currentTarget.value });
-                this.state.state = '';
-                this.state.zipcode = '';
+                // this.state.state = '';
+                // this.state.zipcode = '';
                 // debugger
             } else if (val === 'line2') {
                 this.state.line2 = e.currentTarget.value;
@@ -51,8 +56,16 @@ class CreateSpot extends React.Component {
             } else if (val === 'state' || val === 'zipcode') {
                 this.setState({ [val]: e.currentTarget.value });
             } 
+
+
         }
     }
+
+    // addMarker(coords) {
+    //     var marker = new google.maps.Marker({
+
+    //     });
+    // }
 
     handleChange(val) {
         return (e) => {
@@ -69,10 +82,9 @@ class CreateSpot extends React.Component {
         axiosRequest.defaults.headers.common['Content-Type'] = 'application/json';
         delete axiosRequest.defaults.headers.common['Authorization'];
         // debugger
-        var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state}`;
+        var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state} + ${this.state.zipcode}`;
         
         axiosRequest.get("https://maps.googleapis.com/maps/api/geocode/json", {
-        
           params: {
             address: location,
             key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
@@ -88,20 +100,34 @@ class CreateSpot extends React.Component {
     }
 
     render() {
-        
-        var MyMapComponent = withScriptjs(withGoogleMap((props) => (
-            <GoogleMap
-            defaultZoom={18}
-            defaultCenter={{ lat: this.lat, lng: this.lng }}
-            />
-            )))
+        this.geocode();
         
         let renderMap;
-            // debugger
+        
         if (this.state.line1 !== '' && this.state.city !== '' && this.state.state.length >= 2 && this.state.zipcode.length >= 5 ) {
-            this.geocode();
+            
+            var MyMapComponent = withScriptjs(withGoogleMap((props) => {
+    
+                return (
+                    <GoogleMap
+                    defaultZoom={18}
+                    defaultCenter={{ lat: this.lat, lng: this.lng }}
+                    >
+                        {props.isMarkerShown && 
+                            <Marker 
+                            draggable={true} 
+                            position={{ lat: this.lat, lng: this.lng }} 
+                            />}
+                            
+                    </GoogleMap>
+                    )
+            }))
+
+            this.state.latitude = this.lat;
+            this.state.longitude = this.lng;
 
             renderMap = <MyMapComponent
+                isMarkerShown
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg"
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div className="myMapComponent" style={{ height: `400px`, width: `800px` }} />}
@@ -109,12 +135,12 @@ class CreateSpot extends React.Component {
         } else {
             renderMap = <h3
                 className="noMapComponent"
-                style={{ height: `400px`, width: `800px`, border: `1px solid black` }}
+                style={{ height: `0px`, width: `0px` }}
               >
-                Please enter Address to display the map!
               </h3>;
         }
 
+        // console.log(this.state) // for testing purposes
 
         return <div>
             <h4> Create a new Parking Spot </h4>
@@ -135,6 +161,7 @@ class CreateSpot extends React.Component {
                 </div>
 
                 {renderMap}
+                
 
                 <div>
                     <label> Parking Space # (optional): </label>
