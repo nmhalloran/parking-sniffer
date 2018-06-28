@@ -5,10 +5,10 @@ import TopNavBar from './topnavbar'
 import { logoutUser , loginUser  } from '../../actions/auth_actions'
 import { clearErrors } from '../../actions/errors_actions';
 
-const msp = (state) =>({
+const msp = (state,ownProps) =>({
   currentUser: state.isAuthenticated.user,
   isAuthenticated: state.isAuthenticated.isAuthenticated,
-  errors: state.errors
+  errors: Object.values(state.errors),
 })
 
 

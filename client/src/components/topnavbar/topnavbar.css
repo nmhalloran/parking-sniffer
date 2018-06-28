@@ -10,10 +10,46 @@
 
 .top-nav-bar-logo{
   width:25%;
+  position: relative;
+}
+
+.top-nav-bar-logo span{
+  position: absolute;
+    bottom: 0;
+  font-size: 40px;
+  font-weight: 600;
+  white-space: pre;
+
+}
+
+.logo-link{
+color:#343A40;
+}
+.logo-link:hover{
+color:black;
+}
+.logo-link:visited{
+color:#343A40;
 }
 
 .top-nav-bar-links{
   width:50%;
+  position: relative;
+
+}
+.top-nav-bar-links-rent{
+  position: absolute;
+  bottom: 5px;
+  color:#343A40;
+  font-size: 20px;
+  left: 35%;
+}
+
+.top-nav-bar-links-rent:hover{
+color:black
+}
+.top-nav-bar-links-rent:visited{
+color:black
 }
 
 .top-nav-bar-info{
@@ -60,7 +96,19 @@
 color:#343A3F;
 }
 .top-nav-bar-toggle{
+  display: flex;
+  justify-content: center;
   height:20px;
+  background-color: yellow;
+}
+
+.top-nav-bar-toggle span{
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.top-nav-bar-toggle img{
+  margin-top: 4px;
 }
 
 .top-nav-bar-input{
@@ -74,8 +122,15 @@ outline: 0px;
 }
 
 .top-nav-bar-errors{
-  background-color: blue;
-  height:10px
+  background-color: #fdc2c2;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+.top-nav-bar-errors span{
+  color: red;
+  font-size: 22px;
 }
 
 .top-nav-bar-info-buttons{
@@ -115,6 +170,20 @@ color:#343A40;
 }
 .generic-link-1:visited{
 color:#343A40;
+}
+
+
+.top-nav-bar-logo-img{
+  width:106px;
+  height:85px;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.top-nav-bar-arrow{
+  width: 15px;
+  height: 12px;
 }
 
 /* 16A2B6 */

@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router'
+import Image from 'react-image'
 import "./topnavbar.css";
+import { ARROW_DOWN } from '../../img/index';
+import { LOGO } from '../../img/index';
+
+
 
 class TopNavBar extends React.Component{
 
@@ -23,6 +29,7 @@ onSubmit(e) {
     email: this.state.email,
     password: this.state.password
   };
+  this.props.clearErrors();
   this.props.loginUser(userData);
 }
 
@@ -33,15 +40,21 @@ onChange(e) {
 componentDidMount(){
 
 }
+componentWillUnmount(){
+  this.props.clearErrors();
+}
 
 render(){
-      const { errors } = this.props.errors;
+
   return(
     <div>
     <div className="top-nav-bar">
       <div className="top-nav-bar-logo">
+
+      <Link className="logo-link" to={'/'}>  <Image className="top-nav-bar-logo-img" src={ LOGO } /><span>Parking Sniffer</span></Link>
       </div>
       <div className="top-nav-bar-links">
+          {this.props.history.location.pathname === '/spots/new' ? (null) : ( <Link to={'/spots/new'} className='top-nav-bar-links-rent'>Rent my own parking spot</Link>)}
       </div>
       <div className="top-nav-bar-info">
 
@@ -84,10 +97,11 @@ render(){
 
 
     </div>
-    </div>
-    <div className="top-nav-bar-toggle">
-    </div>
+  </div>
     <div className="top-nav-bar-errors">
+
+        {this.props.errors.map((err,idx)=>(<span key={idx}>{err}</span>))}
+
     </div>
 
   </div>
@@ -97,4 +111,4 @@ render(){
 
 }
 
-export default TopNavBar;
+export default withRouter(TopNavBar);
