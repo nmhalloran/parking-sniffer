@@ -100,24 +100,28 @@ class CreateSpot extends React.Component {
     }
 
     render() {
+        this.geocode();
         
-        var MyMapComponent = withScriptjs(withGoogleMap((props) => {
-
-            return (
-                <GoogleMap
-                defaultZoom={18}
-                defaultCenter={{ lat: this.lat, lng: this.lng }}
-                >
-                    {props.isMarkerShown && <Marker position={{ lat: this.lat, lng: this.lng }} />}
-                </GoogleMap>
-                )
-        }))
-            
-            let renderMap;
-
-            
+        let renderMap;
+        
         if (this.state.line1 !== '' && this.state.city !== '' && this.state.state.length >= 2 && this.state.zipcode.length >= 5 ) {
-            this.geocode();
+            
+            var MyMapComponent = withScriptjs(withGoogleMap((props) => {
+    
+                return (
+                    <GoogleMap
+                    defaultZoom={18}
+                    defaultCenter={{ lat: this.lat, lng: this.lng }}
+                    >
+                        {props.isMarkerShown && 
+                            <Marker 
+                            draggable={true} 
+                            position={{ lat: this.lat, lng: this.lng }} 
+                            />}
+                            
+                    </GoogleMap>
+                    )
+            }))
 
             this.state.latitude = this.lat;
             this.state.longitude = this.lng;

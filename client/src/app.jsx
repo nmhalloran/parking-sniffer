@@ -20,9 +20,9 @@ import {  Route,  Redirect,  Switch,  Link,  HashRouter} from 'react-router-dom'
 const App = () => (
   <div className="root-container">
     <TopNavBarContainer />
-    <Route path="/" component={Navbar} />
+    {/* <Route path="/" component={Navbar} />
     <Route exact path="/signup" component={SignUpContainer} />
-    <Route exact path="/signin" component={SignInContainer} />
+    <Route exact path="/signin" component={SignInContainer} /> */}
     <Route exact path="/createspot" component={CreateSpotContainer} />
     <Route exact path="/showspot" component={ShowSpotContainer} />
     <Route path="/" component={Footer} />
