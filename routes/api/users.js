@@ -250,7 +250,7 @@ router.get(
         res.json(user.spots);
       })
       .catch(err =>
-        res.status(404)({ profile: "You messed up something, bro" })
+        res.status(404)({ spot: "There is no spot for user" })
       );
   }
 );
@@ -272,7 +272,7 @@ router.get(
         res.json(allSpots);
       })
       .catch(err =>
-        res.status(404)({ profile: "You messed up something, bro" })
+        res.status(404)({ spot: "There is no spot for user" })
       );
   }
 );
@@ -388,7 +388,7 @@ router.get(
         res.json(user.vehicles[vehicleIndex]);
       })
       .catch(err =>
-        res.status(404).json({ profile: "There is no profile for this user" })
+        res.status(404).json({ vehicle: "There is no vehicle for user" })
       );
   }
 );
@@ -409,7 +409,7 @@ router.get(
         res.json(user.vehicles);
       })
       .catch(err =>
-        res.status(404).json({ profile: "There is no profile for this user" })
+        res.status(404).json({ vehicle: "There is no vehicle for user" })
       );
   }
 );
@@ -456,7 +456,9 @@ passport.authenticate("jwt", { session: false }),
   Reservation.find({spot_id:req.params.spot_id})
     .then(reservations => {
       res.json(reservations);
-    });
+    }).catch(err =>
+      res.status(404).json({ reservation: "There is no reservation for spot" })
+    );
 
 });
 
@@ -464,14 +466,33 @@ passport.authenticate("jwt", { session: false }),
 // @desc    Get all reservations for a spot
 // @access  Public
 
-router.get("/spot/:spot_id/reservations",
+router.get("/spot/:spot_id/accepted_reservations",
 passport.authenticate("jwt", { session: false }),
 (req,res)=>{
   const errors = {};
-  Reservation.find({spot_id:req.params.spot_id})
+  Reservation.find({spot_id:req.params.spot_id,booking_status: "accepted"})
     .then(reservations => {
       res.json(reservations);
-    });
-
+    }).catch(err =>
+      res.status(404).json({ reservation: "There is no reservation for spot" })
+    );
 });
+
+// @route   GET api/users/spot/spot_id/accepted_reservations
+// @desc    Get all reservations for a spot
+// @access  Public
+
+router.get("/spot/:spot_id/pending_reservations",
+passport.authenticate("jwt", { session: false }),
+(req,res)=>{
+  const errors = {};
+  Reservation.find({spot_id:req.params.spot_id,booking_status: "pending"})
+    .then(reservations => {
+      res.json(reservations);
+    }).catch(err =>
+      res.status(404).json({ reservation: "There is no reservation for spot" })
+    );
+});
+
+
 module.exports = router;
