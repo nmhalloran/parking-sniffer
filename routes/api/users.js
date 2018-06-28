@@ -157,7 +157,7 @@ router.post(
         rental_type: req.body.rental_type,
         img_url: req.body.img_url
       };
-      // Add to experience array
+      // Add to spots array
       user.spots.unshift(newSpot);
 
       user.save().then(user => res.json(user));
