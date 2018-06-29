@@ -19,7 +19,7 @@ export const fetchSpotsByZip = (zip) => (
 export const fetchSpot = (id) => (
     axios({
         method: 'get',
-        url: `/api/spots/${id}`,
+        url: `/api/users/spot/${id}`,
     })
 );
 
@@ -34,7 +34,7 @@ export const createSpot = (spot) => (
 export const updateSpot = (spot) => (
     axios({
         method: 'patch',
-        url: `/api/spots/${spot.id}`,
+        url: `/api/spots/edit/${spot.id}`,
         data: { spot }
     })
 );

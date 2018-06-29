@@ -16,22 +16,7 @@ class CreateSpot extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            line1: '',
-            line2: '',
-            city: '',
-            state: '',
-            zipcode: '',      
-            description: '',
-            vehicle_types: [],
-            spot_type: '',
-            rental_rate: '',
-            rental_type: '',
-            img_url: '',
-            reservations: [],
-            latitude: '',
-            longitude: ''
-        }
+        this.state = props.spot;
 
         this.lat = 37.798965;
         this.lng = -122.4013603;
@@ -62,16 +47,12 @@ class CreateSpot extends React.Component {
         }
     }
 
-    // addMarker(coords) {
-    //     var marker = new google.maps.Marker({
-
-    //     });
-    // }
-
     handleChange(val) {
         return (e) => {
             // debugger
-            if (val === 'description') {
+            if (val === 'rental_rate') {
+                this.state.rent
+            } else if (val === 'description') {
                 this.state.description = e.currentTarget.value;
             }
         }
@@ -137,12 +118,6 @@ class CreateSpot extends React.Component {
                         this.state.latitude = props.markerPosition.lat();
                         this.state.longitude = props.markerPosition.lng();
                         
-                        //tests out lat/lng coordinates
-                        // console.log("latitude:");
-                        // console.log(this.state.latitude);
-                        // console.log("longitude:");
-                        // console.log(this.state.longitude);
-                        console.log(this.state)
                     }
 
                     return (
@@ -253,7 +228,7 @@ class CreateSpot extends React.Component {
 
                 <div>
                     <label> Rate ($ per term) </label>
-                    <input type="number" />
+                    <input onChange={ this.handleChange('rental_rate') } type="number" />
                 </div>
 
                 <div>

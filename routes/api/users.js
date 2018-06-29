@@ -232,6 +232,9 @@ router.get(
   "/spot/:spot_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+
+    console.log('user: ' + req.user)
+
     const { errors, isValid } = validateSpotInput(req.body);
 
     User.findOne({ _id: req.user.id }).then(user => {
