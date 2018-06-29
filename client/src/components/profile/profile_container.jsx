@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import React from "react";
 
-import { fetchSpot, fetchSpots } from "../../actions/spot_actions";
+import { fetchSpot, fetchSpotsByGPS, fetchSpotsByZip } from "../../actions/spot_actions";
 import Profile from "./profile";
 
 const mapStateToProps = (state, ownProps) => {
@@ -15,7 +15,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     fetchSpot: id => dispatch(fetchSpot(id)),
-    fetchSpots: () => dispatch(fetchSpots())
+    fetchSpotsByGPS: (gps) => dispatch(fetchSpotsByGPS(gps)),
+    fetchSpotsByZip: (zip) => dispatch(fetchSpotsByZip(zip))
 });
 
 export default connect(
