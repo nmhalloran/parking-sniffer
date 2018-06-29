@@ -40,26 +40,24 @@ class CreateSpot extends React.Component {
         this.markerLat;
         this.markerLng;
 
+        this.renderMapAfterTime = this.renderMapAfterTime.bind(this);
+        this.geocode = this.geocode.bind(this);
+
+        this.renderMap = true;
+
+        this.timeout = undefined;
     }
 
     handleAddressChange(val) {
         // debugger
+        this.renderMap = false;
+
+
         return (e) => {
-            // this.setState({ [val]: e.currentTarget.value })
+            if (this.timeout) { clearTimeout(this.timeout) }
+            this.setState({ [val]: e.currentTarget.value });
 
-            if (val === 'line1') {
-                this.setState({ [val]: e.currentTarget.value });
-                // this.state.state = '';
-                // this.state.zipcode = '';
-                // debugger
-            } else if (val === 'line2') {
-                this.state.line2 = e.currentTarget.value;
-            } else if (val === 'city') {
-                this.state.city = e.currentTarget.value;
-            } else if (val === 'state' || val === 'zipcode') {
-                this.setState({ [val]: e.currentTarget.value });
-            } 
-
+            this.timeout = setTimeout(this.renderMapAfterTime, 1500);
 
         }
     }
@@ -77,6 +75,12 @@ class CreateSpot extends React.Component {
                 this.state.description = e.currentTarget.value;
             }
         }
+    }
+
+    renderMapAfterTime() {
+        this.renderMap = true;
+        this.forceUpdate();
+
     }
 
     geocode() {
@@ -107,27 +111,9 @@ class CreateSpot extends React.Component {
         
         let renderMap;
         
-        if (this.state.line1 !== '' && this.state.city !== '' && this.state.state.length >= 2 && this.state.zipcode.length >= 5 ) {
+        if (this.state.line1.length > 0 && this.state.city.length > 0 &&
+            this.state.state.length >= 2 && this.state.zipcode.toString().length >= 5 && this.renderMap) {
             
-            // var MyMapComponent = withScriptjs(withGoogleMap((props) => {
-
-            //     return (
-            //         <GoogleMap
-            //         defaultZoom={18}
-            //         defaultCenter={{ lat: this.lat, lng: this.lng }}
-            //         >
-            //             {props.isMarkerShown && 
-            //                 <Marker 
-            //                 draggable={true}
-            //                 onDragEnd={ () => {console.log(this)}}
-            //                 position={{ lat: this.lat, lng: this.lng }}
-            //                 onClick={props.onMarkerClick} 
-            //                 />}
-                            
-            //         </GoogleMap>
-            //         )
-            // }))
-
             var MyMapComponent = compose(
                 withStateHandlers(() => ({
                     isMarkerShown: false,
@@ -181,7 +167,7 @@ class CreateSpot extends React.Component {
         } else {
             renderMap = <h3
                 className="noMapComponent"
-                style={{ height: `0px`, width: `0px` }}
+                style={{ height: `400px`, width: `800px` }}
               >
               </h3>;
         }
