@@ -1,22 +1,26 @@
 const Validator = require("validator");
+const mongoose = require("mongoose");
+const express = require("express");
 // Load Reservation model
 const Reservation = require("../models/Reservation.js");
 
 module.exports = function overlappingRequests(data,req_spot_id){
-  if (data.start_date > data.end_date){
+  var start_date = Date.parse(data.start_date);
+  var end_date = Date.parse(data.end_date);
+  var today = Date.parse(new Date());
+  if (start_date > end_date){
+    return true;
+  }else if (start_date < today ){
     return true;
   }
-  // }else if (data.start_date < Date.today() ){
-  //   return true;
-  // }
-   Reservation.find({spot_id: req_spot_id , booking_status: "accepted"})
+   Reservation.find({spot_id: data.spot_id,booking_status:'accepted'})
    .then(reservations=>{
      reservations.forEach((el)=>{
-       if(el.start_date >= new Date(data.start_date) ||
-       el.start_date <= new Date(data.end_date)){
+       if((Date.parse(el.start_date)>= start_date)
+       || (Date.parse(el.start_date)<= end_date)){
          return true;
-       }else if (el.end_date >= new Date(data.start_date) ||
-       el.end_date <= new Date(data.end_date)){
+       }else if ((Date.parse(el.end_date) >= start_date)
+       || (Date.parse(el.end_date) <= end_date)){
          return true;
        }else{
          return false;

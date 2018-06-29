@@ -14,6 +14,9 @@ const validateVehicleInput = require("../../validation/vehicle");
 const overlappingRequests = require("../../validation/reservation-request");
 // Load User model
 const User = require("../../models/User.js");
+
+
+
 // Load input validation
 const validateReservationInput = require("../../validation/reservation.js");
 
