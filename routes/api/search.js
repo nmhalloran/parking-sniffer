@@ -51,13 +51,15 @@ router.get(
           // Creates array of spots
           allSpots = allSpots.concat(user.spots);
         });
-        let newSpots = [];
+        let newSpots = {};
         // Searches and filters spots by geolocation
+        console.log(allSpots)
         allSpots.forEach(spot => {
           if (spot.geometry.coordinates) {
             let point = spot.geometry.coordinates;
             if (distance(lat, long, point[0], point[1]) <= 20000) {
-              newSpots.push(spot);
+              console.log(spot)
+              newSpots = Object.assign(newSpots, {[spot._id]:spot});
             }
           }
         });
@@ -90,13 +92,13 @@ router.get("/byzip",
         // Creates array of spots
         allSpots = allSpots.concat(user.spots);
       });
-      let newSpots = [];
+      let newSpots = {};
       // Searches and filters spots by geolocation
       allSpots.forEach(spot => {
         if (spot.geometry.coordinates) {
           let point = spot.geometry.coordinates;
           if (distance(lat, long, point[0], point[1]) <= 20000) {
-            newSpots.push(spot);
+            newSpots = Object.assign(newSpots, {[spot._id]:spot});
           }
         }
       });

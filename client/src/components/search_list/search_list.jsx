@@ -38,10 +38,10 @@ this.state = {
 
   lat:'',
   long: '',
-
+  pos: 0,
   range: 5,
-  zip:'',
-
+  zip:'20565',
+  requestSuccessful: false,
 }
 
 this.toggleSearchDiv = this.toggleSearchDiv.bind(this)
@@ -50,24 +50,23 @@ this.handleField = this.handleField.bind(this)
 }
 
 componentDidMount(){
-  navigator.geolocation.getCurrentPosition( (pos)=>{
+  navigator.geolocation.getCurrentPosition((pos)=>{
     this.setState({pos:pos})
-    // this.props.fetchSpotsByGPS({
-    //   latitude:pos.coords.latitude,
-    //   longitude:pos.coords.longitude,
-    //
-    // })
-    this.props.fetchSpotsByZip({zip:21215})
-
-  },()=>this.setState({pos:-1}))
-
-
-
-
+    this.props.fetchSpotsByGPS({
+      latitude:pos.coords.latitude,
+      longitude:pos.coords.longitude,
+      range: this.state.range,
+    })
+  },()=>{
+    this.props.fetchSpotsByZip(this.state.zip)
+})
 }
 
 
-
+componentWillReceiveProps(nextProps){
+debugger
+  console.log(nextProps)
+}
 
 
 toggleSearchDiv(){
