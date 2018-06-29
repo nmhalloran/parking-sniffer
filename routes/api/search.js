@@ -40,6 +40,7 @@ router.get(
   // passport.authenticate("jwt", { session: false }) We need to get spots for index page without authentication
   (req, res) => {
     let zip = gps.gps2zip(parseFloat(req.query.latitude), parseFloat(req.query.longitude));
+    let range = parseInt(req.query.range)
 
     let allSpots = [];
     let lat = parseFloat(req.query.latitude);
@@ -53,17 +54,16 @@ router.get(
         });
         let newSpots = {};
         // Searches and filters spots by geolocation
-        console.log(allSpots)
         allSpots.forEach(spot => {
           if (spot.geometry.coordinates) {
             let point = spot.geometry.coordinates;
-            if (distance(lat, long, point[0], point[1]) <= 20000) {
-              console.log(spot)
+            if (distance(lat, long, point[0], point[1]) <= range) {
               newSpots = Object.assign(newSpots, {[spot._id]:spot});
             }
           }
         });
-        res.json({spots:newSpots,zip:zip.zip_code});
+        newSpots = Object.assign(newSpots, {zip:zip.zip_code.toString()},{range:range});
+        res.json({spots:newSpots});
       })
       .catch(err =>
         res.status(404)({ profile: "You messed up something, bro" })
@@ -74,7 +74,8 @@ router.get(
 router.get("/byzip",
 // passport.authenticate("jwt", { session: false }) We need to get spots for index page without authentication
 (req, res) => {
-  let zip = cities.zip_lookup(parseInt(req.query.zip))
+  let zip = cities.zip_lookup(req.query.zip.toString())
+  let range = parseInt(req.query.range)
   //This is how zip looks like (output from cities)
   // { zipcode: '94538',
   // state_abbr: 'CA',
@@ -85,6 +86,9 @@ router.get("/byzip",
   let allSpots = [];
   let lat = parseFloat(zip.latitude);
   let long = parseFloat(zip.longitude);
+  console.log("Request by zip")
+  console.log("latitude " + lat)
+  console.log("longitude " + long)
   // Gets all users
   User.find()
     .then(users => {
@@ -97,12 +101,17 @@ router.get("/byzip",
       allSpots.forEach(spot => {
         if (spot.geometry.coordinates) {
           let point = spot.geometry.coordinates;
-          if (distance(lat, long, point[0], point[1]) <= 20000) {
+          console.log(point[0])
+          console.log(point[1])
+          console.log(distance(lat, long, point[1], point[0]))
+          if (distance(lat, long, point[0], point[1]) <= range) {
             newSpots = Object.assign(newSpots, {[spot._id]:spot});
           }
         }
       });
-      res.json({spots:newSpots,zip:parseInt(zip.zipcode)});
+      console.log(newSpots)
+      newSpots = Object.assign(newSpots, { zip:zip.zipcode.toString() }, {range:range});
+      res.json({spots:newSpots});
     })
     .catch(err =>
       res.status(404)({ profile: "You messed up something, bro" })

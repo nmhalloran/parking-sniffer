@@ -39,14 +39,24 @@ this.state = {
   lat:'',
   long: '',
   pos: 0,
-  range: 5,
-  zip:'20565',
-  requestSuccessful: false,
+  range: this.props.range,
+  zip: this.props.zip,
 }
+
+//If this.props.entities.spots.indexloading === true, no response from server was received.
 
 this.toggleSearchDiv = this.toggleSearchDiv.bind(this)
 this.handleCheckBox = this.handleCheckBox.bind(this)
 this.handleField = this.handleField.bind(this)
+this.receiveSpotsDelayed = this.receiveSpotsDelayed.bind(this)
+}
+
+receiveSpotsDelayed(){
+  if (this.state.range.toString() != '' && this.state.zip.toString().length === 5){
+    this.props.fetchSpotsByZip({
+      zip:this.state.zip,
+      range: this.state.range})  
+  }
 }
 
 componentDidMount(){
@@ -58,14 +68,17 @@ componentDidMount(){
       range: this.state.range,
     })
   },()=>{
-    this.props.fetchSpotsByZip(this.state.zip)
+    this.props.fetchSpotsByZip({
+      zip:this.state.zip,
+      range: this.state.range})
 })
 }
 
 
 componentWillReceiveProps(nextProps){
-debugger
-  console.log(nextProps)
+if(nextProps.zip != this.state.zip){
+  this.setState({zip:nextProps.zip})
+}
 }
 
 
@@ -77,9 +90,18 @@ toggleSearchDiv(){
   }
 }
 
-
 handleField(e, field){
   this.setState({[field]:e.target.value})
+  console.log((field === 'range' || field === 'zip') + "range + zip")
+
+  if(field === 'range' || field === 'zip'){
+
+      if(this.timeout){
+        clearTimeout(this.timeout)
+      }
+      this.timeout = setTimeout(this.receiveSpotsDelayed, 1500)
+    }
+
 }
 
 handleCheckBox(e){
@@ -91,7 +113,6 @@ handleCheckBox(e){
     }else{
         this.setState({[e]:false})
     }
-
   }
   else{
 

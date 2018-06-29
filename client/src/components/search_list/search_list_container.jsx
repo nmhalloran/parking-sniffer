@@ -7,7 +7,9 @@ import { fetchSpotsByGPS, fetchSpotsByZip } from '../../actions/spot_actions';
 const msp = (state,ownProps) =>({
   currentUser: state.isAuthenticated.user,
   isAuthenticated: state.isAuthenticated.isAuthenticated,
-  spots: state.spots,
+  spots: state.entities.spots,
+  zip: state.entities.spots.zip,
+  range: state.entities.spots.range
 })
 
 
