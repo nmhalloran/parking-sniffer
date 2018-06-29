@@ -99,8 +99,6 @@ class EditSpot extends React.Component {
         if (this.state.line1.length > 0 && this.state.city.length > 0 && 
             this.state.state.length >= 2 && this.state.zipcode.toString().length >= 5 && this.renderMap) {
             
-
-            
             var MyMapComponent = compose(
                 withStateHandlers(() => ({
                     isMarkerShown: false,
