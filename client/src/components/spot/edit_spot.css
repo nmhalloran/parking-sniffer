@@ -1,0 +1,8 @@
+.noMapComponent {
+    background-color: rgb(194, 194, 194);
+    border: 1px solid black;
+}
+
+#fixed {
+    position: static;
+}

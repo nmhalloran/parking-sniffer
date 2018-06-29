@@ -9,6 +9,8 @@ import {
   Marker
 } from "react-google-maps";
 
+import './edit_spot.css'
+
 
 class EditSpot extends React.Component {
     constructor(props) {
@@ -23,34 +25,29 @@ class EditSpot extends React.Component {
         this.markerLat;
         this.markerLng;
         
-        this.handleCheckAddress = this.handleCheckAddress.bind(this);
+        // this.forceUpdate = this.forceUpdate.bind(this);
+        this.renderMapAfterTime = this.renderMapAfterTime.bind(this);
         this.geocode = this.geocode.bind(this);
 
         this.renderMap = true;
 
+        this.timeout = undefined;
+
     }
-
     handleAddressChange(val) {
-        // e.preventDefault();
-        
-        // this.renderMap = true;
-    
-        // debugger
-        return (e) => {
+        // console.log(this.renderMap);
+        this.renderMap = false;
 
+        
+        return (e) => {
+            if (this.timeout) {clearTimeout(this.timeout)}
             this.setState({ [val]: e.currentTarget.value });
-         
+    
+            this.timeout = setTimeout( this.renderMapAfterTime, 1500 );
+           
         }
     }
 
-    handleCheckAddress(e) {
-        e.preventDefault();
-
-        this.geocode();
-        
-        // this.renderMap = true;
-      
-    }
 
     handleChange(val) {
         return (e) => {
@@ -61,6 +58,12 @@ class EditSpot extends React.Component {
         }
     }
 
+    renderMapAfterTime() {
+        this.renderMap = true;
+        this.forceUpdate();
+
+    }
+    
     geocode() {
         // var location = '825 battery st. sf, ca';
         let axiosRequest = axios.create();
@@ -70,30 +73,33 @@ class EditSpot extends React.Component {
         var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state} + ${this.state.zipcode}`;
         
         axiosRequest.get("https://maps.googleapis.com/maps/api/geocode/json", {
-          params: {
-            address: location,
-            key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
-          }
+            params: {
+                address: location,
+                key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
+            }
         })
         .then(res => {
             // debugger
             this.lat = res.data.results[0].geometry.location.lat;
             this.lng = res.data.results[0].geometry.location.lng;
-
+            
             // this.forceUpdate();
-
+            
         })
         .catch(err => console.log("Please enter Address"))
-
+        
         
     }
-
+    
     render() {
         this.geocode();
         
         let renderMap;
         
-        if (this.state.line1 !== '' && this.state.city !== '' && this.state.state.length >= 2 && this.state.zipcode.length >= 5 && this.renderMap) {
+        if (this.state.line1.length > 0 && this.state.city.length > 0 && 
+            this.state.state.length >= 2 && this.state.zipcode.toString().length >= 5 && this.renderMap) {
+            
+
             
             var MyMapComponent = compose(
                 withStateHandlers(() => ({
@@ -146,11 +152,11 @@ class EditSpot extends React.Component {
                 containerElement={<div className="myMapComponent" style={{ height: `400px`, width: `800px` }} />}
                 mapElement={<div style={{ height: `100%` }} />} />
         } else {
-            renderMap = <h3
+            renderMap = <h5
                 className="noMapComponent"
-                style={{ height: `400px`, width: `800px` , border: '1px solid black' }}
+                style={{ height: `400px`, width: `800px`}}
               >
-              </h3>;
+              </h5>;
         }
 
         // console.log(this.state) // for testing purposes
@@ -160,7 +166,7 @@ class EditSpot extends React.Component {
 
             <form>
               <button>Upload Image</button>
-              <form className="Address" onSubmit={ this.handleCheckAddress } >
+              <div className="Address" >
                 <label> Address: </label>
                 <div id="building-street">
                         <input type="text" placeholder="Building" onChange={this.handleAddressChange("line1")} value={this.state.line1} />
@@ -171,11 +177,12 @@ class EditSpot extends React.Component {
                   <input type="text" placeholder="State" onChange={this.handleAddressChange("state")} value={this.state.state} />
                   <input type="number" placeholder="Zip Code" onChange={this.handleAddressChange("zipcode")} value={this.state.zipcode} />
                 </div>
-                  <input type="submit" value="Check Address"></input>
-              </form>
+                  
+              </div>
 
               {renderMap}
-
+            
+              <div id="fixed">
               <div>
                 <label> Parking Space # (optional): </label>
                 <input type="number" />
@@ -246,10 +253,11 @@ class EditSpot extends React.Component {
                 <label> Additional Information / Description: </label>
                 <textarea onChange={this.handleChange("description")} />
               </div>
+              </div>
 
               <input type="submit" value="Update Parking Spot" />
             </form>
-          </div>;
+          </div>
         
     }
 };
