@@ -18,16 +18,9 @@ module.exports = async function overlappingRequests(data,req_spot_id){
     .then(reservations=>{
 
       reservations.forEach((el)=>{
-        console.log(Date.parse(el.start_date));
-        console.log(Date.parse(el.end_date));
-        console.log(start_date);
-        console.log(end_date);
-        console.log("=========");
         if(Date.parse(el.start_date)==start_date || Date.parse(el.end_date)==start_date){
-          console.log("true");
           res(true);
         }else if(Date.parse(el.start_date)==end_date || Date.parse(el.end_date)==end_date){
-          console.log("true");
           res(true);
         }else if ((Date.parse(el.start_date) < start_date) &&
         (Date.parse(el.end_date) > start_date && Date.parse(el.end_date) < end_date)){
@@ -35,14 +28,11 @@ module.exports = async function overlappingRequests(data,req_spot_id){
           res(true);
         }else if (((Date.parse(el.start_date) > start_date)&&(Date.parse(el.start_date) < end_date))
          && ((Date.parse(el.end_date) < end_date)&&(Date.parse(el.end_date) > start_date))){
-          console.log("true");
           res(true);
         }else if (((Date.parse(el.start_date) > start_date) && (Date.parse(el.start_date) < start_date))
          && (Date.parse(el.end_date) > end_date)){
-          console.log("true");
           res(true);
         }else if ((Date.parse(el.start_date) < start_date) && (Date.parse(el.end_date) > end_date)){
-          console.log("true");
           res(true);
         }
       });

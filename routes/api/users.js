@@ -442,8 +442,6 @@ function(req, res){ const { errors, isValid } = validateReservationInput(req.bod
   }
   Reservation.findOne({ spot_id: req.params.spot_id }).then(reservation => {
    overlappingRequests(req.body, req.params.spot_id).then((result)=>{
-     console.log("im result");
-     console.log(result);
      if(result){
       res.json({msg: "overlapping dates. Sorry"});
       }else{
