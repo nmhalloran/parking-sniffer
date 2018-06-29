@@ -33,6 +33,10 @@ class CreateSpot extends React.Component {
         this.timeout = undefined;
     }
 
+    handleSubmit() {
+        
+    }
+
     handleAddressChange(val) {
         // debugger
         this.renderMap = false;
@@ -50,11 +54,34 @@ class CreateSpot extends React.Component {
     handleChange(val) {
         return (e) => {
             // debugger
-            if (val === 'rental_rate') {
-                this.state.rent
+            if (val === 'vehicle_type') {
+                // console.log(this.state.vehicle_types)
+                // console.log(e.currentTarget.value)
+                if (this.state.vehicle_types.includes(e.currentTarget.value)) {
+                    // this.state.vehicle_types.push(e.currentTarget.value);
+                    // debugger
+                    let arr = this.state.vehicle_types
+                    let index = arr.indexOf(e.currentTarget.value);
+
+                    arr.splice(index, 1)
+                    
+                } else {
+                    this.state.vehicle_types.push(e.currentTarget.value);
+                    // debugger
+                }
+            } else if (val === 'spot_type') {
+                this.state.spot_type = e.currentTarget.value
+            } else if (val === 'gated?') {
+                this.state.gated = this.state.gated === 'no' ? 'yes' : 'no' ;
+            } else if (val === 'rental_type') {
+                this.state.rental_type = e.currentTarget.value;
+            } else if (val === 'rental_rate') {
+                this.state.rental_rate = e.currentTarget.value;
             } else if (val === 'description') {
                 this.state.description = e.currentTarget.value;
             }
+
+            console.log(this.state)
         }
     }
 
@@ -82,6 +109,9 @@ class CreateSpot extends React.Component {
             // debugger
             this.lat = res.data.results[0].geometry.location.lat;
             this.lng = res.data.results[0].geometry.location.lng;
+
+            this.state.latitude = this.lat;
+            this.state.longitude = this.lng;
 
         })
         .catch(err => console.log("Please enter Address"))
@@ -153,92 +183,83 @@ class CreateSpot extends React.Component {
             <h4> Create a new Parking Spot </h4>
 
             <form>
-            <button>Upload Image</button>
-                <div className="Address">
-                    <label> Address: </label>
-                    <div id="building-street">
-                        <input type="text" placeholder="Building" onChange={this.handleAddressChange("line1")} />
-                        <input type="text" placeholder="Street" onChange={this.handleAddressChange("line2")} />
-                    </div>
-                    <div id="city-state-zip">
-                        <input type="text" placeholder="City/Town" onChange={this.handleAddressChange("city")} />
-                            <input type="text" placeholder="State" onChange={this.handleAddressChange("state")} value={this.state.state} />
-                        <input type="number" placeholder="Zip Code" onChange={this.handleAddressChange("zipcode")} value={this.state.zipcode} />
-                    </div>
+              <button>Upload Image</button>
+              <div className="Address">
+                <label> Address: </label>
+                <div id="building-street">
+                  <input type="text" placeholder="Building" onChange={this.handleAddressChange("line1")} />
+                  <input type="text" placeholder="Street" onChange={this.handleAddressChange("line2")} />
                 </div>
-
-                {renderMap}
-                
-
-                <div>
-                    <label> Parking Space # (optional): </label>
-                    <input type="number" />
+                <div id="city-state-zip">
+                  <input type="text" placeholder="City/Town" onChange={this.handleAddressChange("city")} />
+                  <input type="text" placeholder="State" onChange={this.handleAddressChange("state")} value={this.state.state} />
+                  <input type="number" placeholder="Zip Code" onChange={this.handleAddressChange("zipcode")} value={this.state.zipcode} />
                 </div>
+              </div>
 
-                <div>
-                    <label> Vehicle Types Allowed </label>
-                    <input type="checkbox" id="motorcycle" name="vehicletype" value="Motorcycle" />
-                    <label htmlFor="motorcycle">Motorcycle</label>
+              {renderMap}
 
-                    <input type="checkbox" id="car" name="vehicletype" value="Car" />
-                    <label htmlFor="car">Car</label>
+              <div>
+                <label> Parking Space # (optional): </label>
+                <input type="number" />
+              </div>
 
-                    <input type="checkbox" id="compact" name="vehicletype" value="Compact" />
-                    <label htmlFor="compact">Compact</label>
+              <div>
+                <label> Vehicle Types Allowed </label>
+                <input type="checkbox" id="motorcycle" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="Motorcycle" />
+                <label htmlFor="motorcycle">Motorcycle</label>
 
-                    <input type="checkbox" id="fullsize" name="vehicletype" value="Fullsize" />
-                    <label htmlFor="fullsize">Fullsize</label>
+                <input type="checkbox" id="compact" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="Compact" />
+                <label htmlFor="compact">Compact</label>
 
-                    <input type="checkbox" id="truck" name="vehicletype" value="Truck" />
-                    <label htmlFor="truck">Truck</label>
+                <input type="checkbox" id="sedan" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="Sedan" />
+                <label htmlFor="fullsize">Sedan</label>
 
-                </div>
+                <input type="checkbox" id="truck" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="Truck" />
+                <label htmlFor="truck">Truck</label>
+              </div>
 
-                <div>
-                    <label> Type of Parking </label>
-                    <input type="radio" id="garage" name="parkingtype" value="garage" />
-                    <label htmlFor="garage">Garage</label>
+              <div>
+                <label> Type of Parking </label>
+                <input type="radio" id="covered" onChange={this.handleChange("spot_type")} name="parkingtype" value="covered" />
+                <label htmlFor="covered">Covered</label>
 
-                    <input type="radio" id="openparking" name="parkingtype" value="openparking" />
-                    <label htmlFor="openparking">Open Parking Lot</label>
+                <input type="radio" id="uncovered" onChange={this.handleChange("spot_type")} name="parkingtype" value="uncovered" />
+                <label htmlFor="uncovered">Uncoveredt</label>
 
-                    <input type="radio" id="canopyparking" name="parkingtype" value="canopyparking" />
-                    <label htmlFor="canopyparking">Canopy Parking Lot</label>
+                <input type="radio" id="california_canopy" onChange={this.handleChange('spot_type')} name="parkingtype" value="california_canopy" />
+                <label htmlFor="california_canopy">
+                  California Canopy
+                </label>
 
-                    <input type="radio" id="undergroundparking" name="parkingtype" value="undergroundparking" />
-                    <label htmlFor="undergroundparking">Underground Parking</label>
-                </div>
+              </div>
 
-                <div>
-                    <label> Gated? </label>
-                    <input type="checkbox" id="gated" name="gated" value="Yes-Gated" />
-                    <label htmlFor="gated">yes</label>
-                </div>
-
-                <div>
+              <div>
                 <label> Term </label>
-                <select>
-                    <option hidden value="">--Select One--</option>
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
-                    <option value="yearly">Yearly</option>
+                <select onChange={this.handleChange("rental_type")}>
+                  <option hidden value="">
+                    --Select One--
+                  </option>
+                  <option value="daily">Daily</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
                 </select>
-                </div>
+              </div>
 
-                <div>
-                    <label> Rate ($ per term) </label>
-                    <input onChange={ this.handleChange('rental_rate') } type="number" />
-                </div>
+              <div>
+                <label> Rate ($ per term) </label>
+                <input onChange={this.handleChange("rental_rate")} type="number" />
+              </div>
 
-                <div>
-                    <label> Additional Information / Description: </label>
-                    <textarea onChange={ this.handleChange('description') }/>
-                </div>
+              <div>
+                <label> Additional Information / Description: </label>
+                <textarea onChange={this.handleChange("description")} />
+              </div>
 
-                <input type="submit" value='Create Parking Spot'/>
+              <input type="submit" onClick={ () => this.handleSubmit.bind(this) } value="Create Parking Spot" />
             </form>
-            </div>
+          </div>;
         
     }
 };

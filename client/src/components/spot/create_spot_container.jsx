@@ -16,10 +16,9 @@ const mapStateToProps = (state, ownProps) => {
             description: '',
             vehicle_types: [],
             spot_type: '',
-            rental_rate: 0,
+            rental_rate: '',
             rental_type: '',
             img_url: '',
-            reservations: [],
             latitude: '',
             longitude: ''
         }
