@@ -43,7 +43,12 @@ class Profile extends React.Component {
 
                 <div id="user-parking-spots">
                     <ul>
-                        <ProfileParkingItem />
+                        {this.spots.map((spot) => {
+
+                            return (
+                                <ProfileParkingItem spot={spot} />
+                            )
+                        })}
 
                     </ul>
 

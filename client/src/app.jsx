@@ -8,6 +8,7 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Landing from "./components/layout/Landing";
 import CreateSpotContainer from "./components/spot/create_spot_container";
+import EditSpotContainer from "./components/spot/edit_spot_container";
 import ShowSpotContainer from "./components/spot/show_spot_container";
 import SearchListContainer from "./components/search_list/search_list_container";
 import ProfileContainer from "./components/profile/profile_container";
@@ -26,6 +27,7 @@ const App = () => (
     <Route exact path="/signup" component={SignUpContainer} />
     <Route exact path="/signin" component={SignInContainer} />
     <Route exact path="/spots/new" component={CreateSpotContainer} />
+    <Route exact path="/spots/edit" component={EditSpotContainer} />
     <Route exact path="/showspot" component={ShowSpotContainer} />
     <Route exact path="/user/profile" component={ProfileContainer} />
 
