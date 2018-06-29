@@ -25,8 +25,14 @@ const receiveErrors = errors => ({
     errors
 })
 
-export const fetchSpots = (spots) => dispatch => (
-    SpotAPIUtil.fetchSpots(spots)
+export const fetchSpotsByGPS = (gps) => dispatch => (
+    SpotAPIUtil.fetchSpotsByGPS(gps)
+        .then(spots => dispatch(receiveSpots(spots)))
+        .catch(err => console.log(err)) //deal with errors later
+)
+
+export const fetchSpotsByZip = (zip) => dispatch => (
+    SpotAPIUtil.fetchSpotsByZip(zip)
         .then(spots => dispatch(receiveSpots(spots)))
         .catch(err => console.log(err)) //deal with errors later
 )

@@ -5,7 +5,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
-
+const gps = require('gps2zip');
+const cities = require('cities');
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
@@ -36,11 +37,13 @@ function distance(lat1, lon1, lat2, lon2) {
 
 router.get(
   "/",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }) We need to get spots for index page without authentication
   (req, res) => {
+    let zip = gps.gps2zip(parseFloat(req.query.latitude), parseFloat(req.query.longitude));
+
     let allSpots = [];
-    let lat = req.query.latitude;
-    let long = req.query.longitude;
+    let lat = parseFloat(req.query.latitude);
+    let long = parseFloat(req.query.longitude);
     // Gets all users
     User.find()
       .then(users => {
@@ -53,18 +56,56 @@ router.get(
         allSpots.forEach(spot => {
           if (spot.geometry.coordinates) {
             let point = spot.geometry.coordinates;
-            if (distance(lat, long, point[0], point[1]) <= req.query.distance) {
+            if (distance(lat, long, point[0], point[1]) <= 20000) {
               newSpots.push(spot);
             }
           }
         });
-        res.json(newSpots);
+        res.json({spots:newSpots,zip:zip.zip_code});
       })
       .catch(err =>
         res.status(404)({ profile: "You messed up something, bro" })
       );
   }
 );
+
+router.get("/byzip",
+// passport.authenticate("jwt", { session: false }) We need to get spots for index page without authentication
+(req, res) => {
+  let zip = cities.zip_lookup(parseInt(req.query.zip))
+  //This is how zip looks like (output from cities)
+  // { zipcode: '94538',
+  // state_abbr: 'CA',
+  // latitude: '37.527237',
+  // longitude: '-121.96790',
+  // city: 'Fremont',
+  // state: 'California' }
+  let allSpots = [];
+  let lat = parseFloat(zip.latitude);
+  let long = parseFloat(zip.longitude);
+  // Gets all users
+  User.find()
+    .then(users => {
+      users.forEach(user => {
+        // Creates array of spots
+        allSpots = allSpots.concat(user.spots);
+      });
+      let newSpots = [];
+      // Searches and filters spots by geolocation
+      allSpots.forEach(spot => {
+        if (spot.geometry.coordinates) {
+          let point = spot.geometry.coordinates;
+          if (distance(lat, long, point[0], point[1]) <= 20000) {
+            newSpots.push(spot);
+          }
+        }
+      });
+      res.json({spots:newSpots,zip:parseInt(zip.zipcode)});
+    })
+    .catch(err =>
+      res.status(404)({ profile: "You messed up something, bro" })
+    );
+})
 
 module.exports = router;
 
