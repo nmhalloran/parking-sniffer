@@ -16,7 +16,7 @@ const ReservationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  seller_id: {
+  spot_id: {
     type: Schema.Types.ObjectId,
     ref: "users"
   },
@@ -24,7 +24,7 @@ const ReservationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  spot_id: {
+  seller_id: {
     type: Schema.Types.ObjectId,
     ref: "users"
   }

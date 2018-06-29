@@ -1,0 +1,11 @@
+.user-profile h3 {
+    color: red;
+}
+
+#user-profile-nav {
+    background: rgb(235, 170, 144);
+}
+
+#user-profile-spots-requests {
+    background: lightcoral;
+}

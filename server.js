@@ -7,6 +7,7 @@ const users = require("./routes/api/users");
 const search = require("./routes/api/search");
 const reservations = require("./routes/api/reservations");
 
+
 const app = express();
 
 // Body parser middleware
