@@ -9,6 +9,8 @@ import {
   Marker
 } from "react-google-maps";
 
+import "./create_spot.css";
+
 
 class CreateSpot extends React.Component {
     constructor(props) {
