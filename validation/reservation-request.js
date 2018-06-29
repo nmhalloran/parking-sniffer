@@ -30,13 +30,15 @@ module.exports = async function overlappingRequests(data,req_spot_id){
           console.log("true");
           res(true);
         }else if ((Date.parse(el.start_date) < start_date) &&
-        (Date.parse(el.start_date) > end_date && Date.parse(el.end_date) < end_date)){
+        (Date.parse(el.end_date) > start_date && Date.parse(el.end_date) < end_date)){
           console.log("me");
           res(true);
-        }else if ((Date.parse(el.start_date) > start_date) && (Date.parse(el.end_date) < end_date)){
+        }else if (((Date.parse(el.start_date) > start_date)&&(Date.parse(el.start_date) < end_date))
+         && ((Date.parse(el.end_date) < end_date)&&(Date.parse(el.end_date) > start_date))){
           console.log("true");
           res(true);
-        }else if ((Date.parse(el.start_date) > start_date) && (Date.parse(el.end_date) > end_date)){
+        }else if (((Date.parse(el.start_date) > start_date) && (Date.parse(el.start_date) < start_date))
+         && (Date.parse(el.end_date) > end_date)){
           console.log("true");
           res(true);
         }else if ((Date.parse(el.start_date) < start_date) && (Date.parse(el.end_date) > end_date)){
