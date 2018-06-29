@@ -1,16 +1,20 @@
 import axios from 'axios';
 
-export const fetchSpots = (spots) => (
-  axios
-  .post('/api/search',spots)
+export const fetchSpotsByGPS = (gps) => (
+    axios({
+        method: 'get',
+        url: '/api/search',
+        params: gps
+    })
 );
-// export const fetchSpots = (spots) => (
-//     axios({
-//         method: 'get',
-//         url: '/api/search',
-//         data: {spots}
-//     })
-// );
+
+export const fetchSpotsByZip = (zip) => (
+    axios({
+        method: 'get',
+        url: '/api/search/byzip',
+        params: zip
+    })
+);
 
 export const fetchSpot = (id) => (
     axios({

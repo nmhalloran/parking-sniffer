@@ -5,6 +5,13 @@ import Image from 'react-image'
 import "./searchlist.css";
 import { ARROW_DOWN, ARROW_UP } from '../../img/index';
 
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker
+} from "react-google-maps";
+
 class SearchList extends React.Component{
 
 constructor(props){
@@ -45,12 +52,17 @@ this.handleField = this.handleField.bind(this)
 componentDidMount(){
   navigator.geolocation.getCurrentPosition( (pos)=>{
     this.setState({pos:pos})
-    this.props.fetchSpots({
-      latitude:pos.coords.latitude,
-      longitude:pos.coords.longitude,
-      range: this.state.range
-    })
+    // this.props.fetchSpotsByGPS({
+    //   latitude:pos.coords.latitude,
+    //   longitude:pos.coords.longitude,
+    //
+    // })
+    this.props.fetchSpotsByZip({zip:21215})
+
   },()=>this.setState({pos:-1}))
+
+
+
 
 }
 
