@@ -1,4 +1,5 @@
-import { RECEIVE_VEHICLES, RECEIVE_VEHICLE, REMOVE_VEHICLE } from '../actions/Vehicle_actions';
+import { RECEIVE_VEHICLES, RECEIVE_VEHICLE, REMOVE_VEHICLE }
+from '../actions/Vehicle_actions';
 import merge from "lodash/merge";
 
 const VehiclesReducer = (state = {}, action) => {
