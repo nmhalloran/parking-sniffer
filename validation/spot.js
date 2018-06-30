@@ -76,7 +76,7 @@ module.exports = function validateSpotInput(data) {
   data.spot_type = !isEmpty(data.spot_type) ? data.spot_type : "";
   data.rental_rate = !isEmpty(data.rental_rate) ? data.rental_rate : "";
   data.rental_type = !isEmpty(data.rental_type) ? data.rental_type : "";
-  data.img_url = !isEmpty(data.img_url) ? data.img_url : "";
+  // data.img_url = !isEmpty(data.img_url) ? data.img_url : "";
   data.latitude = !isEmpty(data.latitude) ? data.latitude : "";
   data.longitude = !isEmpty(data.longitude) ? data.longitude : "";
 

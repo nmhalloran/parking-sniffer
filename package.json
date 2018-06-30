@@ -23,6 +23,7 @@
     "express-winston": "^2.5.1",
     "gps2zip": "^2.2.0",
     "gravatar": "^1.6.0",
+    "jquery": "^3.3.1",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.1.6",
     "passport": "^0.4.0",

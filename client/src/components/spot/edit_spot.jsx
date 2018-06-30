@@ -1,5 +1,5 @@
 import React from "react";
-import axios from 'axios';
+import $ from 'jquery';
 import { withRouter } from "react-router-dom";
 import { compose, withStateHandlers } from "recompose";
 import {
@@ -10,45 +10,53 @@ import {
 } from "react-google-maps";
 
 import './edit_spot.css'
+import { fetchSpot } from "../../util/spot_api_util";
+
 
 
 class EditSpot extends React.Component {
     constructor(props) {
         super(props);
-
+        
         this.state = props.spot;
-
+        
         this.lat = 37.798965;
         this.lng = -122.4013603;
         // App Academy Coordinates
-
+        
         this.markerLat;
         this.markerLng;
         
         // this.forceUpdate = this.forceUpdate.bind(this);
         this.renderMapAfterTime = this.renderMapAfterTime.bind(this);
         this.geocode = this.geocode.bind(this);
-
+        
         this.renderMap = true;
-
+        
         this.timeout = undefined;
-
+        
     }
+
+    componentDidMount() {
+        // debuggers
+        this.props.fetchSpot(this.props.match.params.id);
+    }
+
     handleAddressChange(val) {
         // console.log(this.renderMap);
         this.renderMap = false;
-
+        
         
         return (e) => {
             if (this.timeout) {clearTimeout(this.timeout)}
             this.setState({ [val]: e.currentTarget.value });
-    
+            
             this.timeout = setTimeout( this.renderMapAfterTime, 1500 );
-           
+            
         }
     }
-
-
+    
+    
     handleChange(val) {
         return (e) => {
             // debugger
@@ -66,22 +74,32 @@ class EditSpot extends React.Component {
     
     geocode() {
         // var location = '825 battery st. sf, ca';
-        let axiosRequest = axios.create();
-        axiosRequest.defaults.headers.common['Content-Type'] = 'application/json';
-        delete axiosRequest.defaults.headers.common['Authorization'];
-        // debugger
-        var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state} + ${this.state.zipcode}`;
+        // let axiosRequest = axios.create();
+        // axiosRequest.defaults.headers.common['Content-Type'] = 'application/json';
         
-        axiosRequest.get("https://maps.googleapis.com/maps/api/geocode/json", {
-            params: {
+        // debugger
+        // var auth = axiosRequest.defaults.headers.common["Authorization"];
+        // delete axiosRequest.defaults.headers.common['Authorization'];
+        var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state} + ${this.state.zipcode}`;
+        $.ajax({
+            method: 'GET',
+            url: "https://maps.googleapis.com/maps/api/geocode/json",
+            data: {
                 address: location,
                 key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
             }
         })
+        // axiosRequest.get("https://maps.googleapis.com/maps/api/geocode/json", {
+        //     params: {
+        //         address: location,
+        //         key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
+        //     },
+        // })
         .then(res => {
+            // axiosRequest.defaults.headers.common['Authorization'] = auth;
             // debugger
-            this.lat = res.data.results[0].geometry.location.lat;
-            this.lng = res.data.results[0].geometry.location.lng;
+            this.lat = res.results[0].geometry.location.lat;
+            this.lng = res.results[0].geometry.location.lng;
             
             // this.forceUpdate();
             

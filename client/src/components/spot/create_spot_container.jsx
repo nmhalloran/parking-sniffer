@@ -7,7 +7,21 @@ import CreateSpot from './create_spot'
 const mapStateToProps = (state, ownProps) => {
 
     return ({
-        // add to this later
+        spot: {
+            line1: '',
+            line2: '',
+            city: '',
+            state: '',
+            zipcode: '',
+            description: '',
+            vehicle_types: [],
+            spot_type: '',
+            rental_rate: '',
+            rental_type: '',
+            img_url: '',
+            latitude: '',
+            longitude: ''
+        }
     })
 };
 

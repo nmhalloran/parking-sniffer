@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import React from "react";
 
-import { updateSpot } from '../../actions/spot_actions';
+import { fetchSpot, updateSpot } from '../../actions/spot_actions';
 import EditSpot from './edit_spot'
 
 const mapStateToProps = (state, ownProps) => {
@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    fetchSpot: (id) => dispatch(updateSpot(id)),
+    fetchSpot: (id) => dispatch(fetchSpot(id)),
     updateSpot: (spot) => dispatch(updateSpot(spot))
 });
 

@@ -143,8 +143,9 @@ router.post(
   "/spot",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log(req)
     const { errors, isValid } = validateSpotInput(req.body);
-
+    console.log(errors);
     // Check Validation
     if (!isValid) {
       // Return any errors with 400 status
@@ -162,25 +163,23 @@ router.post(
         state: req.body.state,
         zipcode: req.body.zipcode,
         description: req.body.description,
-        vehicle_type: req.body.vehicle_type,
+        vehicle_types: req.body.vehicle_types,
         spot_type: req.body.spot_type,
         rental_rate: req.body.rental_rate,
         rental_type: req.body.rental_type,
-        img_url: req.body.img_url
+        // img_url: req.body.img_url
       };
       // Add to spots array
       user.spots.unshift(newSpot);
 
-      user.save().then(user1 => res.json(user1));
+      user.save().then(user1 => res.json(user1)).catch(err=> res.json({"user error":"user error"}));
     });
   }
 );
 
-
 // @route  PATCH api/users/spot/:spot_id
 // @desc    Update user spot
 // @access  Private
-
 
 router.patch(
   "/spot/:spot_id",
@@ -235,6 +234,9 @@ router.get(
   "/spot/:spot_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+
+    console.log('user: ' + req.user)
+
     const { errors, isValid } = validateSpotInput(req.body);
 
     User.findOne({ _id: req.user.id }).then(user => {
