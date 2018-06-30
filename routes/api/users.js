@@ -14,6 +14,9 @@ const validateVehicleInput = require("../../validation/vehicle");
 const overlappingRequests = require("../../validation/reservation-request");
 // Load User model
 const User = require("../../models/User.js");
+
+
+
 // Load input validation
 const validateReservationInput = require("../../validation/reservation.js");
 
@@ -432,28 +435,32 @@ router.get(
 // @access  Public
 router.post("/spot/:spot_id/reservations",
 passport.authenticate("jwt", { session: false }),
-(req, res) => { const { errors, isValid } = validateReservationInput(req.body);
+function(req, res){ const { errors, isValid } = validateReservationInput(req.body);
   // Check Validation
   if (!isValid) {
     return res.status(400).json(errors);
   }
   Reservation.findOne({ spot_id: req.params.spot_id }).then(reservation => {
-      if(overlappingRequests(req.body,req.params.spot_id)){
-        return res.json("overlappingRequests");
-      }
-      const newReservation = new Reservation({
-        start_date: req.body.start_date,
-        end_date: req.body.end_date,
-        booking_status: req.body.booking_status,
-        vehicle_id: req.body.vehicle_id,
-        spot_id: req.body.spot_id,
-        parker_id: req.body.parker_id,
-        seller_id: req.body.seller_id,
-      });
-      newReservation
-        .save()
-        .then(reservation1 => res.json(reservation1))
-        .catch(err => console.log(err));
+   overlappingRequests(req.body, req.params.spot_id).then((result)=>{
+     if(result){
+      res.json({msg: "overlapping dates. Sorry"});
+      }else{
+         const newReservation = new Reservation({
+           start_date: req.body.start_date,
+           end_date: req.body.end_date,
+           booking_status: req.body.booking_status,
+           vehicle_id: req.body.vehicle_id,
+           spot_id: req.body.spot_id,
+           parker_id: req.body.parker_id,
+           seller_id: req.body.seller_id,
+         });
+         newReservation
+         .save()
+         .then(reservation1 => res.json(reservation1))
+         .catch(err => console.log(err));
+       }
+   });
+
   });
 });
 

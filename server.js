@@ -5,7 +5,7 @@ const passport = require("passport");
 
 const users = require("./routes/api/users");
 const search = require("./routes/api/search");
-const reservations = require("./routes/api/reservations");
+// const reservations = require("./routes/api/reservations");
 
 
 const app = express();
@@ -38,7 +38,7 @@ require("./config/passport")(passport);
 // Use Routes
 app.use("/api/users", users);
 app.use("/api/search", search);
-app.use("/api/reservations", reservations);
+// app.use("/api/reservations", reservations);
 
 const port = process.env.PORT || 5000;
 

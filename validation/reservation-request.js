@@ -1,26 +1,43 @@
 const Validator = require("validator");
+const mongoose = require("mongoose");
+const express = require("express");
 // Load Reservation model
 const Reservation = require("../models/Reservation.js");
 
-module.exports = function overlappingRequests(data,req_spot_id){
-  if (data.start_date > data.end_date){
+module.exports = async function overlappingRequests(data,req_spot_id){
+  var start_date = Date.parse(data.start_date);
+  var end_date = Date.parse(data.end_date);
+  var today = Date.parse(new Date());
+  if (start_date > end_date){
+    return true;
+  }else if (start_date < today ){
     return true;
   }
-  // }else if (data.start_date < Date.today() ){
-  //   return true;
-  // }
-   Reservation.find({spot_id: req_spot_id , booking_status: "accepted"})
-   .then(reservations=>{
-     reservations.forEach((el)=>{
-       if(el.start_date >= new Date(data.start_date) ||
-       el.start_date <= new Date(data.end_date)){
-         return true;
-       }else if (el.end_date >= new Date(data.start_date) ||
-       el.end_date <= new Date(data.end_date)){
-         return true;
-       }else{
-         return false;
-       }
-     });
-   });
+  return new Promise((res,rej)=>{
+    Reservation.find({spot_id: data.spot_id,booking_status:'accepted'})
+    .then(reservations=>{
+
+      reservations.forEach((el)=>{
+        if(Date.parse(el.start_date)==start_date || Date.parse(el.end_date)==start_date){
+          res(true);
+        }else if(Date.parse(el.start_date)==end_date || Date.parse(el.end_date)==end_date){
+          res(true);
+        }else if ((Date.parse(el.start_date) < start_date) &&
+        (Date.parse(el.end_date) > start_date && Date.parse(el.end_date) < end_date)){
+          console.log("me");
+          res(true);
+        }else if (((Date.parse(el.start_date) > start_date)&&(Date.parse(el.start_date) < end_date))
+         && ((Date.parse(el.end_date) < end_date)&&(Date.parse(el.end_date) > start_date))){
+          res(true);
+        }else if (((Date.parse(el.start_date) > start_date) && (Date.parse(el.start_date) < start_date))
+         && (Date.parse(el.end_date) > end_date)){
+          res(true);
+        }else if ((Date.parse(el.start_date) < start_date) && (Date.parse(el.end_date) > end_date)){
+          res(true);
+        }
+      });
+      res(false);
+    });
+  })
+
 };
