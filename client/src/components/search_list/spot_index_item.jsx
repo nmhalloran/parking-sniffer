@@ -4,23 +4,29 @@ const SpotIndexItem = (props) => {
 
 
   let recipeItemBgImgStyle = {
-    backgroundImage: "url(" + recipe.main_picture_url  + ")",
+    // backgroundImage: "url(" + recipe.main_picture_url  + ")",
   };
-
-
-
+//Structure
+// city:"SanFrancisco"
+// description:"spot in sanfrancisco"
+// geometry:{type: "Point", coordinates: Array(2)}
+// img_url:"abcd"
+// line1:"825 battery street"
+// line2:"..."
+// rental_rate:20
+// rental_type:"daily"
+// spot_type:"covered"
+// state:"CA"
+// vehicle_types:[]
+// zipcode:94105
+// _id:"5b36d9aa8ec33babea85fb4e"
 
 return(
-<Link className="main-recipe-item-link" to={`/recipes/${recipe.id}`}>
-  <div className="recipe-item"  >
+<Link className="" to={`/spots/${props.spot._id}`}>
+  <div className=""  >
     <div className="recipe-item-img" style={ recipeItemBgImgStyle }>
-      <div className="likes-time">
-      <img src={window.hearticon}/><span>{typeof followers === "undefined" ? '0' : followers.followers_count}  <span>{recipe.cooking_time} min.</span></span>
+      {props.spot.city}
 
-      </div>
-    </div>
-    <div className="recipe-item-text">
-      {recipe.title}
     </div>
   </div>
 </Link>

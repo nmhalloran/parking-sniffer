@@ -25,7 +25,7 @@ const App = () => (
       <Route exact path="/signin" component={SignInContainer} />
       <Route exact path="/spots/new" component={CreateSpotContainer} />
       <Route exact path="/spots/edit/:id" component={EditSpotContainer} />
-      <Route exact path="/showspot" component={ShowSpotContainer} />
+      <Route exact path="/spots/:id" component={ShowSpotContainer} />
       <ProtectedRoute exact path="/user/profile" component={ProfileContainer} />
       <AuthRoute exact path="/" component={SearchListContainer} />
       <Redirect from="/*" to="/" />

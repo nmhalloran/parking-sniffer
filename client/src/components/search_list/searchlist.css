@@ -78,3 +78,26 @@ outline: 0px;
   margin-left: 7px;
   margin-right: 7px;
 }
+
+.search-list-loading{
+display: flex;
+
+flex-direction: column;
+justify-content: center;
+
+  height: 600px;
+  background-color: #F4F7F6;
+}
+.search-list-loading span{
+  margin-left: auto;
+  margin-right: auto;
+  color:#dadfdd;
+
+}
+.search-list-loading-gif{
+  width:200px;
+  height:200px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}

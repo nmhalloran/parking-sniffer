@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router'
 import Image from 'react-image'
 import "./searchlist.css";
-import { ARROW_DOWN, ARROW_UP } from '../../img/index';
+import { ARROW_DOWN, ARROW_UP, LOADING_GIF } from '../../img/index';
+import SpotIndexItem from "./spot_index_item"
 
 import {
   withScriptjs,
@@ -25,7 +26,7 @@ this.state = {
   underground: false,
   solar: false,
 
-  daily:true,
+  daily: true,
   weekly:false,
   monthly: false,
 
@@ -79,10 +80,11 @@ componentDidMount(){
 
 
 componentWillReceiveProps(nextProps){
+
 if(nextProps.zip != this.state.zip){
   this.setState({zip:nextProps.zip})
 }
-let allSpots = nextProps.spots
+let allSpots = Object.assign({}, nextProps.spots)
 let zip = allSpots.zip
 let range = allSpots.range
 delete allSpots.zip
@@ -95,12 +97,11 @@ this.setState({spots:spots,allSpots:allSpots})
 
 }
 
-
 filterSpots(spots_arr){
-let filtered_spots_arr = []
+let filtered_spots_arr = spots_arr.slice()
 
 if(!this.state.garage){
-  filtered_spots_arr = spots_arr.filter((spot)=>(spot.spot_type != 'garage'))
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.spot_type != 'garage'))
 }
 if(!this.state.openParking){
   filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.spot_type != 'openparking'))
@@ -112,11 +113,9 @@ if(!this.state.solar){
   filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.spot_type != 'solar'))
 }
 
-
 if(!this.state.daily){
   filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.rental_type != 'daily'))
 }
-
 
 if(!this.state.weekly){
   filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.rental_type != 'weekly'))
@@ -170,9 +169,15 @@ handleCheckBox(e){
     if(e === 'car'){
       this.setState({fullSize:false,
                       compact:false,
-                      [e]:false, })
+                      [e]:false, },()=>{
+                      let spots = this.filterSpots(this.state.allSpots)
+                      this.setState({spots:spots})
+                    })
     }else{
-        this.setState({[e]:false})
+        this.setState({[e]:false},()=>{
+        let spots = this.filterSpots(this.state.allSpots)
+        this.setState({spots:spots})
+      })
     }
   }
   else{
@@ -180,21 +185,29 @@ handleCheckBox(e){
     if(e === 'car'){
       this.setState({fullSize:true,
                       compact:true,
-                      [e]:true, })
+                      [e]:true, },()=>{
+                      let spots = this.filterSpots(this.state.allSpots)
+                      this.setState({spots:spots})
+                    })
     }else if (e != 'compact' && e != 'fullSize'){
-        this.setState({[e]:true})
+        this.setState({[e]:true},()=>{
+        let spots = this.filterSpots(this.state.allSpots)
+        this.setState({spots:spots})
+      })
     }else{
       if(this.state.car){
-        this.setState({[e]:true})
+        this.setState({[e]:true},()=>{
+        let spots = this.filterSpots(this.state.allSpots)
+        this.setState({spots:spots})
+      })
       }
     }
   }
-
-  let spots = this.filterSpots(this.state.allSpots)
-  this.setState({spots:spots})
 }
 
 render(){
+
+console.log(this.props.indexfirstload)
 console.log(this.state)
   return(<div>
 
@@ -254,6 +267,17 @@ console.log(this.state)
              <Image className="search-list-arrow" src={ ARROW_UP } />
            )}
           </div>
+
+          {this.props.indexfirstload ? (
+            <div className="search-list-loading">
+
+                <Image className="search-list-loading-gif" src={ LOADING_GIF } />
+              <span>One moment please...</span>
+
+            </div>
+          ) : (
+            this.state.spots.map((spot,idx)=>(<SpotIndexItem key={idx} spot={spot}/>))
+          )}
 
 
         </div>)
