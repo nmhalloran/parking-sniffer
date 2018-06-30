@@ -15,8 +15,6 @@ const overlappingRequests = require("../../validation/reservation-request");
 // Load User model
 const User = require("../../models/User.js");
 
-
-
 // Load input validation
 const validateReservationInput = require("../../validation/reservation.js");
 
@@ -96,7 +94,15 @@ router.post("/login", (req, res) => {
       if (isMatch) {
         // User Matched
 
-        const payload = { id: user.id, name: user.email, avatar: user.avatar };
+        const payload = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          avatar: user.avatar,
+          spots: user.spots,
+          vehicles: user.vehicles,
+          reservations: user.reservations || []
+        };
 
         // Sign Token
 
@@ -143,7 +149,7 @@ router.post(
   "/spot",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req)
+    console.log(req);
     const { errors, isValid } = validateSpotInput(req.body);
     console.log(errors);
     // Check Validation
@@ -166,13 +172,16 @@ router.post(
         vehicle_types: req.body.vehicle_types,
         spot_type: req.body.spot_type,
         rental_rate: req.body.rental_rate,
-        rental_type: req.body.rental_type,
+        rental_type: req.body.rental_type
         // img_url: req.body.img_url
       };
       // Add to spots array
       user.spots.unshift(newSpot);
 
-      user.save().then(user1 => res.json(user1)).catch(err=> res.json({"user error":"user error"}));
+      user
+        .save()
+        .then(user1 => res.json(user1))
+        .catch(err => res.json({ "user error": "user error" }));
     });
   }
 );
@@ -194,37 +203,45 @@ router.patch(
     }
 
     // Get fields
-    let profileFields={};
+    let profileFields = {};
 
-     profileFields.spots = {};
-     profileFields.spots._id = req.params.spot_id;
+    profileFields.spots = {};
+    profileFields.spots._id = req.params.spot_id;
     if (req.body.geometry) profileFields.spots.geometry = req.body.geometry;
     if (req.body.line1) profileFields.spots.line1 = req.body.line1;
     if (req.body.line2) profileFields.spots.line2 = req.body.line2;
     if (req.body.city) profileFields.spots.city = req.body.city;
     if (req.body.state) profileFields.spots.state = req.body.state;
     if (req.body.zipcode) profileFields.spots.zipcode = req.body.zipcode;
-    if (req.body.description) profileFields.spots.description = req.body.description;
-    if (req.body.vehicle_type) profileFields.spots.vehicle_type = req.body.vehicle_type;
+    if (req.body.description)
+      profileFields.spots.description = req.body.description;
+    if (req.body.vehicle_type)
+      profileFields.spots.vehicle_type = req.body.vehicle_type;
     if (req.body.spot_type) profileFields.spots.spot_type = req.body.spot_type;
-    if (req.body.rental_rate) profileFields.spots.rental_rate = req.body.rental_rate;
-    if (req.body.rental_type) profileFields.spots.rental_type = req.body.rental_type;
+    if (req.body.rental_rate)
+      profileFields.spots.rental_rate = req.body.rental_rate;
+    if (req.body.rental_type)
+      profileFields.spots.rental_type = req.body.rental_type;
     if (req.body.img_url) profileFields.spots.img_url = req.body.img_url;
 
-    User.findOne({_id: req.user.id}).then(user => {
-      if(user){
+    User.findOne({ _id: req.user.id }).then(user => {
+      if (user) {
         // Update
         User.findOneAndUpdate(
           { _id: req.user.id },
           { $set: profileFields },
           { new: true }
-        ).then(user1 => res.json(user1)).catch(err =>
-          res.status(404).json({ spots:
-            "There is no spot for user" })
-        );
+        )
+          .then(user1 => res.json(user1))
+          .catch(err =>
+            res.status(404).json({
+              spots: "There is no spot for user"
+            })
+          );
       }
     });
-  });
+  }
+);
 
 // @route  GET api/users/spot/:spot_id
 // @desc    Show user spot
@@ -234,8 +251,7 @@ router.get(
   "/spot/:spot_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-
-    console.log('user: ' + req.user)
+    console.log("user: " + req.user);
 
     const { errors, isValid } = validateSpotInput(req.body);
 
@@ -263,9 +279,7 @@ router.get(
       .then(user => {
         res.json(user.spots);
       })
-      .catch(err =>
-        res.status(404)({ spot: "There is no spot for user" })
-      );
+      .catch(err => res.status(404)({ spot: "There is no spot for user" }));
   }
 );
 
@@ -287,9 +301,7 @@ router.get(
         });
         res.json(allSpots);
       })
-      .catch(err =>
-        res.status(404)({ spot: "There is no spot for user" })
-      );
+      .catch(err => res.status(404)({ spot: "There is no spot for user" }));
   }
 );
 
@@ -435,87 +447,104 @@ router.get(
 // @route   POST api/users/spot/spot_id/reservations
 // @desc    add reservations for a spot
 // @access  Public
-router.post("/spot/:spot_id/reservations",
-passport.authenticate("jwt", { session: false }),
-function(req, res){ const { errors, isValid } = validateReservationInput(req.body);
-  // Check Validation
-  if (!isValid) {
-    return res.status(400).json(errors);
+router.post(
+  "/spot/:spot_id/reservations",
+  passport.authenticate("jwt", { session: false }),
+  function(req, res) {
+    const { errors, isValid } = validateReservationInput(req.body);
+    // Check Validation
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+    Reservation.findOne({ spot_id: req.params.spot_id }).then(reservation => {
+      overlappingRequests(req.body, req.params.spot_id).then(result => {
+        if (result) {
+          res.json({ msg: "overlapping dates. Sorry" });
+        } else {
+          const newReservation = new Reservation({
+            start_date: req.body.start_date,
+            end_date: req.body.end_date,
+            booking_status: req.body.booking_status,
+            vehicle_id: req.body.vehicle_id,
+            spot_id: req.body.spot_id,
+            parker_id: req.body.parker_id,
+            seller_id: req.body.seller_id
+          });
+          newReservation
+            .save()
+            .then(reservation1 => res.json(reservation1))
+            .catch(err => console.log(err));
+        }
+      });
+    });
   }
-  Reservation.findOne({ spot_id: req.params.spot_id }).then(reservation => {
-   overlappingRequests(req.body, req.params.spot_id).then((result)=>{
-     if(result){
-      res.json({msg: "overlapping dates. Sorry"});
-      }else{
-         const newReservation = new Reservation({
-           start_date: req.body.start_date,
-           end_date: req.body.end_date,
-           booking_status: req.body.booking_status,
-           vehicle_id: req.body.vehicle_id,
-           spot_id: req.body.spot_id,
-           parker_id: req.body.parker_id,
-           seller_id: req.body.seller_id,
-         });
-         newReservation
-         .save()
-         .then(reservation1 => res.json(reservation1))
-         .catch(err => console.log(err));
-       }
-   });
-
-  });
-});
+);
 
 // @route   GET api/users/spot/spot_id/reservations
 // @desc    Get all reservations for a spot
 // @access  Public
 
-
-router.get("/spot/:spot_id/reservations",
-passport.authenticate("jwt", { session: false }),
-(req,res)=>{
-  const errors = {};
-  Reservation.find({spot_id:req.params.spot_id})
-    .then(reservations => {
-      res.json(reservations);
-    }).catch(err =>
-      res.status(404).json({ reservation: "There is no reservation for spot" })
-    );
-
-});
-
-// @route   GET api/users/spot/spot_id/accepted_reservations
-// @desc    Get all reservations for a spot
-// @access  Public
-
-router.get("/spot/:spot_id/accepted_reservations",
-passport.authenticate("jwt", { session: false }),
-(req,res)=>{
-  const errors = {};
-  Reservation.find({spot_id:req.params.spot_id,booking_status: "accepted"})
-    .then(reservations => {
-      res.json(reservations);
-    }).catch(err =>
-      res.status(404).json({ reservation: "There is no reservation for spot" })
-    );
-});
+router.get(
+  "/spot/:spot_id/reservations",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    Reservation.find({ spot_id: req.params.spot_id })
+      .then(reservations => {
+        res.json(reservations);
+      })
+      .catch(err =>
+        res
+          .status(404)
+          .json({ reservation: "There is no reservation for spot" })
+      );
+  }
+);
 
 // @route   GET api/users/spot/spot_id/accepted_reservations
 // @desc    Get all reservations for a spot
 // @access  Public
 
-router.get("/spot/:spot_id/pending_reservations",
-passport.authenticate("jwt", { session: false }),
-(req,res)=>{
-  const errors = {};
-  Reservation.find({spot_id:req.params.spot_id,booking_status: "pending"})
-    .then(reservations => {
-      res.json(reservations);
-    }).catch(err =>
-      res.status(404).json({ reservation: "There is no reservation for spot" })
-    );
-});
+router.get(
+  "/spot/:spot_id/accepted_reservations",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    Reservation.find({
+      spot_id: req.params.spot_id,
+      booking_status: "accepted"
+    })
+      .then(reservations => {
+        res.json(reservations);
+      })
+      .catch(err =>
+        res
+          .status(404)
+          .json({ reservation: "There is no reservation for spot" })
+      );
+  }
+);
 
+// @route   GET api/users/spot/spot_id/accepted_reservations
+// @desc    Get all reservations for a spot
+// @access  Public
+
+router.get(
+  "/spot/:spot_id/pending_reservations",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    Reservation.find({ spot_id: req.params.spot_id, booking_status: "pending" })
+      .then(reservations => {
+        res.json(reservations);
+      })
+      .catch(err =>
+        res
+          .status(404)
+          .json({ reservation: "There is no reservation for spot" })
+      );
+  }
+);
 
 // @route  GET api/users/spot/:spot_id/reservations/:reservation_id
 // @desc    Show reservation
@@ -531,10 +560,11 @@ router.get(
       // Return any errors with 400 status
       return res.status(400).json(errors);
     }
-    Reservation.findOne({ _id: req.params.reservation_id})
-    .then(reservation => {
-      res.json(reservation);
-    });
+    Reservation.findOne({ _id: req.params.reservation_id }).then(
+      reservation => {
+        res.json(reservation);
+      }
+    );
   }
 );
 
@@ -559,26 +589,31 @@ router.patch(
     const profileFields = {};
     if (req.body.start_date) profileFields.start_date = req.body.start_date;
     if (req.body.end_date) profileFields.end_date = req.body.end_date;
-    if (req.body.booking_status) profileFields.booking_status =
-    req.body.booking_status;
+    if (req.body.booking_status)
+      profileFields.booking_status = req.body.booking_status;
     if (req.body.vehicle_id) profileFields.vehicle_id = req.body.vehicle_id;
     if (req.body.spot_id) profileFields.spot_id = req.body.spot_id;
     if (req.body.parker_id) profileFields.parker_id = req.body.parker_id;
     if (req.body.seller_id) profileFields.seller_id = req.body.seller_id;
 
-    Reservation.findOne({_id: req.params.reservation_id}).then(reservation => {
-      if(reservation){
-        // Update
-        Reservation.findOneAndUpdate(
-          { _id: req.params.reservation_id },
-          { $set: profileFields },
-          { new: true }
-        ).then(reserve => res.json(reserve)).catch(err =>
-          res.status(404).json({ reservation:
-            "There is no reservation for spot" })
-        );
+    Reservation.findOne({ _id: req.params.reservation_id }).then(
+      reservation => {
+        if (reservation) {
+          // Update
+          Reservation.findOneAndUpdate(
+            { _id: req.params.reservation_id },
+            { $set: profileFields },
+            { new: true }
+          )
+            .then(reserve => res.json(reserve))
+            .catch(err =>
+              res.status(404).json({
+                reservation: "There is no reservation for spot"
+              })
+            );
+        }
       }
-    });
+    );
   }
 );
 
@@ -592,7 +627,7 @@ router.delete(
   (req, res) => {
     const { errors, isValid } = validateReservationInput(req.body);
 
-    Reservation.deleteOne({ _id: req.params.reservation_id})
+    Reservation.deleteOne({ _id: req.params.reservation_id })
       .then(reservation => {
         res.json(reservation);
       })

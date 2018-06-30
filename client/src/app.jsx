@@ -21,7 +21,9 @@ import {  Route,  Redirect,  Switch,  Link,  HashRouter} from 'react-router-dom'
 
 const App = () => (
   <div className="root-container">
-    <Route path="/" component={TopNavBarContainer} />
+    <header>
+      <TopNavBarContainer />
+    </header>
 <Switch>
     <Route exact path="/" component={SearchListContainer} />
     <Route exact path="/signup" component={SignUpContainer} />
@@ -32,7 +34,9 @@ const App = () => (
     <Route exact path="/user/profile" component={ProfileContainer} />
 
   </Switch>
-      <Route path="/" component={Footer} />
+  <footer>
+      <Footer />
+  </footer>
   </div>
 );
 

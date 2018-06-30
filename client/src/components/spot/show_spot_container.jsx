@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
       line2: 'Battery St.',
       city: 'San Francisco',
       state: 'CA',
-      zipcode: '94111',
+      zipcode: '94105',
       description: 'parking spots in a/A classrooms. Lorem ipsum dolor sit amet, error dolores inciderint eu ius, ex wisi vituperata mel. Ut veri everti legendos quo, an audiam epicuri laboramus qui, summo dissentiet ne his. Eum mazim veniam epicurei id. Vis dicit instructior in, vel omnes partem dolorem eu. Duo postea vulputate cu.',
       vehicle_types: ['truck', 'fullsize'],
       spot_type: 'open parking',
