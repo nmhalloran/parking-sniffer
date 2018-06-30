@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import app from "./App.css";
-import App from './app'
+import App from "./app";
 
 import { Provider } from "react-redux";
 import { HashRouter } from "react-router-dom";
