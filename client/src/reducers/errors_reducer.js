@@ -1,4 +1,4 @@
-import { CLEAR_ERRORS, ADD_ERRORS } from '../actions/errors_actions'
+import { CLEAR_ERRORS, ADD_ERRORS } from '../actions/errors_actions';
 const initialState = {};
 
 export default function(state = initialState, action) {
