@@ -23,7 +23,7 @@ import logger from "redux-logger";
 
 const configureStore = (
   preloadedState = {
-    entities: { spots: { zip: 94105, range: 200, indexloading: true } }
+    entities: { spots: { zip: 94105, range: 200, indexfirstload: true } }
   }
 ) => {
   return createStore(

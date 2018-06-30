@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router'
 import Image from 'react-image'
 import "./searchlist.css";
-import { ARROW_DOWN, ARROW_UP } from '../../img/index';
+import { ARROW_DOWN, ARROW_UP, LOADING_GIF } from '../../img/index';
+import SpotIndexItem from "./spot_index_item"
 
 import {
   withScriptjs,
@@ -79,6 +80,7 @@ componentDidMount(){
 
 
 componentWillReceiveProps(nextProps){
+
 if(nextProps.zip != this.state.zip){
   this.setState({zip:nextProps.zip})
 }
@@ -205,7 +207,7 @@ handleCheckBox(e){
 
 render(){
 
-
+console.log(this.props.indexfirstload)
 console.log(this.state)
   return(<div>
 
@@ -266,9 +268,17 @@ console.log(this.state)
            )}
           </div>
 
+          {this.props.indexfirstload ? (
+            <div className="search-list-loading">
 
-          <div>
-          </div>  
+                <Image className="search-list-loading-gif" src={ LOADING_GIF } />
+              <span>One moment please...</span>
+
+            </div>
+          ) : (
+            this.state.spots.map((spot,idx)=>(<SpotIndexItem key={idx} spot={spot}/>))
+          )}
+
 
         </div>)
 }
