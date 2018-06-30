@@ -40,6 +40,21 @@ class CreateSpot extends React.Component {
         console.log(this.state);
         debugger
         this.props.createSpot(this.state);
+        this.setState({
+          line1: "",
+          line2: "",
+          city: "",
+          state: "",
+          zipcode: "",
+          description: "",
+          vehicle_types: [],
+          spot_type: "",
+          rental_rate: "",
+          rental_type: "",
+          img_url: "",
+          latitude: "",
+          longitude: ""
+        });
     }
 
     handleAddressChange(val) {

@@ -37,10 +37,17 @@ export const fetchSpotsByZip = (zip) => dispatch => (
         .catch(err => console.log(err)) //deal with errors later
 )
 
+<<<<<<< HEAD
 export const fetchSpotById = (id) => dispatch => (
     SpotAPIUtil.fetchSpotById(id)
         .then(spot => dispatch(receiveSpot(spot)))
         .catch(error => dispatch({type: ADD_ERRORS, payload: error.response.data}))
+=======
+export const fetchSpotsByOwner = () => dispatch => (
+    SpotAPIUtil.fetchSpotsByOwner()
+        .then(spots => dispatch(receiveSpots(spots)))
+        .catch(err => console.log(err))
+>>>>>>> alfred
 )
 
 export const fetchSpot = (id) => dispatch => (
