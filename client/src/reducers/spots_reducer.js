@@ -8,10 +8,11 @@ const spotsReducer = (state = {}, action) => {
 
     switch (action.type) {
         case RECEIVE_SPOTS:
-            return action.spots.data.spots;
+            return action.spots.data;
 
         case RECEIVE_SPOT:
-            let spot = action.spot.data.spots[0];
+            // debugger
+            let spot = action.spot.data;
             return merge({}, state, {[spot._id]: spot});
 
         case REMOVE_SPOT:

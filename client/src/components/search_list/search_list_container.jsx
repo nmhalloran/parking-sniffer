@@ -9,7 +9,7 @@ const msp = (state,ownProps) =>({
   isAuthenticated: state.isAuthenticated.isAuthenticated,
   spots: state.entities.spots,
   zip: state.entities.spots.zip,
-  range: state.entities.spots.range
+  range: state.entities.spots.ranges
 })
 
 

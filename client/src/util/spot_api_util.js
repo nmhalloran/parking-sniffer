@@ -16,6 +16,13 @@ export const fetchSpotsByZip = (zip) => (
     })
 );
 
+export const fetchSpotsByOwner = () => (
+    axios({
+        method: 'get',
+        url: '/api/users/myspots'
+    })
+)
+
 export const fetchSpot = (id) => (
     axios({
         method: 'get',

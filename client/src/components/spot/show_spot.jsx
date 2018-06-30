@@ -14,27 +14,28 @@ import "./show_spot.css";
 
 class ShowSpot extends React.Component {
 
-    componentDidMount() {
-        this.props.fetchSpot(this.props.match.params.id);
-    }
-
-    constructor(props) {
+    componentWillMount() {
+        this.current_spot = this.props.fetchSpot(this.props.match.params.id);
+        this.props.fetchSpotsByOwner();
+        // console.log(this.props)
+      }
+      
+      constructor(props) {
         super(props);
-
+        
         this.currentUser = props.user;
         this.state = props.spot;
-
+  
         // App Academy Coordinates
         
     }
 
 
     render() {
-
         var MyMapComponent = withScriptjs(withGoogleMap((props) => {
 
-            return <GoogleMap defaultZoom={18} defaultCenter={{ lat: this.state.latitude, lng: this.state.longitude }}>
-                {props.isMarkerShown && <Marker position={{ lat: this.state.latitude, lng: this.state.longitude }} />}
+            return <GoogleMap defaultZoom={18} defaultCenter={{ lat: this.state.geometry.coordinates[0], lng: this.state.geometry.coordinates[1] }}>
+                {props.isMarkerShown && <Marker position={{ lat: this.state.geometry.coordinates[0], lng: this.state.geometry.coordinates[1] }} />}
               </GoogleMap>;
         }))
 
@@ -45,8 +46,6 @@ class ShowSpot extends React.Component {
             containerElement={<div className="myMapComponent" style={{ height: `362.5px`, width: `600px`, margin: `25px` }} />}
             mapElement={<div style={{ height: `100%` }} />} />
 
-        console.log(this.state.latitude)
-        console.log(this.state.longitude)
 
         return <div>
             <div className="backtosearch">
@@ -56,8 +55,9 @@ class ShowSpot extends React.Component {
             <div className="ShowSpot">
               <div className="Image-Map">
                 <div id="showspot-image" />
-                {/* <div id="showspot-map" /> */}
+          
                 {renderMap}
+
               </div>
 
               <div className="ShowSpot-Info">
@@ -113,4 +113,4 @@ class ShowSpot extends React.Component {
 
 }
 
-export default ShowSpot;
+export default withRouter(ShowSpot);
