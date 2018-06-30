@@ -36,7 +36,7 @@ class CreateSpot extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        
+
         console.log(this.state);
         debugger
         this.props.createSpot(this.state);
@@ -118,9 +118,10 @@ class CreateSpot extends React.Component {
         //   }
         // })
         .then(res => {
+            // console.log(res)
             // 
-            this.lat = res.data.results[0].geometry.location.lat;
-            this.lng = res.data.results[0].geometry.location.lng;
+            this.lat = res.results[0].geometry.location.lat;
+            this.lng = res.results[0].geometry.location.lng;
 
             this.state.latitude = this.lat;
             this.state.longitude = this.lng;

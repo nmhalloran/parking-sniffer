@@ -28,7 +28,7 @@ export const createSpot = (spot) => (
     axios({
         method: 'post',
         url: 'api/users/spot',
-        spot
+        data: spot
     })
 );
 

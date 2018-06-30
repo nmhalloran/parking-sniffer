@@ -62,7 +62,7 @@ module.exports = function validateSpotInput(data) {
     "WV",
     "WY"
   );
-  const vehicleTypes = ["motorcycle", "compact", "sedan", "truck"];
+  //const vehicleTypes = ["motorcycle", "compact", "sedan", "truck"];
   const spotTypes = ["uncovered", "covered", "california_canopy"];
   const rentalTypes = ["daily", "weekly", "monthly", "yearly"];
 
@@ -72,7 +72,7 @@ module.exports = function validateSpotInput(data) {
   data.state = !isEmpty(data.state) ? data.state : "";
   data.zipcode = !isEmpty(data.zipcode) ? data.zipcode : "";
   data.description = !isEmpty(data.description) ? data.description : "";
-  data.vehicle_types = !isEmpty(data.vehicle_types) ? data.vehicle_types : "";
+  //data.vehicle_types = !isEmpty(data.vehicle_types) ? data.vehicle_types : "";
   data.spot_type = !isEmpty(data.spot_type) ? data.spot_type : "";
   data.rental_rate = !isEmpty(data.rental_rate) ? data.rental_rate : "";
   data.rental_type = !isEmpty(data.rental_type) ? data.rental_type : "";
@@ -105,12 +105,12 @@ module.exports = function validateSpotInput(data) {
   if (Validator.isEmpty(data.description)) {
     errors.description = "Enter in a description!";
   }
-  if (!vehicleTypes.includes(data.vehicle_types)) {
-    errors.vehicle_types = "Not a valid vehicle type!";
-  }
-  if (Validator.isEmpty(data.vehicle_types)) {
-    errors.vehicle_types = "Enter in a vehicle type!";
-  }
+  // if (!vehicleTypes.includes(data.vehicle_types)) {
+  //   errors.vehicle_types = "Not a valid vehicle type!";
+  // }
+  // if (Validator.isEmpty(data.vehicle_types)) {
+  //   errors.vehicle_types = "Enter in a vehicle type!";
+  // }
   if (!spotTypes.includes(data.spot_type)) {
     errors.spot_type = "Not a valid spot_type!";
   }
