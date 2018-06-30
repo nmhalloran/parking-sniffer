@@ -77,8 +77,8 @@ module.exports = function validateSpotInput(data) {
   data.rental_rate = !isEmpty(data.rental_rate) ? data.rental_rate : "";
   data.rental_type = !isEmpty(data.rental_type) ? data.rental_type : "";
   // data.img_url = !isEmpty(data.img_url) ? data.img_url : "";
-  data.latitude = !isEmpty(data.latitude) ? data.latitude : "";
-  data.longitude = !isEmpty(data.longitude) ? data.longitude : "";
+  // data.latitude = !isEmpty(data.latitude) ? data.latitude : "";
+  // data.longitude = !isEmpty(data.longitude) ? data.longitude : "";
 
   if (Validator.isEmpty(data.line1)) {
     errors.line1 = "Enter in a line1!";
@@ -128,12 +128,12 @@ module.exports = function validateSpotInput(data) {
   if (Validator.isEmpty(data.rental_type)) {
     errors.rental_type = "Enter in a rental_type!";
   }
-  if (Validator.isEmpty(data.latitude)) {
-    errors.latitude = "Enter in a latitude!";
-  }
-  if (Validator.isEmpty(data.longitude)) {
-    errors.longitude = "Enter in a longitude!";
-  }
+  // if (Validator.isEmpty(data.latitude)) {
+  //   errors.latitude = "Enter in a latitude!";
+  // }
+  // if (Validator.isEmpty(data.longitude)) {
+  //   errors.longitude = "Enter in a longitude!";
+  // }
   // if (Validator.isEmpty(data.img_url)) {
   //   errors.img_url = "Enter in a img_url !";
   // }
