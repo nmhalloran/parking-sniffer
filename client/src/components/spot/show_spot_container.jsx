@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import React from "react";
 
 import { fetchSpot, fetchSpotsByOwner, fetchSpotsByZip } from "../../actions/spot_actions";
+import { fetchReservations, createReservation } from '../../actions/reservation_actions';
 import ShowSpot from "./show_spot";
 
 const mapStateToProps = (state, ownProps) => {
@@ -12,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
     spots: state.entities.spots,
     user: state.isAuthenticated.user,
     spot: { // test spot
-      _id: "123654789",
+      _id: "5b36e74d334b163c6ea9e039",
       owner_id: "1",
       line1: '200',
       line2: 'Battery St.',
@@ -35,7 +36,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchSpot: id => dispatch(fetchSpot(id)),
-  fetchSpotsByOwner: () => dispatch(fetchSpotsByOwner())
+  fetchSpotsByOwner: () => dispatch(fetchSpotsByOwner()),
+  createReservation: (data) => dispatch(createReservation(data)),
+  fetchReservations: () => dispatch(fetchReservations())
 });
 
 export default connect(

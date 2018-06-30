@@ -11,7 +11,6 @@ const spotsReducer = (state = {}, action) => {
             return action.spots.data;
 
         case RECEIVE_SPOT:
-            // debugger
             let spot = action.spot.data;
             return merge({}, state, {[spot._id]: spot});
 

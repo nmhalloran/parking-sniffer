@@ -17,6 +17,7 @@ class ShowSpot extends React.Component {
     componentDidMount() {
         this.props.fetchSpotsByOwner();
         this.props.fetchSpot(this.props.match.params.id);
+        this.props.fetchReservations();
         // console.log(this.props)
     }
       
@@ -34,6 +35,8 @@ class ShowSpot extends React.Component {
                         seller_id: this.currentSpot.owner_id,
                         optional_msg: ''
                     }; 
+        
+        // debugger
     }
 
     handleChange (e,val) {
@@ -44,7 +47,6 @@ class ShowSpot extends React.Component {
 
         case 'to':
           this.state.end_date = e.currentTarget.value;
-          console.log(this.state)
           break;
 
         case 'vehicle':
@@ -57,6 +59,15 @@ class ShowSpot extends React.Component {
       
         default:
           break;
+      }
+    }
+
+    handleSubmit(e) {
+      console.log(this.state);
+      if (this.state.start_date === '' || this.state.end_date === '' || this.state.vehicle_id === '' ) {
+        alert('please fill in required inputs')
+      } else {
+        this.props.createReservation(this.state);
       }
     }
 
@@ -131,7 +142,7 @@ class ShowSpot extends React.Component {
                   <textarea onChange={e => this.handleChange(e, 'message') } />
                 </h5>
 
-                <input type="submit" value="Request Parking Spot" />
+                <input type="submit" onClick={ e => this.handleSubmit(e) } value="Request Parking Spot" />
               </div>
             </div>
 

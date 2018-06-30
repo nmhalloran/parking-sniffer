@@ -14,10 +14,10 @@ export const fetchReservation = (id) => (
     })
 )
 
-export const createReservation = (reservation) => (
+export const createReservation = (spot_id, reservation) => (
     axios({
         method: 'post',
-        url: 'api/users/spot/:spot_id/reservations',
+        url: `api/users/spot/${spot_id}/reservations`,
         data: reservation
     })
 )
