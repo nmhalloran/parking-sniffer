@@ -43,11 +43,18 @@ export const fetchSpot = (id) => dispatch => (
         .catch(err => console.log(err))
 )
 
-export const createSpot = (spot) => dispatch => (
-    SpotAPIUtil.createSpot(spot)
-        .then(spotRes => dispatch(receiveSpot(spotRes)))
-        .catch(err => console.log(err))
-)
+export const createSpot = (spot) => dispatch => {
+    
+    // debugger
+
+    return (
+            SpotAPIUtil.createSpot(spot)
+                .then(spotRes => dispatch(receiveSpot(spotRes)))
+                .catch(err => console.log(err))
+
+
+    )
+}
 
 export const updateSpot = (spot) => dispatch => (
     SpotAPIUtil.updateSpot(spot)

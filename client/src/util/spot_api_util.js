@@ -24,10 +24,11 @@ export const fetchSpot = (id) => (
 );
 
 export const createSpot = (spot) => (
+
     axios({
         method: 'post',
-        url: '/api/spots',
-        data: { spot }
+        url: 'api/users/spot',
+        spot
     })
 );
 

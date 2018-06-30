@@ -1,5 +1,5 @@
 import React from "react";
-import axios from 'axios';
+import $ from "jquery";
 import { withRouter } from "react-router-dom";
 import { compose, withStateHandlers } from "recompose";
 import {
@@ -27,18 +27,23 @@ class CreateSpot extends React.Component {
 
         this.renderMapAfterTime = this.renderMapAfterTime.bind(this);
         this.geocode = this.geocode.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
         this.renderMap = true;
 
         this.timeout = undefined;
     }
 
-    handleSubmit() {
+    handleSubmit(e) {
+        e.preventDefault();
         
+        console.log(this.state);
+        debugger
+        this.props.createSpot(this.state);
     }
 
     handleAddressChange(val) {
-        // debugger
+        // 
         this.renderMap = false;
 
 
@@ -53,13 +58,13 @@ class CreateSpot extends React.Component {
 
     handleChange(val) {
         return (e) => {
-            // debugger
+            // 
             if (val === 'vehicle_type') {
                 // console.log(this.state.vehicle_types)
                 // console.log(e.currentTarget.value)
                 if (this.state.vehicle_types.includes(e.currentTarget.value)) {
                     // this.state.vehicle_types.push(e.currentTarget.value);
-                    // debugger
+                    // 
                     let arr = this.state.vehicle_types
                     let index = arr.indexOf(e.currentTarget.value);
 
@@ -67,7 +72,7 @@ class CreateSpot extends React.Component {
                     
                 } else {
                     this.state.vehicle_types.push(e.currentTarget.value);
-                    // debugger
+                    // 
                 }
             } else if (val === 'spot_type') {
                 this.state.spot_type = e.currentTarget.value
@@ -93,20 +98,27 @@ class CreateSpot extends React.Component {
 
     geocode() {
         // var location = '825 battery st. sf, ca';
-        let axiosRequest = axios.create();
-        axiosRequest.defaults.headers.common['Content-Type'] = 'application/json';
-        delete axiosRequest.defaults.headers.common['Authorization'];
-        // debugger
+        // let axiosRequest = axios.create();
+        // axiosRequest.defaults.headers.common['Content-Type'] = 'application/json';
+        // delete axiosRequest.defaults.headers.common['Authorization'];
+        // 
         var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state} + ${this.state.zipcode}`;
-        
-        axiosRequest.get("https://maps.googleapis.com/maps/api/geocode/json", {
-          params: {
-            address: location,
-            key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
-          }
+        $.ajax({
+            method: 'GET',
+            url: "https://maps.googleapis.com/maps/api/geocode/json",
+            data: {
+                address: location,
+                key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
+            }
         })
+        // axiosRequest.get("https://maps.googleapis.com/maps/api/geocode/json", {
+        //   params: {
+        //     address: location,
+        //     key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
+        //   }
+        // })
         .then(res => {
-            // debugger
+            // 
             this.lat = res.data.results[0].geometry.location.lat;
             this.lng = res.data.results[0].geometry.location.lng;
 
@@ -200,22 +212,17 @@ class CreateSpot extends React.Component {
               {renderMap}
 
               <div>
-                <label> Parking Space # (optional): </label>
-                <input type="number" />
-              </div>
-
-              <div>
                 <label> Vehicle Types Allowed </label>
-                <input type="checkbox" id="motorcycle" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="Motorcycle" />
+                <input type="checkbox" id="motorcycle" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="motorcycle" />
                 <label htmlFor="motorcycle">Motorcycle</label>
 
-                <input type="checkbox" id="compact" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="Compact" />
+                <input type="checkbox" id="compact" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="compact" />
                 <label htmlFor="compact">Compact</label>
 
-                <input type="checkbox" id="sedan" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="Sedan" />
+                <input type="checkbox" id="sedan" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="sedan" />
                 <label htmlFor="fullsize">Sedan</label>
 
-                <input type="checkbox" id="truck" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="Truck" />
+                <input type="checkbox" id="truck" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="truck" />
                 <label htmlFor="truck">Truck</label>
               </div>
 
@@ -257,7 +264,7 @@ class CreateSpot extends React.Component {
                 <textarea onChange={this.handleChange("description")} />
               </div>
 
-              <input type="submit" onClick={ () => this.handleSubmit.bind(this) } value="Create Parking Spot" />
+              <input type="submit" onClick={ (e) => this.handleSubmit(e) } value="Create Parking Spot" />
             </form>
           </div>;
         

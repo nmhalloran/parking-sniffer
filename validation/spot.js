@@ -63,7 +63,7 @@ module.exports = function validateSpotInput(data) {
     "WY"
   );
   const vehicleTypes = ["motorcycle", "compact", "sedan", "truck"];
-  const spotTypes = ["uncovered", "covered", "california canopy"];
+  const spotTypes = ["uncovered", "covered", "california_canopy"];
   const rentalTypes = ["daily", "weekly", "monthly", "yearly"];
 
   data.line1 = !isEmpty(data.line1) ? data.line1 : "";
@@ -76,7 +76,7 @@ module.exports = function validateSpotInput(data) {
   data.spot_type = !isEmpty(data.spot_type) ? data.spot_type : "";
   data.rental_rate = !isEmpty(data.rental_rate) ? data.rental_rate : "";
   data.rental_type = !isEmpty(data.rental_type) ? data.rental_type : "";
-  data.img_url = !isEmpty(data.img_url) ? data.img_url : "";
+  // data.img_url = !isEmpty(data.img_url) ? data.img_url : "";
 
   if (Validator.isEmpty(data.line1)) {
     errors.line1 = "Enter in a line1!";
