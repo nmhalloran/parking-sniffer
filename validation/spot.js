@@ -62,8 +62,8 @@ module.exports = function validateSpotInput(data) {
     "WV",
     "WY"
   );
-  const vehicleTypes = ["motorcycle", "compact", "sedan", "truck"];
-  const spotTypes = ["uncovered", "covered", "california canopy"];
+  // const vehicleTypes = ["motorcycle", "compact", "sedan", "truck/full-size"];
+  const spotTypes = ["uncovered", "covered", "california_canopy"];
   const rentalTypes = ["daily", "weekly", "monthly", "yearly"];
 
   data.line1 = !isEmpty(data.line1) ? data.line1 : "";
@@ -72,18 +72,17 @@ module.exports = function validateSpotInput(data) {
   data.state = !isEmpty(data.state) ? data.state : "";
   data.zipcode = !isEmpty(data.zipcode) ? data.zipcode : "";
   data.description = !isEmpty(data.description) ? data.description : "";
-  data.vehicle_types = !isEmpty(data.vehicle_types) ? data.vehicle_types : "";
+  // data.vehicle_types = !isEmpty(data.vehicle_types) ? data.vehicle_types : "";
   data.spot_type = !isEmpty(data.spot_type) ? data.spot_type : "";
   data.rental_rate = !isEmpty(data.rental_rate) ? data.rental_rate : "";
   data.rental_type = !isEmpty(data.rental_type) ? data.rental_type : "";
   data.img_url = !isEmpty(data.img_url) ? data.img_url : "";
+  data.latitude = !isEmpty(data.latitude) ? data.latitude : "";
+  data.longitude = !isEmpty(data.longitude) ? data.longitude : "";
 
   if (Validator.isEmpty(data.line1)) {
     errors.line1 = "Enter in a line1!";
   }
-  // if (Validator.isEmpty(data.line2)) {
-  //   errors.line2 = "Enter in a line2!";
-  // }
   if (Validator.isEmpty(data.city)) {
     errors.city = "Enter in a city!";
   }
@@ -96,7 +95,7 @@ module.exports = function validateSpotInput(data) {
   if (!Validator.isNumeric(data.zipcode)) {
     errors.zipcode = "Zipcode must be all numbers!";
   }
-  if (data.zipcode.length != 5) {
+  if (data.zipcode.length !== 5) {
     errors.zipcode = "Zipcode must be 5 digits";
   }
   if (Validator.isEmpty(data.zipcode)) {
@@ -105,12 +104,12 @@ module.exports = function validateSpotInput(data) {
   if (Validator.isEmpty(data.description)) {
     errors.description = "Enter in a description!";
   }
-  if (!vehicleTypes.includes(data.vehicle_types)) {
-    errors.vehicle_types = "Not a valid vehicle type!";
-  }
-  if (Validator.isEmpty(data.vehicle_types)) {
-    errors.vehicle_types = "Enter in a vehicle type!";
-  }
+  // if (!vehicleTypes.includes(data.vehicle_types)) {
+  //   errors.vehicle_types = "Not a valid vehicle type!";
+  // }
+  // if (Validator.isEmpty(data.vehicle_types)) {
+  //   errors.vehicle_types = "Enter in a vehicle type!";
+  // }
   if (!spotTypes.includes(data.spot_type)) {
     errors.spot_type = "Not a valid spot_type!";
   }
@@ -128,6 +127,12 @@ module.exports = function validateSpotInput(data) {
   }
   if (Validator.isEmpty(data.rental_type)) {
     errors.rental_type = "Enter in a rental_type!";
+  }
+  if (Validator.isEmpty(data.latitude)) {
+    errors.latitude = "Enter in a latitude!";
+  }
+  if (Validator.isEmpty(data.longitude)) {
+    errors.longitude = "Enter in a longitude!";
   }
   // if (Validator.isEmpty(data.img_url)) {
   //   errors.img_url = "Enter in a img_url !";

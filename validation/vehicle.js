@@ -10,7 +10,7 @@ module.exports = function validateVehicleInput(data) {
   data.model = !isEmpty(data.model) ? data.model : "";
   data.year = !isEmpty(data.year) ? data.year : "";
 
-
+  const vehicleType = ["motorcycle", "compact", "sedan", "truck/full-size"];
   if (Validator.isEmpty(data.vehicle_type)) {
     errors.vehicle_type = "Enter in a vehicle_type!";
   }
@@ -25,6 +25,9 @@ module.exports = function validateVehicleInput(data) {
   }
   if (Validator.isEmpty(data.year)) {
     errors.year = "Enter in a year!";
+  }
+  if (!vehicleType.includes(data.vehicle_type)) {
+    errors.vehicle_types = "Not a valid vehicle type!";
   }
 
 

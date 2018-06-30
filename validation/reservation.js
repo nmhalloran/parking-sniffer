@@ -12,6 +12,8 @@ module.exports = function validateReservationInput(data) {
   data.parker_id = !isEmpty(data.parker_id) ? data.parker_id : "";
   data.seller_id = !isEmpty(data.seller_id) ? data.seller_id : "";
 
+  const status = ["approved","pending","denied"];
+  
   if (Validator.isEmpty(data.start_date)) {
     errors.start_date = "Enter in a start_date!";
   }
@@ -33,7 +35,9 @@ module.exports = function validateReservationInput(data) {
   if (Validator.isEmpty(data.seller_id)) {
     errors.seller_id = "Enter in a seller_id!";
   }
-
+  if (!status.includes(data.booking_status)) {
+    errors.booking_status = "Not a valid booking status!";
+  }
   return {
     errors,
     isValid: isEmpty(errors)

@@ -4,10 +4,12 @@ const Schema = mongoose.Schema;
 // Create Vehicle Schema
 const VehicleSchema = new Schema({
   vehicle_type: {
-    type: String
+    type: String,
+    required:true
   },
   plate_no: {
-    type: String
+    type: String,
+    //unique:true
   },
   color: {
     type: String
@@ -44,7 +46,8 @@ const SpotSchema = new Schema({
   geometry: {
     type: {
       type: String,
-      default: "Point"
+      default: "Point",
+      //unique:true
     },
     coordinates: {
       type: [Number],
@@ -103,14 +106,6 @@ const UserSchema = new Schema({
   avatar: {
     type: String
   },
-// <<<<<<< HEAD
-// =======
-//
-// >>>>>>> navbar
-//   date: {
-//     type: Date,
-//     default: Date.now
-//   },
   profile: {
     bio: {
       type: String
