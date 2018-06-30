@@ -4,9 +4,6 @@ import merge from "lodash/merge";
 
 const VehiclesReducer = (state = {}, action) => {
     Object.freeze(state);
-
-
-
     switch (action.type) {
         case RECEIVE_VEHICLES:
             return action.Vehicles.data.Vehicles;
