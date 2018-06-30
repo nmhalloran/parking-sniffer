@@ -25,7 +25,7 @@ class ShowSpot extends React.Component {
         this.state = props.spot;
 
         // App Academy Coordinates
-        
+
     }
 
 
@@ -45,8 +45,6 @@ class ShowSpot extends React.Component {
             containerElement={<div className="myMapComponent" style={{ height: `362.5px`, width: `600px`, margin: `25px` }} />}
             mapElement={<div style={{ height: `100%` }} />} />
 
-        console.log(this.state.latitude)
-        console.log(this.state.longitude)
 
         return <div>
             <div className="backtosearch">

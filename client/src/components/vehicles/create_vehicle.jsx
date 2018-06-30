@@ -17,18 +17,8 @@ class CreateVehicle extends React.Component {
 
     handleChange(val) {
         return (e) => {
-            //
             if (val === 'vehicle_type') {
-
-                if (this.state.vehicle_type.includes(e.currentTarget.value)) {
-                    let arr = this.state.vehicle_type;
-                    let index = arr.indexOf(e.currentTarget.value);
-
-                    arr.splice(index, 1);
-
-                } else {
-                    this.state.vehicle_types.push(e.currentTarget.value);
-                }
+                this.state.vehicle_type = e.currentTarget.value;
             } else if (val === 'plate_no') {
                 this.state.plate_no = e.currentTarget.value;
             } else if (val === 'color') {
@@ -47,6 +37,7 @@ class CreateVehicle extends React.Component {
        return(
          <div>
            <h1>Add your vehicle details</h1>
+           <form>
              <div>
                <label> Vehicle Type</label>
                <input type="checkbox" id="motorcycle"
@@ -87,6 +78,7 @@ class CreateVehicle extends React.Component {
              </div>
              <input type="submit" onClick={ (e) => this.handleSubmit(e) }
                value="Create Vehicle" />
+           </form>
          </div>
        );
     }
