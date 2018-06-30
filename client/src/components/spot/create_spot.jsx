@@ -36,14 +36,11 @@ class CreateSpot extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
-        console.log(this.state);
-        debugger
         this.props.createSpot(this.state);
     }
 
     handleAddressChange(val) {
-        // 
+        //
         this.renderMap = false;
 
 
@@ -58,21 +55,21 @@ class CreateSpot extends React.Component {
 
     handleChange(val) {
         return (e) => {
-            // 
+            //
             if (val === 'vehicle_type') {
                 // console.log(this.state.vehicle_types)
                 // console.log(e.currentTarget.value)
                 if (this.state.vehicle_types.includes(e.currentTarget.value)) {
                     // this.state.vehicle_types.push(e.currentTarget.value);
-                    // 
+                    //
                     let arr = this.state.vehicle_types
                     let index = arr.indexOf(e.currentTarget.value);
 
                     arr.splice(index, 1)
-                    
+
                 } else {
                     this.state.vehicle_types.push(e.currentTarget.value);
-                    // 
+                    //
                 }
             } else if (val === 'spot_type') {
                 this.state.spot_type = e.currentTarget.value
@@ -101,7 +98,7 @@ class CreateSpot extends React.Component {
         // let axiosRequest = axios.create();
         // axiosRequest.defaults.headers.common['Content-Type'] = 'application/json';
         // delete axiosRequest.defaults.headers.common['Authorization'];
-        // 
+        //
         var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state} + ${this.state.zipcode}`;
         $.ajax({
             method: 'GET',
@@ -119,7 +116,7 @@ class CreateSpot extends React.Component {
         // })
         .then(res => {
             // console.log(res)
-            // 
+            //
             this.lat = res.results[0].geometry.location.lat;
             this.lng = res.results[0].geometry.location.lng;
 
@@ -132,12 +129,12 @@ class CreateSpot extends React.Component {
 
     render() {
         this.geocode();
-        
+
         let renderMap;
-        
+
         if (this.state.line1.length > 0 && this.state.city.length > 0 &&
             this.state.state.length >= 2 && this.state.zipcode.toString().length >= 5 && this.renderMap) {
-            
+
             var MyMapComponent = compose(
                 withStateHandlers(() => ({
                     isMarkerShown: false,
@@ -155,12 +152,12 @@ class CreateSpot extends React.Component {
                 withGoogleMap
             )
                 (props => {
-                    
+
                     // when the map is clicked, a marker is created and lat/lng is stored in this.state
                     if (props.markerPosition) {
                         this.state.latitude = props.markerPosition.lat();
                         this.state.longitude = props.markerPosition.lng();
-                        
+
                     }
 
                     return (
@@ -257,7 +254,8 @@ class CreateSpot extends React.Component {
 
               <div>
                 <label> Rate ($ per term) </label>
-                <input onChange={this.handleChange("rental_rate")} type="number" />
+                <input onChange={this.handleChange("rental_rate")}
+                  type="number" />
               </div>
 
               <div>
@@ -265,11 +263,12 @@ class CreateSpot extends React.Component {
                 <textarea onChange={this.handleChange("description")} />
               </div>
 
-              <input type="submit" onClick={ (e) => this.handleSubmit(e) } value="Create Parking Spot" />
+              <input type="submit" onClick={ (e) => this.handleSubmit(e) }
+                value="Create Parking Spot" />
             </form>
           </div>;
-        
+
     }
-};
+}
 
 export default withRouter(CreateSpot);

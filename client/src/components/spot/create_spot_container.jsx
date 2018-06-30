@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import React from "react";
 
 import { createSpot } from '../../actions/spot_actions';
-import CreateSpot from './create_spot'
+import CreateSpot from './create_spot';
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
             latitude: '',
             longitude: ''
         }
-    })
+    });
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
