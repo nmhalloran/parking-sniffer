@@ -8,9 +8,12 @@ const mapStateToProps = (state, ownProps) => {
   // debugger
   return {
     // spot: state.entities.spots[ownProps.match.params.id], // spot from backend
+    spot2: state,
     spots: state.entities.spots,
     user: state.isAuthenticated.user,
     spot: { // test spot
+      _id: "123654789",
+      owner_id: "1",
       line1: '200',
       line2: 'Battery St.',
       city: 'San Francisco',

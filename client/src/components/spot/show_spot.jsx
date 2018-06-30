@@ -14,28 +14,57 @@ import "./show_spot.css";
 
 class ShowSpot extends React.Component {
 
-    componentWillMount() {
-        this.current_spot = this.props.fetchSpot(this.props.match.params.id);
+    componentDidMount() {
         this.props.fetchSpotsByOwner();
+        this.props.fetchSpot(this.props.match.params.id);
         // console.log(this.props)
-      }
+    }
       
       constructor(props) {
         super(props);
         
         this.currentUser = props.user;
-        this.state = props.spot;
-  
-        // App Academy Coordinates
-        
+        this.currentSpot = Object.assign({}, props.spot);       
+        this.state = {  start_date: '',
+                        end_date: '',
+                        booking_status: 'pending',
+                        vehicle_id: '',
+                        spot_id: this.currentSpot._id,
+                        parker_id: this.currentUser.id,
+                        seller_id: this.currentSpot.owner_id,
+                        optional_msg: ''
+                    }; 
     }
 
+    handleChange (e,val) {
+      switch (val) {
+        case 'from':
+          this.state.start_date = e.currentTarget.value;
+          break;
+
+        case 'to':
+          this.state.end_date = e.currentTarget.value;
+          console.log(this.state)
+          break;
+
+        case 'vehicle':
+          this.state.vehicle_id = e.currentTarget.value;
+          break;
+
+        case 'message':
+          this.state.optional_msg = e.currentTarget.value;
+          break;
+      
+        default:
+          break;
+      }
+    }
 
     render() {
         var MyMapComponent = withScriptjs(withGoogleMap((props) => {
 
-            return <GoogleMap defaultZoom={18} defaultCenter={{ lat: this.state.geometry.coordinates[0], lng: this.state.geometry.coordinates[1] }}>
-                {props.isMarkerShown && <Marker position={{ lat: this.state.geometry.coordinates[0], lng: this.state.geometry.coordinates[1] }} />}
+            return <GoogleMap defaultZoom={18} defaultCenter={{ lat: this.currentSpot.geometry.coordinates[0], lng: this.currentSpot.geometry.coordinates[1] }}>
+                {props.isMarkerShown && <Marker position={{ lat: this.currentSpot.geometry.coordinates[0], lng: this.currentSpot.geometry.coordinates[1] }} />}
               </GoogleMap>;
         }))
 
@@ -61,38 +90,37 @@ class ShowSpot extends React.Component {
               </div>
 
               <div className="ShowSpot-Info">
-                <h3>{this.state.spot_type}</h3>
-                <h5>Allowed: {this.state.vehicle_types.join(", ")}</h5>
+                <h3>{this.currentSpot.spot_type}</h3>
+                <h5>Allowed: {this.currentSpot.vehicle_types.join(", ")}</h5>
                 <h5>
-                  Rate: ${this.state.rental_rate} {this.state.rental_type}
+                  Rate: ${this.currentSpot.rental_rate} {this.currentSpot.rental_type}
                 </h5>
                 <h5>
-                  Address: {this.state.line1} {this.state.line2} <br />
-                  {this.state.city} {this.state.state}, {this.state.zipcode}
+                  Address: {this.currentSpot.line1} {this.currentSpot.line2} <br />
+                  {this.currentSpot.city} {this.currentSpot.currentSpot}, {this.currentSpot.zipcode}
                 </h5>
                 <h5 id="showspot-description">
-                  {this.state.description}
+                  {this.currentSpot.description}
                 </h5>
 
                 <h5>
                   <label> Date: </label>
                   <br />
-                  from <input type="date" />
+                  from <input type="date" onChange={ e => this.handleChange(e, "from") } />
                   <br />
-                  to <input type="date" />
+                  to <input type="date" onChange={ e => this.handleChange(e, "to") } />
                 </h5>
 
                 <h5>
                   <label>Your Vehicle:</label>
                   <br />
-                  <select>
+                  <select onChange={ e => this.handleChange(e, 'vehicle') } >
                     <option hidden value="">
                       --Select One--
                     </option>
-                    {this.state.vehicle_types.map((vehicle, i) => {
+                    {this.currentSpot.vehicle_types.map((vehicle, i) => {
                       return <option key={i} value={vehicle}>
-                          {" "}
-                          {vehicle}{" "}
+                          {vehicle}
                         </option>;
                     })}
                   </select>
@@ -100,14 +128,14 @@ class ShowSpot extends React.Component {
 
                 <h5>
                   <label>Optional Message to Parking Spot Owner:</label>
-                  <textarea />
+                  <textarea onChange={e => this.handleChange(e, 'message') } />
                 </h5>
 
                 <input type="submit" value="Request Parking Spot" />
               </div>
             </div>
 
-            {/* <div>Hello {this.currentUser.name}</div> */}
+           
           </div>;
     }
 
