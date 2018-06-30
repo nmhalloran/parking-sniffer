@@ -35,7 +35,7 @@ export const createSpot = (spot) => (
 export const updateSpot = (spot) => (
     axios({
         method: 'patch',
-        url: `/api/spots/edit/${spot.id}`,
+        url: `/api/users/spots/edit/${spot.id}`,
         data: { spot }
     })
 );
@@ -43,6 +43,6 @@ export const updateSpot = (spot) => (
 export const deleteSpot = (id) => (
     axios({
         method: 'delete',
-        url: `/api/spots/${id}`
+        url: `/api/users/spots/${id}`
     })
 );
