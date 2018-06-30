@@ -55,7 +55,7 @@ receiveSpotsDelayed(){
   if (this.state.range.toString() != '' && this.state.zip.toString().length === 5){
     this.props.fetchSpotsByZip({
       zip:this.state.zip,
-      range: this.state.range})  
+      range: this.state.range})
   }
 }
 
@@ -79,8 +79,57 @@ componentWillReceiveProps(nextProps){
 if(nextProps.zip != this.state.zip){
   this.setState({zip:nextProps.zip})
 }
+
 }
 
+
+filterSpots(spots_arr){
+let filtered_spots_arr = []
+
+if(!this.state.garage){
+  filtered_spots_arr = spots_arr.map((spot)=>(spot.spot_type != 'garage'))
+}
+if(!this.state.openParking){
+  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.spot_type != 'openparking'))
+}
+if(!this.state.underground){
+  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.spot_type != 'openparking'))
+}
+if(!this.state.solar){
+  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.spot_type != 'solar'))
+}
+
+if(!this.state.daily){
+  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.rental_type != 'daily'))
+}
+if(!this.state.weekly){
+  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.rental_type != 'weekly'))
+}
+if(!this.state.monthly){
+  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.rental_type != 'monthly'))
+}
+
+if(!this.state.motorcycle){
+  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.vehicle_types.includes('motorcycle')))
+}
+
+if(!this.state.truck){
+
+}
+if(!this.state.car){
+
+}
+if(!this.state.fullSize){
+
+}
+if(!this.state.compact){
+
+}
+if(!this.state.other){
+
+}
+
+}
 
 toggleSearchDiv(){
   if(this.state.searchDivVisible === 'search-list-filters-off'){
@@ -92,16 +141,12 @@ toggleSearchDiv(){
 
 handleField(e, field){
   this.setState({[field]:e.target.value})
-  console.log((field === 'range' || field === 'zip') + "range + zip")
-
   if(field === 'range' || field === 'zip'){
-
       if(this.timeout){
         clearTimeout(this.timeout)
       }
-      this.timeout = setTimeout(this.receiveSpotsDelayed, 1500)
+      this.timeout = setTimeout(this.receiveSpotsDelayed, 500)
     }
-
 }
 
 handleCheckBox(e){

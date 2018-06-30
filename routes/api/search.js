@@ -86,9 +86,6 @@ router.get("/byzip",
   let allSpots = [];
   let lat = parseFloat(zip.latitude);
   let long = parseFloat(zip.longitude);
-  console.log("Request by zip")
-  console.log("latitude " + lat)
-  console.log("longitude " + long)
   // Gets all users
   User.find()
     .then(users => {
@@ -101,15 +98,11 @@ router.get("/byzip",
       allSpots.forEach(spot => {
         if (spot.geometry.coordinates) {
           let point = spot.geometry.coordinates;
-          console.log(point[0])
-          console.log(point[1])
-          console.log(distance(lat, long, point[1], point[0]))
-          if (distance(lat, long, point[0], point[1]) <= range) {
+          if (distance(lat, long, point[1], point[0]) <= range) {
             newSpots = Object.assign(newSpots, {[spot._id]:spot});
           }
         }
       });
-      console.log(newSpots)
       newSpots = Object.assign(newSpots, { zip:zip.zipcode.toString() }, {range:range});
       res.json({spots:newSpots});
     })
