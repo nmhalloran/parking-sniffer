@@ -1,39 +1,39 @@
 import * as VehicleAPIUtil from '../util/vehicle_api_util';
 
-export const RECEIVE_VEHICLES = 'RECEIVE_VEHICLES';
-export const RECEIVE_VEHICLE = 'RECEIVE_VEHICLE';
-export const REMOVE_VEHICLE = 'REMOVE_VEHICLE';
-export const RECEIVE_VEHICLE_ERRORS = 'RECEIVE_VEHICLE_ERRORS';
+export const RECEIVE_USERS = 'RECEIVE_USERS';
+export const RECEIVE_USER = 'RECEIVE_USER';
+export const REMOVE_USER = 'REMOVE_USER';
+export const RECEIVE_USER_ERRORS = 'RECEIVE_USER_ERRORS';
 
-const receiveVehicles = vehicles => ({
-    type: RECEIVE_VEHICLES,
-    vehicles
+const receiveUsers = users => ({
+    type: RECEIVE_USERS,
+    users
 });
 
-const receiveVehicle = vehicle => ({
-    type: RECEIVE_VEHICLE,
-    vehicle
+const receiveUser = user => ({
+    type: RECEIVE_USER,
+    user
 });
 
-const removeVehicle = (id) => ({
-    type: REMOVE_VEHICLE,
+const removeUser = (id) => ({
+    type: REMOVE_USER,
     id
 });
 
 const receiveErrors = errors => ({
-    type: RECEIVE_VEHICLE_ERRORS,
+    type: RECEIVE_USER_ERRORS,
     errors
 });
 
 export const fetchVehicles = () => dispatch => (
     VehicleAPIUtil.fetchVehicles()
-        .then(vehicles => dispatch(receiveVehicles(vehicles)))
+        .then(user => dispatch(receiveUser(user)))
         .catch(err => console.log(err))
 );
 
 export const fetchVehicle = (id) => dispatch => (
     VehicleAPIUtil.fetchVehicle(id)
-        .then(vehicle => dispatch(receiveVehicle(vehicle)))
+        .then(user => dispatch(receiveUser(user)))
         .catch(err => console.log(err))
 );
 
@@ -41,7 +41,7 @@ export const createVehicle = (vehicle) => dispatch => {
 
     return (
             VehicleAPIUtil.createVehicle(vehicle)
-                .then(vehicleRes => dispatch(receiveVehicle(vehicleRes)))
+                .then(userRes => dispatch(receiveUser(userRes)))
                 .catch(err => console.log(err))
 
 
@@ -51,6 +51,6 @@ export const createVehicle = (vehicle) => dispatch => {
 
 export const deleteVehicle = (id) => dispatch => (
     VehicleAPIUtil.deleteVehicle(id)
-        .then(res => dispatch(removeVehicle(res.id)))
+        .then(res => dispatch(removeUser(res.id)))
         .catch(err => console.log(err))
 );
