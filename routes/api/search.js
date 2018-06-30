@@ -32,8 +32,8 @@ function distance(lat1, lon1, lat2, lon2) {
 }
 
 /// @route  GET api/search/
-// @desc    Show user vehicle
-// @access  Private
+// @desc    Get all spots buy GPS
+// @access  NotPrivate
 
 router.get(
   "/",
@@ -71,6 +71,10 @@ router.get(
   }
 );
 
+/// @route  GET api/search/byzip
+// @desc    Show get all spots by zip
+// @access  NotPrivate
+
 router.get("/byzip",
 // passport.authenticate("jwt", { session: false }) We need to get spots for index page without authentication
 (req, res) => {
@@ -105,6 +109,38 @@ router.get("/byzip",
       });
       newSpots = Object.assign(newSpots, { zip:zip.zipcode.toString() }, {range:range});
       res.json({spots:newSpots});
+    })
+    .catch(err =>
+      res.status(404)({ profile: "You messed up something, bro" })
+    );
+})
+
+/// @route  GET api/search/id
+// @desc    Show spot by id
+// @access  NotPrivate
+
+router.get("/byid",
+// passport.authenticate("jwt", { session: false }) We need to get spot for show page without authentication
+(req, res) => {
+  let spotId = req.query.id
+  let allSpots = [];
+
+  // Gets all users
+  User.find()
+    .then(users => {
+      users.forEach(user => {
+        // Creates array of spots
+        allSpots = allSpots.concat(user.spots);
+      });
+      let spot = allSpots.filter((spot)=>(spot._id.toString() === spotId))
+      let response
+      if (spot.length === 0){
+        res.status(404)
+        response = { error:`Parking spot ${spotId} was not found.` }
+      }else{
+        response = spot[0]
+      }
+        res.json(response);
     })
     .catch(err =>
       res.status(404)({ profile: "You messed up something, bro" })
