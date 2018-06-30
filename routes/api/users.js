@@ -160,6 +160,7 @@ router.post(
 
     User.findOne({ _id: req.user.id }).then(user => {
       const newSpot = {
+        seller_id: req.user.id,
         geometry: {
           coordinates: [req.body.longitude, req.body.latitude]
         },
@@ -299,6 +300,7 @@ router.get(
           // Creates array of spots
           allSpots = allSpots.concat(user.spots);
         });
+        console.log(allSpots);
         res.json(allSpots);
       })
       .catch(err => res.status(404)({ spot: "There is no spot for user" }));

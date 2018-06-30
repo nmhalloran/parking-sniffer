@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import EmptyProfilePage from "./empty_profile_page.jsx";
-import SpotsIndexPage from "./spots_index_page.jsx";
-import ReservationsIndexPage from "./reservations_index_page.jsx";
-import VehiclesIndexPage from "./vehicles_index_page.jsx";
+import EmptyProfilePage from "./empty_profile_page";
+import SpotsIndexPage from "./spots_index_page";
+import ReservationsIndexPage from "./reservations_index_page";
+import VehiclesIndexPage from "./vehicles_index_page";
 
 class BuyerOrSeller extends React.Component {
   render() {
@@ -22,6 +22,8 @@ class BuyerOrSeller extends React.Component {
       return (
         <div>
           <SpotsIndexPage spots={user.spots} />
+          <VehiclesIndexPage vehicles={user.vehicles} />
+          <ReservationsIndexPage reservations={user.reservations} />
         </div>
       );
     }

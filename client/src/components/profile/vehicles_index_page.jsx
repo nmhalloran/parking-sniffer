@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 
 class VehicleIndexPage extends React.Component {
   render() {
+    const { vehicles } = this.props;
     return (
       <div>
-        <div>You have no cars. No wheel-having bitch.</div>
+        <div className="profile-section-container">
+          You have {vehicles.length} Vehicles!
+        </div>
       </div>
     );
   }

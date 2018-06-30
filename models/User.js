@@ -5,10 +5,10 @@ const Schema = mongoose.Schema;
 const VehicleSchema = new Schema({
   vehicle_type: {
     type: String,
-    required:true
+    required: true
   },
   plate_no: {
-    type: String,
+    type: String
     //unique:true
   },
   color: {
@@ -24,6 +24,10 @@ const VehicleSchema = new Schema({
 
 // Create Spot Schema
 const SpotSchema = new Schema({
+  seller_id: {
+    type: Schema.Types.ObjectId,
+    ref: "users"
+  },
   line1: {
     type: String,
     required: true
@@ -46,7 +50,7 @@ const SpotSchema = new Schema({
   geometry: {
     type: {
       type: String,
-      default: "Point",
+      default: "Point"
       //unique:true
     },
     coordinates: {
