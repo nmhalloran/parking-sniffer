@@ -6,7 +6,7 @@ class SpotsIndexItem extends React.Component {
     let spot = this.props.spot;
 
     return (
-      <li key={spot.id} className="item-container">
+      <li className="item-container">
         <Link to={`/spots/${spot._id}`}>{spot.description}</Link>
         {/* <h3 className="indexed-title-text">{spot.description}</h3> */}
       </li>
