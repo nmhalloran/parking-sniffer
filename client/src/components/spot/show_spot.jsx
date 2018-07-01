@@ -27,6 +27,8 @@ class ShowSpot extends React.Component {
       seller_id: "",
       optional_msg: ""
     };
+
+
   }
 
   componentWillMount() {
@@ -37,6 +39,7 @@ class ShowSpot extends React.Component {
     //Erasing any errors...
     this.props.clearErrors();
   }
+  
 
   handleChange(e, val) {
     switch (val) {
