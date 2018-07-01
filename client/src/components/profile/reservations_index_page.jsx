@@ -1,17 +1,19 @@
 import React from "react";
+import ReservationsIndexItem from "./reservations_index_item";
 import { Link } from "react-router-dom";
 
-class ReservationIndexPage extends React.Component {
-  const;
+class ReservationsIndexPage extends React.Component {
   render() {
-    return (
-      <div>
-        <div className="profile-section-container">
-          Spots for days. you have {this.props.spots.length} spots!
-        </div>
-      </div>
-    );
+    const { reservations } = this.props;
+    if (reservations.length > 0) {
+      let bookings = reservations.map((reservation, i) => {
+        return <ReservationsIndexItem reservation={reservation} />;
+      });
+      return bookings;
+    } else {
+      return <div>You currently have no reservations</div>;
+    }
   }
 }
 
-export default ReservationIndexPage;
+export default ReservationsIndexPage;

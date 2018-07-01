@@ -1,15 +1,13 @@
 import React from "react";
+import SpotsIndexItem from "./spots_index_item";
 import { Link } from "react-router-dom";
 
 class SpotsIndexPage extends React.Component {
   render() {
-    return (
-      <div>
-        <div className="profile-section-container">
-          Spots for days. you have {this.props.spots.length} spots!
-        </div>
-      </div>
-    );
+    let spots = this.props.spots.map((spot, i) => {
+      return <SpotsIndexItem spot={spot} />;
+    });
+    return spots;
   }
 }
 
