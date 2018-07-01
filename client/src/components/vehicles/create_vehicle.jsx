@@ -12,7 +12,7 @@ class CreateVehicle extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.createSpot(this.state);
+        this.props.createVehicle(this.state);
     }
 
     handleChange(val) {

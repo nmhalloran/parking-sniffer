@@ -8,6 +8,8 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Landing from "./components/layout/Landing";
 import CreateSpotContainer from "./components/spot/create_spot_container";
+import CreateVehicleContainer from "./components/vehicles/create_vehicle_container";
+import ShowVehicleContainer from "./components/vehicles/show_vehicle_container";
 import EditSpotContainer from "./components/spot/edit_spot_container";
 import ShowSpotContainer from "./components/spot/show_spot_container";
 import SearchListContainer from "./components/search_list/search_list_container";
@@ -30,6 +32,8 @@ const App = () => (
     <Route exact path="/spots/edit/:id" component={EditSpotContainer} />
     <Route exact path="/showspot" component={ShowSpotContainer} />
     <Route exact path="/user/profile" component={ProfileContainer} />
+    <Route exact path="/vehicle/new" component={CreateVehicleContainer} />
+    <Route exact path="/vehicles/:id" component={ShowVehicleContainer} />
 
   </Switch>
       <Route path="/" component={Footer} />

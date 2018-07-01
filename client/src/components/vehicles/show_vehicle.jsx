@@ -3,7 +3,7 @@ import axios from "axios";
 import ReactDOM from "react-dom";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+//import { LOADING_GIF } from '../../img/index';
 class ShowVehicle extends React.Component{
   constructor(props) {
       super(props);
@@ -13,13 +13,30 @@ class ShowVehicle extends React.Component{
 
   }
   componentDidMount() {
-      this.props.fetchVehicle(this.props.match.params.id);
+      this.props.fetchVehicle(this.props.VehicleId);
   }
   handleDelete(e){
     this.props.deleteVehicle(this.props.match.params.id);
   }
+  componentWillUnmount(){
+  //Erasing any errors...
+  this.props.clearErrors();
 
+  }
   render(){
+    if(!this.props.vehicle && this.props.errors.length > 0){
+      //No spot available and some error occured...
+      return(<div className="search-list-loading">
+
+              <span>Sorry, error occured.</span>
+              </div>);
+
+    }else if(!this.props.vehicle){
+      //Waiting for backend to send back our spot...
+     return(<div className="search-list-loading">
+             <span>One moment please...</span>
+             </div>);
+    }else{
     return (
       <div>
         <h1>Vehicle Show Page</h1>
@@ -34,4 +51,7 @@ class ShowVehicle extends React.Component{
       </div>
     );
   }
+  }
 }
+
+export default ShowVehicle;
