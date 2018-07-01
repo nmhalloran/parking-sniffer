@@ -122,7 +122,8 @@ const UserSchema = new Schema({
 
   spots: [SpotSchema],
 
-  vehicles: [VehicleSchema]
+  vehicles: [VehicleSchema],
+  
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

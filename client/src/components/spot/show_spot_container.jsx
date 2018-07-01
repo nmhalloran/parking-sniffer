@@ -8,7 +8,7 @@ import { clearErrors } from '../../actions/errors_actions';
 const mapStateToProps = (state, ownProps) => (
   {
     spotId: ownProps.match.params.id,
-      spot: state.entities.spots[ownProps.match.params.id],
+    spot: state.entities.spots[ownProps.match.params.id],
     user: state.isAuthenticated.user,
     isAuthenticated: state.isAuthenticated.isAuthenticated,
     errors: Object.values(state.errors)
