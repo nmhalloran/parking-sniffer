@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ProfileParkingItem from "./profile_parking_item";
 import "./profile.css";
+import "./random.css";
 import BuyerOrSeller from "./buyer_or_seller.jsx";
 
 class Profile extends React.Component {
@@ -13,7 +14,6 @@ class Profile extends React.Component {
 
     this.currentUser = props.user;
     this.spots = props.spots;
-
   }
 
   render() {
@@ -22,15 +22,8 @@ class Profile extends React.Component {
         <div id="user-profile-nav">
           <h4>Hello, {this.currentUser.name}!</h4>
           <div>
-            <BuyerOrSeller
-              user={this.currentUser}
-            />
+            <BuyerOrSeller user={this.currentUser} />
           </div>
-        </div>
-
-        <div id="user-profile-spots-requests">
-          <div>My Parking Spots</div>
-          <div> My Requests </div>
         </div>
 
         <div id="user-parking-spots">

@@ -27,9 +27,10 @@ const App = () => (
       <Route exact path="/signin" component={SignInContainer} />
       <Route exact path="/spots/new" component={CreateSpotContainer} />
       <Route exact path="/spots/edit/:id" component={EditSpotContainer} />
-      <Route exact path="/spots/:id" component={ShowSpotContainer} />
+      <ProtectedRoute exact path="/spots/:id" component={ShowSpotContainer} />
       <Route exact path="/vehicle/new" component={CreateVehicleContainer} />
       <Route exact path="/vehicles/:id" component={ShowVehicleContainer} />
+      <Route exact path="/search" component={SearchListContainer} />
       <ProtectedRoute exact path="/user/profile" component={ProfileContainer} />
       <AuthRoute exact path="/" component={SearchListContainer} />
       <Redirect from="/*" to="/" />
