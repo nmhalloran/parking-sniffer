@@ -29,7 +29,7 @@ class ShowSpot extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     //requesting spot from backend...
     this.props.fetchSpot(this.props.spotId);
   }
@@ -59,6 +59,10 @@ class ShowSpot extends React.Component {
       default:
         break;
     }
+  }
+
+  handleDelete(e) {
+    this.props.deleteSpot(this.props.spotId);
   }
 
   handleSubmit(e) {
@@ -153,9 +157,17 @@ class ShowSpot extends React.Component {
             <input type="button" value="Edit Spot" />
           </Link>
         );
+
+        var renderDelete = (
+          <input type="button" onClick={ e => this.handleDelete(e)} value="Delete Spot" />
+        )
       } else {
-        renderEdit = (
+        var renderEdit = (
           <div>can't edit</div>
+        )
+
+        var renderDelete = (
+          <div>can't delete</div>
         )
       }
 
@@ -229,6 +241,8 @@ class ShowSpot extends React.Component {
               />
               
               {renderEdit}
+
+              {renderDelete}
             </div>
 
 

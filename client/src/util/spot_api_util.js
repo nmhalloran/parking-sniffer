@@ -51,6 +51,6 @@ export const updateSpot = (spot) => (
 export const deleteSpot = (id) => (
     axios({
         method: 'delete',
-        url: `/api/users/spots/${id}`
+        url: `/api/users/spot/${id}`
     })
 );

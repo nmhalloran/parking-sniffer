@@ -6,7 +6,7 @@ import { clearErrors } from "../../actions/errors_actions";
 import EditSpot from './edit_spot'
 
 const mapStateToProps = (state, ownProps) => {
-    debugger
+    // debugger
     return ({
         spot: state.entities.spots[ownProps.match.params.id], //request spot from backend
         spotId: ownProps.match.params.id,
