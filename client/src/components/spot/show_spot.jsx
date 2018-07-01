@@ -26,10 +26,7 @@ class ShowSpot extends React.Component {
       seller_id: "",
       optional_msg: ""
     };
-<<<<<<< HEAD
     // debugger;
-=======
->>>>>>> brokenres
   }
 
   componentWillMount() {

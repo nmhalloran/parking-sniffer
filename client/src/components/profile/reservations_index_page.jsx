@@ -11,10 +11,13 @@ class ReservationsIndexPage extends React.Component {
   componentDidMount() {
     this.props.fetchReservations(this.props.spotId);
   }
+  componentWillMount() {
+    this.props.fetchReservations(this.props.spotId);
+  }
 
   render() {
     console.log(this.props.reservations, "What is here outside filter?");
-    if (this.props.reservations) {
+    if (this.props.reservations.length > 0) {
       let reservations = this.props.reservations.filter(reservation => {
         reservation.spot_id === this.props.spotId;
       });
