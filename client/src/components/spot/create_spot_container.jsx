@@ -7,7 +7,7 @@ import CreateSpot from './create_spot'
 const mapStateToProps = (state, ownProps) => {
 
     return ({
-        
+
     })
 };
 
