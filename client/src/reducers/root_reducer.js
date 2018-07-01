@@ -11,4 +11,4 @@ const rootReducer =  combineReducers({
   isAuthenticated: authReducer
 });
 
-export default rootReducer
+export default rootReducer;

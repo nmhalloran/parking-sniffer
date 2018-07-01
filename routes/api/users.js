@@ -267,7 +267,7 @@ router.get(
 );
 
 /// @route  GET api/users/myspots
-// @desc    gets all of a user's vehicles
+// @desc    gets all of a user's spots
 // @access  Private
 
 router.get(
@@ -371,7 +371,7 @@ router.post(
 );
 
 // delete a vehicle
-// @route   POST api/users/vehicles/:id
+// @route   DELETE api/users/vehicles/:id
 // @desc    Delete vehicle
 // @access  Private
 
