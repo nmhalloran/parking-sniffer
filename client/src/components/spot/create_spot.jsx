@@ -99,8 +99,9 @@ class CreateSpot extends React.Component {
         spot.img_url = this.state.img_url
         spot.latitude = this.state.latitude
         spot.longitude = this.state.longitude
-        
-        this.props.createSpot(spot);
+
+        this.props.createSpot(spot).then((res)=>this.props.history
+        .push(`/spots/${res.spot.data.spots[0]._id}`));
         // debugger
         this.setState({
           line1: "",
@@ -137,9 +138,9 @@ class CreateSpot extends React.Component {
     handleChange(val) {
         return (e) => {
             //
-            
+
             if (val === 'vehicle_type') {
-   
+
                 if (this.state.vehicle_types.includes(e.currentTarget.value)) {
 
                     let arr = this.state.vehicle_types
