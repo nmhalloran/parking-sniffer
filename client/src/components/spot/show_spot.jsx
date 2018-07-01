@@ -72,6 +72,17 @@ render() {
     // console.log(this.state.latitude)
     // console.log(this.state.longitude)
 
+    let imageStyle
+
+    if (this.props.spot.img_url != null){
+      imageStyle = {
+        backgroundImage: `url('${this.props.spot.img_url}')`,
+        backgroundRepeat  : 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        };
+      }
+
     return (<div>
         <div className="backtosearch">
           <div>{"<<Back to Search"}</div>
@@ -79,8 +90,9 @@ render() {
 
         <div className="ShowSpot">
           <div className="Image-Map">
-            <div id="showspot-image" />
-            {/* <div id="showspot-map" /> */}
+            <div className="show-spot-main-img" style={imageStyle}>
+              
+            </div>
             {renderMap}
           </div>
 

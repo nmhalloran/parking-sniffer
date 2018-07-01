@@ -18,7 +18,8 @@ const msp = (state, ownProps) => {
     spots: state.entities.spots,
     zip: state.entities.spots.zip,
     range: state.entities.spots.range,
-    indexfirstload: indexfirstload
+    indexfirstload: indexfirstload,
+    listingsQuantity:5,
   };
 };
 

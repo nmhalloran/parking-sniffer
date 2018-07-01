@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 const SpotIndexItem = (props) => {
 
 
-  let recipeItemBgImgStyle = {
-    // backgroundImage: "url(" + recipe.main_picture_url  + ")",
+  let spotItemBgImgStyle = {
+    backgroundImage: "url(" + props.spot.img_url  + ")",
   };
 //Structure
 // city:"SanFrancisco"
@@ -20,12 +20,16 @@ const SpotIndexItem = (props) => {
 // vehicle_types:[]
 // zipcode:94105
 // _id:"5b36d9aa8ec33babea85fb4e"
-
 return(
 <Link className="" to={`/spots/${props.spot._id}`}>
-  <div className=""  >
-    <div className="recipe-item-img" style={ recipeItemBgImgStyle }>
+  <div className="spot-index-box"  >
+
+    <div className="recipe-item-img" style={ spotItemBgImgStyle }>
       {props.spot.city}
+      {props.spot.rental_rate}
+      {props.spot.rental_type}
+      {props.spot.city}
+      {props.spot.state}
 
     </div>
   </div>

@@ -44,6 +44,7 @@ this.state = {
   zip: this.props.zip,
   spots:[],
   allSpots:[],
+  listingsQuantity: this.props.listingsQuantity
 }
 
 //If this.props.entities.spots.indexloading === true, no response from server was received.
@@ -53,6 +54,7 @@ this.handleCheckBox = this.handleCheckBox.bind(this)
 this.handleField = this.handleField.bind(this)
 this.receiveSpotsDelayed = this.receiveSpotsDelayed.bind(this)
 this.filterSpots = this.filterSpots.bind(this)
+this.loadMore = this.loadMore.bind(this)
 }
 
 receiveSpotsDelayed(){
@@ -205,9 +207,26 @@ handleCheckBox(e){
   }
 }
 
+loadMore(){
+  let tempQuantity = this.state.listingsQuantity
+  tempQuantity = tempQuantity + 5
+  this.setState({listingsQuantity:tempQuantity})
+}
+
 render(){
 
-console.log(this.props.indexfirstload)
+  let listingsOnMain =[]
+    for (let i = 0; i < this.state.listingsQuantity; i++) {
+      if (this.state.spots[i] !== undefined){
+        listingsOnMain.push(this.state.spots[i])
+      }
+    }
+
+  let noSearchResults = false
+    if(listingsOnMain.length === 0){
+      noSearchResults = true
+    }
+
 console.log(this.state)
   return(<div>
 
@@ -270,14 +289,25 @@ console.log(this.state)
 
           {this.props.indexfirstload ? (
             <div className="search-list-loading">
-
                 <Image className="search-list-loading-gif" src={ LOADING_GIF } />
               <span>One moment please...</span>
 
             </div>
-          ) : (
-            this.state.spots.map((spot,idx)=>(<SpotIndexItem key={idx} spot={spot}/>))
-          )}
+          ) : (<div>
+                {noSearchResults ? (
+                    <div className="search-list-no-results">
+                        <span>No parking spots were found meeting your search criteria.</span>
+                        <span>Try to change filters or extend search range</span>
+                    </div>
+                    ) : (
+                    <div className="search-list-container">
+                      {listingsOnMain.map((spot,idx)=>(<SpotIndexItem key={idx} spot={spot}/>))}
+                      <button className="search-list-load-more" onClick={()=>this.loadMore()}>Load more</button>
+                    </div>
+                  )}
+
+
+                </div>)}
 
 
         </div>)
