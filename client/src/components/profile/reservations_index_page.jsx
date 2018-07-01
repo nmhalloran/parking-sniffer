@@ -7,7 +7,7 @@ class ReservationIndexPage extends React.Component {
     return (
       <div>
         <div className="profile-section-container">
-          Spots for days. you have {this.props.spots.length} spots!
+          {/* Spots for days. you have {this.props.spots.length} spots! */}
         </div>
       </div>
     );

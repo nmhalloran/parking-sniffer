@@ -16,7 +16,7 @@ module.exports = async function overlappingRequests(data,req_spot_id){
   return new Promise((res,rej)=>{
     Reservation.find({spot_id: data.spot_id,booking_status:'accepted'})
     .then(reservations=>{
-
+      console.log(reservations)
       reservations.forEach((el)=>{
         if(Date.parse(el.start_date)==start_date || Date.parse(el.end_date)==start_date){
           res(true);

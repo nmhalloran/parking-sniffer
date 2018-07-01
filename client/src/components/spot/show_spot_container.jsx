@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import React from "react";
 
 import { fetchSpotById } from "../../actions/spot_actions";
+import { createReservation } from '../../actions/reservation_actions'
 import ShowSpot from "./show_spot";
 import { clearErrors } from '../../actions/errors_actions';
 const mapStateToProps = (state, ownProps) => (
@@ -38,6 +39,7 @@ const mapStateToProps = (state, ownProps) => (
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchSpotById: id => dispatch(fetchSpotById(id)),
   clearErrors: () => dispatch(clearErrors()),
+  createReservation: (spot_id, data) => dispatch(createReservation(spot_id, data))
 });
 
 export default connect(

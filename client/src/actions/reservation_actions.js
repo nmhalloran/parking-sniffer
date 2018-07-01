@@ -37,8 +37,8 @@ export const fetchReservation = (id) => dispatch => (
         .catch(err => console.log(err))
 )
 
-export const createReservation = (reservation) => dispatch => (
-    ReservationAPIUtil.createReservation(reservation)
+export const createReservation = (spot_id, reservation) => dispatch => (
+    ReservationAPIUtil.createReservation(spot_id, reservation)
         .then(res => dispatch(receiveReservation(res)))
         .catch(err => console.log(err))
 )

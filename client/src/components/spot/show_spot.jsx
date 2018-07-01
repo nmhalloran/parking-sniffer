@@ -62,11 +62,15 @@ handleChange(e, val) {
 }
 
 handleSubmit(e) {
+        this.state.seller_id = this.props.spot.seller_id
     console.log(this.state);
         if (this.state.start_date === '' || this.state.end_date === '' || this.state.vehicle_id === '') {
             alert('please fill in required inputs')
         } else {
-            this.props.createReservation(this.state);
+            debugger
+            this.props.createReservation(this.props.spotId, this.state)
+              .then(res => console.log(res))
+              .catch(err => console.log(err))
         }
 }
 
