@@ -173,8 +173,8 @@ router.post(
         vehicle_types: req.body.vehicle_types,
         spot_type: req.body.spot_type,
         rental_rate: req.body.rental_rate,
-        rental_type: req.body.rental_type
-        // img_url: req.body.img_url
+        rental_type: req.body.rental_type,
+        img_url: req.body.img_url
       };
       // Add to spots array
       user.spots.unshift(newSpot);

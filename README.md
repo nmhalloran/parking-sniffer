@@ -84,3 +84,5 @@ Alfred Alejandrino, Maxim Grebennikov, Nick Halloran, Meenakshi Anand Narayan
 
 * Test the application for errors and deploy the app to heroku
 * Complete the project README
+
+demo user credentials : demomail@gmail.com , 111111
