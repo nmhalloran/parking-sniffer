@@ -253,6 +253,7 @@ handleCheckBox(e){
       })
       }
     }
+
   }
 }
 
