@@ -136,6 +136,16 @@ class ShowSpot extends React.Component {
 
       // console.log(this.state.latitude)
       // console.log(this.state.longitude)
+      let imageStyle;
+
+      if (this.props.spot.img_url != null) {
+        imageStyle = {
+          backgroundImage: `url('${this.props.spot.img_url}')`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover"
+        };
+      }
 
       return (
         <div>
@@ -145,8 +155,7 @@ class ShowSpot extends React.Component {
 
           <div className="ShowSpot">
             <div className="Image-Map">
-              <div id="showspot-image" />
-              {/* <div id="showspot-map" /> */}
+              <div className="show-spot-main-img" style={imageStyle} />
               {renderMap}
             </div>
 
