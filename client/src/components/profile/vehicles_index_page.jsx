@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import VehiclesIndexItem from "./vehicle_index_item";
-import ReservationsIndexPage from "./reservations_index_page";
 class VehicleIndexPage extends React.Component {
   render() {
     const { vehicles } = this.props;
@@ -12,7 +11,6 @@ class VehicleIndexPage extends React.Component {
           <div>
 
           <VehiclesIndexItem key={vehicle._id} vehicle={vehicle} />
-          <ReservationsIndexPage reservations={user.reservations} />
 
           </div>
         );

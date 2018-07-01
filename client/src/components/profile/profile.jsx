@@ -13,7 +13,7 @@ class Profile extends React.Component {
 
     this.currentUser = props.user;
     this.spots = props.spots;
-    // this.reservations = props.reservations;
+
   }
 
   render() {
@@ -24,8 +24,6 @@ class Profile extends React.Component {
           <div>
             <BuyerOrSeller
               user={this.currentUser}
-              fetchReservations={this.props.fetchReservations}
-              reservations={this.props.reservations}
             />
           </div>
         </div>

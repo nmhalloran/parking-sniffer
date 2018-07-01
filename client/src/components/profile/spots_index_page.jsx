@@ -9,8 +9,6 @@ class SpotsIndexPage extends React.Component {
         <SpotsIndexItem
           key={spot._id}
           spot={spot}
-          fetchReservations={this.props.fetchReservations}
-          reservations={this.props.reservations}
         />
       );
     });

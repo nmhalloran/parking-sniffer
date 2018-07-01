@@ -13,7 +13,7 @@ class BuyerOrSeller extends React.Component {
     if (!user.spots && !user.vehicles) {
       return (
         <div>
-          {/* <SearchListContainer /> */}
+          <SearchListContainer />
           <EmptyProfilePage />;
         </div>
       );
@@ -21,7 +21,7 @@ class BuyerOrSeller extends React.Component {
       return (
         <div>
           <div>
-            {/* <SearchListContainer /> */}
+            <SearchListContainer />
             <VehiclesIndexPage vehicles={user.vehicles} />
           </div>
         </div>
@@ -29,21 +29,15 @@ class BuyerOrSeller extends React.Component {
     } else {
       return (
         <div>
-          {/* <SearchListContainer /> */}
+          <SearchListContainer />
 
           <div className="index-wrapper">
-            <SpotsIndexPage
-              spots={user.spots}
-              fetchReservations={this.props.fetchReservations}
-              reservations={this.props.reservations}
-            />
+            <SpotsIndexPage spots={user.spots}/>
           </div>
           <div>
             <VehiclesIndexPage vehicles={user.vehicles} />
           </div>
-          {/* <div>
-            <ReservationsIndexPage reservations={user.reservations} />
-          </div> */}
+
         </div>
       );
     }
