@@ -8,7 +8,12 @@ class VehicleIndexPage extends React.Component {
     if (vehicles.length > 0) {
       let cars = vehicles.map((vehicle, i) => {
         console.log(vehicles);
-        return <VehiclesIndexItem key={vehicle._id} vehicle={vehicle} />;
+        return (
+          <div>
+            <VehiclesIndexItem key={vehicle._id} vehicle={vehicle} />;
+            {/* <ReservationsIndexPage reservations={user.reservations} /> */}
+          </div>
+        );
       });
       return cars;
     } else {
