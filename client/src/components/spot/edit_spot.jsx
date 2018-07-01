@@ -1,5 +1,6 @@
 import React from "react";
 import $ from "jquery";
+import Image from "react-image";
 import { withRouter } from "react-router-dom";
 import { compose, withStateHandlers } from "recompose";
 import {
@@ -8,15 +9,14 @@ import {
   GoogleMap,
   Marker
 } from "react-google-maps";
-
+import { LOADING_GIF } from "../../img/index";
 import "./edit_spot.css";
-import { fetchSpot } from "../../util/spot_api_util";
 
 class EditSpot extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = props.spot;
+    this.state = Object.assign({}, props.spot);
 
     this.lat = 37.798965;
     this.lng = -122.4013603;
@@ -32,11 +32,28 @@ class EditSpot extends React.Component {
     this.renderMap = true;
 
     this.timeout = undefined;
+
   }
 
   componentDidMount() {
-    // debuggers
-    this.props.fetchSpot(this.props.match.params.id);
+    //requesting spot from backend...
+    this.props.fetchSpotById(this.props.spotId);
+  }
+
+  componentWillUnmount() {
+    //Erasing any errors...
+    this.props.clearErrors();
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    this.state._id = this.props.spotId;
+    this.state.seller_id = this.props.user.id;
+
+    // debugger
+
+    this.props.updateSpot(this.state);
   }
 
   handleAddressChange(val) {
@@ -55,10 +72,27 @@ class EditSpot extends React.Component {
 
   handleChange(val) {
     return e => {
-      // debugger
-      if (val === "description") {
-        this.state.description = e.currentTarget.value;
+      if (this.timeout) { clearTimeout(this.timeout) }
+      
+      if (val === "vehicle_type") {
+        if (this.state.vehicle_types.includes(e.currentTarget.value)) {
+
+          let arr = this.state.vehicle_types
+          let index = arr.indexOf(e.currentTarget.value);
+
+          arr.splice(index, 1)
+
+        } else {
+          this.state.vehicle_types.push(e.currentTarget.value);
+        }
+
+        this.forceUpdate();
+      } else {
+
+        this.setState({ [val]: e.currentTarget.value });
       }
+
+      this.timeout = setTimeout(this.renderMapAfterTime, 1500);
     };
   }
 
@@ -68,13 +102,7 @@ class EditSpot extends React.Component {
   }
 
   geocode() {
-    // var location = '825 battery st. sf, ca';
-    // let axiosRequest = axios.create();
-    // axiosRequest.defaults.headers.common['Content-Type'] = 'application/json';
 
-    // debugger
-    // var auth = axiosRequest.defaults.headers.common["Authorization"];
-    // delete axiosRequest.defaults.headers.common['Authorization'];
     var location = `${this.state.line1} + ${this.state.line2} + ${
       this.state.city
     } + ${this.state.state} + ${this.state.zipcode}`;
@@ -104,249 +132,247 @@ class EditSpot extends React.Component {
   }
 
   render() {
-    this.geocode();
-
     let renderMap;
 
-    if (
-      this.state.line1.length > 0 &&
-      this.state.city.length > 0 &&
-      this.state.state.length >= 2 &&
-      this.state.zipcode.toString().length >= 5 &&
-      this.renderMap
-    ) {
-      var MyMapComponent = compose(
-        withStateHandlers(
-          () => ({
-            isMarkerShown: false,
-            markerPosition: null
-          }),
-          {
-            onMapClick: ({ isMarkerShown }) => e => {
-              // console.log(this)
-              return {
-                markerPosition: e.latLng,
-                isMarkerShown: true
-              };
+    if (this.state) {
+      this.geocode();
+
+  
+      if (
+        this.state.line1.length > 0 &&
+        this.state.city.length > 0 &&
+        this.state.state.length >= 2 &&
+        this.state.zipcode.toString().length >= 5 &&
+        this.renderMap
+      ) {
+        var MyMapComponent = compose(
+          withStateHandlers(
+            () => ({
+              isMarkerShown: false,
+              markerPosition: null
+            }),
+            {
+              onMapClick: ({ isMarkerShown }) => e => {
+                // console.log(this)
+                return {
+                  markerPosition: e.latLng,
+                  isMarkerShown: true
+                };
+              }
             }
+          ),
+          withScriptjs,
+          withGoogleMap
+        )(props => {
+          // when the map is clicked, a marker is created and lat/lng is stored in this.state
+          if (props.markerPosition) {
+            this.state.latitude = props.markerPosition.lat();
+            this.state.longitude = props.markerPosition.lng();
+  
+            console.log(this.state);
           }
-        ),
-        withScriptjs,
-        withGoogleMap
-      )(props => {
-        // when the map is clicked, a marker is created and lat/lng is stored in this.state
-        if (props.markerPosition) {
-          this.state.latitude = props.markerPosition.lat();
-          this.state.longitude = props.markerPosition.lng();
-
-          //tests out lat/lng coordinates
-          // console.log("latitude:");
-          // console.log(this.state.latitude);
-          // console.log("longitude:");
-          // console.log(this.state.longitude);
-          console.log(this.state);
-        }
-
-        return (
-          <GoogleMap
-            defaultZoom={18}
-            defaultCenter={{ lat: this.lat, lng: this.lng }}
-            onClick={props.onMapClick}
-          >
-            {props.isMarkerShown && <Marker position={props.markerPosition} />}
-          </GoogleMap>
+  
+          return (
+            <GoogleMap
+              defaultZoom={18}
+              defaultCenter={{ lat: this.lat, lng: this.lng }}
+              onClick={props.onMapClick}
+            >
+              {props.isMarkerShown && <Marker position={props.markerPosition} />}
+            </GoogleMap>
+          );
+        });
+  
+        renderMap = (
+          <MyMapComponent
+            isMarkerShown
+            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg"
+            loadingElement={<div style={{ height: `100%` }} />}
+            containerElement={
+              <div
+                className="myMapComponent"
+                style={{ height: `400px`, width: `800px` }}
+              />
+            }
+            mapElement={<div style={{ height: `100%` }} />}
+          />
         );
-      });
+      } else {
+        renderMap = (
+          <h5
+            className="noMapComponent"
+            style={{ height: `400px`, width: `800px` }}
+          />
+        );
+      }
 
-      renderMap = (
-        <MyMapComponent
-          isMarkerShown
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg"
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={
-            <div
-              className="myMapComponent"
-              style={{ height: `400px`, width: `800px` }}
-            />
-          }
-          mapElement={<div style={{ height: `100%` }} />}
-        />
+
+      return (
+
+        <div>
+          <h4> Edit a Parking Spot </h4>
+  
+          <form>
+            <button>Upload Image</button>
+            <div className="Address">
+              <label> Address: </label>
+              <div id="building-street">
+                <input
+                  type="text"
+                  placeholder="Building"
+                  onChange={this.handleAddressChange("line1")}
+                  value={this.state.line1}
+                />
+                <input
+                  type="text"
+                  placeholder="Street"
+                  onChange={this.handleAddressChange("line2")}
+                  value={this.state.line2}
+                />
+              </div>
+              <div id="city-state-zip">
+                <input
+                  type="text"
+                  placeholder="City/Town"
+                  onChange={this.handleAddressChange("city")}
+                  value={this.state.city}
+                />
+                <input
+                  type="text"
+                  placeholder="State"
+                  onChange={this.handleAddressChange("state")}
+                  value={this.state.state}
+                />
+                <input
+                  type="number"
+                  placeholder="Zip Code"
+                  onChange={this.handleAddressChange("zipcode")}
+                  value={this.state.zipcode}
+                />
+              </div>
+            </div>
+  
+            {renderMap}
+  
+            <div id="fixed">
+  
+              <div>
+                <label> Vehicle Types Allowed </label>
+                <input
+                  type="checkbox"
+                  id="motorcycle"
+                  name="vehicletype"
+                  value="motorcycle"
+                  checked={this.state.vehicle_types.includes('motorcycle')}
+                  onClick={this.handleChange("vehicle_type")}
+                />
+                <label htmlFor="motorcycle">Motorcycle</label>
+  
+                <input
+                  type="checkbox"
+                  id="compact"
+                  name="vehicletype"
+                  value="compact"
+                  checked={this.state.vehicle_types.includes('compact')}
+                  onClick={this.handleChange("vehicle_type")}
+                />
+                <label htmlFor="compact">Compact</label>
+  
+                <input
+                  type="checkbox"
+                  id="fullsize"
+                  name="vehicletype"
+                  value="sedan"
+                  checked={this.state.vehicle_types.includes('sedan')}
+                  onClick={this.handleChange("vehicle_type")}
+                />
+                <label htmlFor="fullsize">Sedan</label>
+  
+                <input
+                  type="checkbox"
+                  id="truck"
+                  name="vehicletype"
+                  value="truck"
+                  checked={this.state.vehicle_types.includes('truck')}
+                  onClick={this.handleChange("vehicle_type")}
+                />
+                <label htmlFor="truck">Truck</label>
+              </div>
+  
+              <div>
+                <label> Type of Parking </label>
+                <input
+                  type="radio"
+                  id="covered"
+                  name="parkingtype"
+                  value="covered"
+                  checked={this.state.spot_type == "covered"}
+                  onClick={this.handleChange("spot_type")}
+                />
+                <label htmlFor="covered">Covered</label>
+  
+                <input
+                  type="radio"
+                  id="uncovered"
+                  name="parkingtype"
+                  value="uncovered"
+                  checked={this.state.spot_type == "uncovered"}
+                  onClick={this.handleChange("spot_type")}
+                />
+                <label htmlFor="uncovered">Uncovered</label>
+  
+                <input
+                  type="radio"
+                  id="california_canopy"
+                  name="parkingtype"
+                  value="california_canopy"
+                  checked={this.state.spot_type == "california_canopy"}
+                  onClick={this.handleChange("spot_type")}
+                />
+                <label htmlFor="california_canopy">California Canopy</label>
+
+              </div>
+  
+              <div>
+                <label> Term </label>
+                <select onChange={this.handleChange("rental_type")}>
+                  <option hidden value="">
+                    --Select One--
+                  </option>
+                  <option value="daily" selected={this.state.rental_type == "daily"} >Daily</option>
+                  <option value="weekly" selected={this.state.rental_type == "weekly"} >Weekly</option>
+                  <option value="monthly" selected={this.state.rental_type == "monthly"} >Monthly</option>
+                  <option value="yearly" selected={this.state.rental_type == "yearly"} >Yearly</option>
+                </select>
+              </div>
+  
+              <div>
+                <label> Rate ($ per term) </label>
+                <input type="number" onChange={this.handleChange("rental_rate")} value={this.state.rental_rate} />
+              </div>
+  
+              <div>
+                <label> Additional Information / Description: </label>
+                <textarea onChange={this.handleChange("description")} value={this.state.description} />
+              </div>
+            </div>
+  
+            <input type="submit" onClick={(e) => this.handleSubmit(e)} value="Update Parking Spot" />
+          </form>
+        </div>
       );
-    } else {
-      renderMap = (
-        <h5
-          className="noMapComponent"
-          style={{ height: `400px`, width: `800px` }}
-        />
-      );
+    } else if (!this.state) {
+      return (
+        <div className="search-list-loading">
+          <Image className="search-list-loading-gif" src={LOADING_GIF} />
+          <span>One moment please...</span>
+        </div>
+      )
     }
+
 
     // console.log(this.state) // for testing purposes
 
-    return (
-      <div>
-        <h4> Edit a Parking Spot </h4>
-
-        <form>
-          <button>Upload Image</button>
-          <div className="Address">
-            <label> Address: </label>
-            <div id="building-street">
-              <input
-                type="text"
-                placeholder="Building"
-                onChange={this.handleAddressChange("line1")}
-                value={this.state.line1}
-              />
-              <input
-                type="text"
-                placeholder="Street"
-                onChange={this.handleAddressChange("line2")}
-                value={this.state.line2}
-              />
-            </div>
-            <div id="city-state-zip">
-              <input
-                type="text"
-                placeholder="City/Town"
-                onChange={this.handleAddressChange("city")}
-                value={this.state.city}
-              />
-              <input
-                type="text"
-                placeholder="State"
-                onChange={this.handleAddressChange("state")}
-                value={this.state.state}
-              />
-              <input
-                type="number"
-                placeholder="Zip Code"
-                onChange={this.handleAddressChange("zipcode")}
-                value={this.state.zipcode}
-              />
-            </div>
-          </div>
-
-          {renderMap}
-
-          <div id="fixed">
-            <div>
-              <label> Parking Space # (optional): </label>
-              <input type="number" />
-            </div>
-
-            <div>
-              <label> Vehicle Types Allowed </label>
-              <input
-                type="checkbox"
-                id="motorcycle"
-                name="vehicletype"
-                value="Motorcycle"
-              />
-              <label htmlFor="motorcycle">Motorcycle</label>
-
-              <input type="checkbox" id="car" name="vehicletype" value="Car" />
-              <label htmlFor="car">Car</label>
-
-              <input
-                type="checkbox"
-                id="compact"
-                name="vehicletype"
-                value="Compact"
-              />
-              <label htmlFor="compact">Compact</label>
-
-              <input
-                type="checkbox"
-                id="fullsize"
-                name="vehicletype"
-                value="Fullsize"
-              />
-              <label htmlFor="fullsize">Fullsize</label>
-
-              <input
-                type="checkbox"
-                id="truck"
-                name="vehicletype"
-                value="Truck"
-              />
-              <label htmlFor="truck">Truck</label>
-            </div>
-
-            <div>
-              <label> Type of Parking </label>
-              <input
-                type="radio"
-                id="garage"
-                name="parkingtype"
-                value="garage"
-              />
-              <label htmlFor="garage">Garage</label>
-
-              <input
-                type="radio"
-                id="openparking"
-                name="parkingtype"
-                value="openparking"
-              />
-              <label htmlFor="openparking">Open Parking Lot</label>
-
-              <input
-                type="radio"
-                id="canopyparking"
-                name="parkingtype"
-                value="canopyparking"
-              />
-              <label htmlFor="canopyparking">Canopy Parking Lot</label>
-
-              <input
-                type="radio"
-                id="undergroundparking"
-                name="parkingtype"
-                value="undergroundparking"
-              />
-              <label htmlFor="undergroundparking">Underground Parking</label>
-            </div>
-
-            <div>
-              <label> Gated? </label>
-              <input
-                type="checkbox"
-                id="gated"
-                name="gated"
-                value="Yes-Gated"
-              />
-              <label htmlFor="gated">yes</label>
-            </div>
-
-            <div>
-              <label> Term </label>
-              <select>
-                <option hidden value="">
-                  --Select One--
-                </option>
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-              </select>
-            </div>
-
-            <div>
-              <label> Rate ($ per term) </label>
-              <input type="number" />
-            </div>
-
-            <div>
-              <label> Additional Information / Description: </label>
-              <textarea onChange={this.handleChange("description")} />
-            </div>
-          </div>
-
-          <input type="submit" value="Update Parking Spot" />
-        </form>
-      </div>
-    );
   }
 }
 

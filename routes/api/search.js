@@ -5,8 +5,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
-const gps = require('gps2zip');
-const cities = require('cities');
+const gps = require("gps2zip");
+const cities = require("cities");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
@@ -39,8 +39,11 @@ router.get(
   "/",
   // passport.authenticate("jwt", { session: false }) We need to get spots for index page without authentication
   (req, res) => {
-    let zip = gps.gps2zip(parseFloat(req.query.latitude), parseFloat(req.query.longitude));
-    let range = parseInt(req.query.range)
+    let zip = gps.gps2zip(
+      parseFloat(req.query.latitude),
+      parseFloat(req.query.longitude)
+    );
+    let range = parseInt(req.query.range);
 
     let allSpots = [];
     let lat = parseFloat(req.query.latitude);
@@ -58,12 +61,16 @@ router.get(
           if (spot.geometry.coordinates) {
             let point = spot.geometry.coordinates;
             if (distance(lat, long, point[0], point[1]) <= range) {
-              newSpots = Object.assign(newSpots, {[spot._id]:spot});
+              newSpots = Object.assign(newSpots, { [spot._id]: spot });
             }
           }
         });
-        newSpots = Object.assign(newSpots, {zip:zip.zip_code.toString()},{range:range});
-        res.json({spots:newSpots});
+        newSpots = Object.assign(
+          newSpots,
+          { zip: zip.zip_code.toString() },
+          { range: range }
+        );
+        res.json({ spots: newSpots });
       })
       .catch(err =>
         res.status(404)({ profile: "You messed up something, bro" })
@@ -75,77 +82,85 @@ router.get(
 // @desc    Show get all spots by zip
 // @access  NotPrivate
 
-router.get("/byzip",
-// passport.authenticate("jwt", { session: false }) We need to get spots for index page without authentication
-(req, res) => {
-  let zip = cities.zip_lookup(req.query.zip.toString())
-  let range = parseInt(req.query.range)
-  //This is how zip looks like (output from cities)
-  // { zipcode: '94538',
-  // state_abbr: 'CA',
-  // latitude: '37.527237',
-  // longitude: '-121.96790',
-  // city: 'Fremont',
-  // state: 'California' }
-  let allSpots = [];
-  let lat = parseFloat(zip.latitude);
-  let long = parseFloat(zip.longitude);
-  // Gets all users
-  User.find()
-    .then(users => {
-      users.forEach(user => {
-        // Creates array of spots
-        allSpots = allSpots.concat(user.spots);
-      });
-      let newSpots = {};
-      // Searches and filters spots by geolocation
-      allSpots.forEach(spot => {
-        if (spot.geometry.coordinates) {
-          let point = spot.geometry.coordinates;
-          if (distance(lat, long, point[1], point[0]) <= range) {
-            newSpots = Object.assign(newSpots, {[spot._id]:spot});
+router.get(
+  "/byzip",
+  // passport.authenticate("jwt", { session: false }) We need to get spots for index page without authentication
+  (req, res) => {
+    let zip = cities.zip_lookup(req.query.zip.toString());
+    let range = parseInt(req.query.range);
+    //This is how zip looks like (output from cities)
+    // { zipcode: '94538',
+    // state_abbr: 'CA',
+    // latitude: '37.527237',
+    // longitude: '-121.96790',
+    // city: 'Fremont',
+    // state: 'California' }
+    let allSpots = [];
+    let lat = parseFloat(zip.latitude);
+    let long = parseFloat(zip.longitude);
+    // Gets all users
+    User.find()
+      .then(users => {
+        users.forEach(user => {
+          // Creates array of spots
+          allSpots = allSpots.concat(user.spots);
+        });
+        let newSpots = {};
+        // Searches and filters spots by geolocation
+        allSpots.forEach(spot => {
+          if (spot.geometry.coordinates) {
+            let point = spot.geometry.coordinates;
+            if (distance(lat, long, point[1], point[0]) <= range) {
+              newSpots = Object.assign(newSpots, { [spot._id]: spot });
+            }
           }
-        }
-      });
-      newSpots = Object.assign(newSpots, { zip:zip.zipcode.toString() }, {range:range});
-      res.json({spots:newSpots});
-    })
-    .catch(err =>
-      res.status(404)({ profile: "You messed up something, bro" })
-    );
-})
+        });
+        newSpots = Object.assign(
+          newSpots,
+          { zip: zip.zipcode.toString() },
+          { range: range }
+        );
+        res.json({ spots: newSpots });
+      })
+      .catch(err =>
+        res.status(404)({ profile: "You messed up something, bro" })
+      );
+  }
+);
 
 /// @route  GET api/search/id
 // @desc    Show spot by id
 // @access  NotPrivate
 
-router.get("/byid",
-// passport.authenticate("jwt", { session: false }) We need to get spot for show page without authentication
-(req, res) => {
-  let spotId = req.query.id
-  let allSpots = [];
+router.get(
+  "/byid",
+  // passport.authenticate("jwt", { session: false }) We need to get spot for show page without authentication
+  (req, res) => {
+    let spotId = req.query.id;
+    let allSpots = [];
 
-  // Gets all users
-  User.find()
-    .then(users => {
-      users.forEach(user => {
-        // Creates array of spots
-        allSpots = allSpots.concat(user.spots);
-      });
-      let spot = allSpots.filter((spot)=>(spot._id.toString() === spotId))
-      let response
-      if (spot.length === 0){
-        res.status(404)
-        response = { error:`Parking spot was not found.` }
-      }else{
-        response = spot[0]
-      }
+    // Gets all users
+    User.find()
+      .then(users => {
+        users.forEach(user => {
+          // Creates array of spots
+          allSpots = allSpots.concat(user.spots);
+        });
+        let spot = allSpots.filter(spot => spot._id.toString() === spotId);
+        let response;
+        if (spot.length === 0) {
+          res.status(404);
+          response = { error: `Parking spot was not found.` };
+        } else {
+          response = spot[0];
+        }
         res.json(response);
-    })
-    .catch(err =>
-      res.status(404)({ profile: "You messed up something, bro" })
-    );
-})
+      })
+      .catch(err =>
+        res.status(404)({ profile: "You messed up something, bro" })
+      );
+  }
+);
 
 module.exports = router;
 

@@ -4,26 +4,46 @@ import EmptyProfilePage from "./empty_profile_page";
 import SpotsIndexPage from "./spots_index_page";
 import ReservationsIndexPage from "./reservations_index_page";
 import VehiclesIndexPage from "./vehicles_index_page";
+import SearchListContainer from "../search_list/search_list_container";
 
 class BuyerOrSeller extends React.Component {
   render() {
     let user = this.props.user;
 
     if (!user.spots && !user.vehicles) {
-      return <EmptyProfilePage />;
+      return (
+        <div>
+          {/* <SearchListContainer /> */}
+          <EmptyProfilePage />;
+        </div>
+      );
     } else if (!user.spots) {
       return (
         <div>
-          <VehiclesIndexPage vehicles={user.vehicles} />
-          <ReservationsIndexPage reservations={user.reservations} />
+          <div>
+            {/* <SearchListContainer /> */}
+            <VehiclesIndexPage vehicles={user.vehicles} />
+          </div>
         </div>
       );
     } else {
       return (
         <div>
-          <SpotsIndexPage spots={user.spots} />
-          <VehiclesIndexPage vehicles={user.vehicles} />
-          <ReservationsIndexPage reservations={user.reservations} />
+          {/* <SearchListContainer /> */}
+
+          <div className="index-wrapper">
+            <SpotsIndexPage
+              spots={user.spots}
+              fetchReservations={this.props.fetchReservations}
+              reservations={this.props.reservations}
+            />
+          </div>
+          <div>
+            <VehiclesIndexPage vehicles={user.vehicles} />
+          </div>
+          {/* <div>
+            <ReservationsIndexPage reservations={user.reservations} />
+          </div> */}
         </div>
       );
     }

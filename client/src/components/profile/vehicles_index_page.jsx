@@ -10,8 +10,10 @@ class VehicleIndexPage extends React.Component {
         console.log(vehicles);
         return (
           <div>
+
           <VehiclesIndexItem key={vehicle._id} vehicle={vehicle} />
           <ReservationsIndexPage reservations={user.reservations} />
+
           </div>
         );
       });

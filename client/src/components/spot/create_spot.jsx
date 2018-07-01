@@ -85,7 +85,6 @@ class CreateSpot extends React.Component {
         e.preventDefault();
 
         console.log(this.state);
-        debugger
         let spot = {}
         spot.line1 = this.state.line1
         spot.line2 = this.state.line2
@@ -100,8 +99,9 @@ class CreateSpot extends React.Component {
         spot.img_url = this.state.img_url
         spot.latitude = this.state.latitude
         spot.longitude = this.state.longitude
-
+        
         this.props.createSpot(spot);
+        // debugger
         this.setState({
           line1: "",
           line2: "",
@@ -137,12 +137,11 @@ class CreateSpot extends React.Component {
     handleChange(val) {
         return (e) => {
             //
+            
             if (val === 'vehicle_type') {
-                // console.log(this.state.vehicle_types)
-                // console.log(e.currentTarget.value)
+   
                 if (this.state.vehicle_types.includes(e.currentTarget.value)) {
-                    // this.state.vehicle_types.push(e.currentTarget.value);
-                    //
+
                     let arr = this.state.vehicle_types
                     let index = arr.indexOf(e.currentTarget.value);
 
@@ -150,7 +149,6 @@ class CreateSpot extends React.Component {
 
                 } else {
                     this.state.vehicle_types.push(e.currentTarget.value);
-                    //
                 }
             } else if (val === 'spot_type') {
                 this.state.spot_type = e.currentTarget.value
@@ -331,7 +329,7 @@ class CreateSpot extends React.Component {
                 <label htmlFor="covered">Covered</label>
 
                 <input type="radio" id="uncovered" onChange={this.handleChange("spot_type")} name="parkingtype" value="uncovered" />
-                <label htmlFor="uncovered">Uncoveredt</label>
+                <label htmlFor="uncovered">Uncovered</label>
 
                 <input type="radio" id="california_canopy" onChange={this.handleChange('spot_type')} name="parkingtype" value="california_canopy" />
                 <label htmlFor="california_canopy">
