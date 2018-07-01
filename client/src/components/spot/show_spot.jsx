@@ -12,6 +12,7 @@ import {
 } from "react-google-maps";
 import { LOADING_GIF } from "../../img/index";
 import "./show_spot.css";
+import ReservationsContainer from "./reservations_container";
 
 class ShowSpot extends React.Component {
   constructor(props) {
@@ -26,10 +27,7 @@ class ShowSpot extends React.Component {
       seller_id: "",
       optional_msg: ""
     };
-<<<<<<< HEAD
-    // debugger;
-=======
->>>>>>> brokenres
+
   }
 
   componentWillMount() {
@@ -220,7 +218,7 @@ class ShowSpot extends React.Component {
               />
             </div>
           </div>
-
+          <ReservationsContainer spotId={this.props.spotId}/>
           {/* <div>Hello {this.currentUser.name}</div> */}
         </div>
       );

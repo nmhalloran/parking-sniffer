@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import ReservationsIndexPage from "./reservations_index_page";
+// import ReservationsIndexPage from "./reservations_index_page";
 
 class SpotsIndexItem extends React.Component {
   constructor(props) {
@@ -13,9 +13,6 @@ class SpotsIndexItem extends React.Component {
     return (
       <li className="item-container">
         <Link to={`/spots/${spot._id}`}>{spot.description}</Link>
-        <ReservationsIndexPage
-          spotId={spot._id}
-        />
         {/* <h3 className="indexed-title-text">{spot.description}</h3> */}
       </li>
     );
