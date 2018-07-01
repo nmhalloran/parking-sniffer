@@ -9,7 +9,6 @@ const VehiclesReducer = (state = {}, action) => {
             return action.vehicles.data.vehicles;
 
         case RECEIVE_VEHICLE:
-            debugger;
             let vehicle = action.vehicle.data;
             return Object.assign({}, state, {[vehicle._id]: vehicle});
 

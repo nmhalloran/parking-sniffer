@@ -37,7 +37,7 @@ class EditSpot extends React.Component {
 
   componentDidMount() {
     //requesting spot from backend...
-    this.props.fetchSpotById(this.props.spotId);
+    this.props.fetchSpot(this.props.spotId);
   }
 
   componentWillUnmount() {
@@ -51,7 +51,6 @@ class EditSpot extends React.Component {
     this.state._id = this.props.spotId;
     this.state.seller_id = this.props.user.id;
 
-    // debugger
     console.log(this.state)
     this.props.updateSpot(this.state);
   }

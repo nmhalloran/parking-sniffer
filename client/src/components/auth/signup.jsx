@@ -22,7 +22,7 @@ class SignUp extends React.Component {
   componentWillMount(){
     this.props.clearErrors()
   }
-  
+
   componentDidMount() {
     // if (this.props.auth.isAuthenticated) {
     //   this.props.history.push('/dashboard');
@@ -41,7 +41,7 @@ class SignUp extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-
+    this.props.clearErrors()
     const newUser = {
       name: this.state.name,
       email: this.state.email,

@@ -12,6 +12,7 @@ import {
 } from "react-google-maps";
 import { LOADING_GIF } from "../../img/index";
 import "./show_spot.css";
+import ReservationsContainer from "./reservations_container";
 
 class ShowSpot extends React.Component {
   constructor(props) {
@@ -26,12 +27,11 @@ class ShowSpot extends React.Component {
       seller_id: "",
       optional_msg: ""
     };
-    // debugger;
   }
 
   componentWillMount() {
     //requesting spot from backend...
-    this.props.fetchSpotById(this.props.spotId);
+    this.props.fetchSpot(this.props.spotId);
   }
   componentWillUnmount() {
     //Erasing any errors...
@@ -233,7 +233,7 @@ class ShowSpot extends React.Component {
 
 
           </div>
-
+          <ReservationsContainer spotId={this.props.spotId}/>
           {/* <div>Hello {this.currentUser.name}</div> */}
         </div>
       );

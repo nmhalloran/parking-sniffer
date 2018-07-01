@@ -8,13 +8,12 @@ import "./profile.css";
 import BuyerOrSeller from "./buyer_or_seller.jsx";
 
 class Profile extends React.Component {
-  componentDidMount() {}
-
   constructor(props) {
     super(props);
 
     this.currentUser = props.user;
     this.spots = props.spots;
+
   }
 
   render() {
@@ -23,7 +22,9 @@ class Profile extends React.Component {
         <div id="user-profile-nav">
           <h4>Hello, {this.currentUser.name}!</h4>
           <div>
-            <BuyerOrSeller user={this.currentUser} />
+            <BuyerOrSeller
+              user={this.currentUser}
+            />
           </div>
         </div>
 

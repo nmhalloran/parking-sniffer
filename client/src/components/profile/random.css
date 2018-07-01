@@ -1,0 +1,12 @@
+.item-container {
+  display: flex;
+  width: 33%;
+  height: 100px;
+  box-sizing: border-box;
+}
+
+.index-wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 200px;
+}

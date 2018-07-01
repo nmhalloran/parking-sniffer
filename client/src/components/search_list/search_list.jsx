@@ -29,7 +29,7 @@ this.state = {
   daily: true,
   weekly:false,
   monthly: false,
-
+  yearly: false,
   motorcycle:false,
   truck:false,
   car:true,
@@ -125,6 +125,9 @@ if(!this.state.weekly){
 if(!this.state.monthly){
   filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.rental_type != 'monthly'))
 }
+if(!this.state.monthly){
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.rental_type != 'yearly'))
+}
 
 if(!this.state.motorcycle){
   filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('motorcycle')))
@@ -137,7 +140,7 @@ if(!this.state.car){
   filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('car')))
 }
 if(!this.state.fullSize){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('fullsize')))
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('full_size')))
 }
 if(!this.state.compact){
   filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('compact')))
@@ -266,7 +269,7 @@ console.log(this.state)
 
             <div className="search-list-checkbox-row">
               <div className="search-list-checkbox"> <input type="checkbox" onChange={()=>this.handleCheckBox("solar")}  checked={!!this.state.solar}/><span>Solar carport</span></div>
-              <div className="search-list-checkbox"></div>
+              <div className="search-list-checkbox"><input type="checkbox" onChange={()=>this.handleCheckBox("yearly")}  checked={!!this.state.yearly}/><span>Yearly</span></div>
               <div className="search-list-checkbox"><input type="checkbox" onChange={()=>this.handleCheckBox("other")}  checked={!!this.state.other}/><span>Other</span></div>
             </div>
 

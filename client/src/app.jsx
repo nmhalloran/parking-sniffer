@@ -31,7 +31,7 @@ const App = () => (
       <Route exact path="/vehicle/new" component={CreateVehicleContainer} />
       <Route exact path="/vehicles/:id" component={ShowVehicleContainer} />
       <ProtectedRoute exact path="/user/profile" component={ProfileContainer} />
-      <AuthRoute exact path="/" component={SearchListContainer} />
+      <Route exact path="/" component={SearchListContainer} />
       <Redirect from="/*" to="/" />
     </Switch>
     <footer>

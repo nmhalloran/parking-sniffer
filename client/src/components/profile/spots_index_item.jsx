@@ -1,10 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+// import ReservationsIndexPage from "./reservations_index_page";
 
 class SpotsIndexItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     let spot = this.props.spot;
-
     return (
       <li className="item-container">
         <Link to={`/spots/${spot._id}`}>{spot.description}</Link>
@@ -15,4 +19,4 @@ class SpotsIndexItem extends React.Component {
   }
 }
 
-export default SpotsIndexItem;
+export default withRouter(SpotsIndexItem);

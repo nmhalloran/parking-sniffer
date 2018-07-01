@@ -5,7 +5,6 @@ import { fetchVehicle,deleteVehicle } from "../../actions/vehicle_actions";
 import ShowVehicle from "./show_vehicle";
 
 const mapStateToProps = (state, ownProps) => {
-  debugger
   return {
     VehicleId: ownProps.match.params.id,
     vehicle: state.entities.vehicles[ownProps.match.params.id],
