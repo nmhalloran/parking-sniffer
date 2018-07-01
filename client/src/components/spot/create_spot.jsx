@@ -96,7 +96,11 @@ class CreateSpot extends React.Component {
         spot.spot_type = this.state.spot_type
         spot.rental_rate = this.state.rental_rate
         spot.rental_type = this.state.rental_type
-        spot.img_url = this.state.img_url
+        if(this.state.img_url === null){
+          spot.img_url = "https://res.cloudinary.com/clustermass/image/upload/v1530477397/vafbxhikgkofcuewcvvs.png"
+        }else{
+          spot.img_url = this.state.img_url
+        }
         spot.latitude = this.state.latitude
         spot.longitude = this.state.longitude
 
