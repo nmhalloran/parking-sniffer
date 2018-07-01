@@ -86,7 +86,22 @@ class CreateSpot extends React.Component {
 
         console.log(this.state);
         debugger
-        this.props.createSpot(this.state);
+        let spot = {}
+        spot.line1 = this.state.line1
+        spot.line2 = this.state.line2
+        spot.city = this.state.city
+        spot.state = this.state.state
+        spot.zipcode = this.state.zipcode
+        spot.description = this.state.description
+        spot.vehicle_types = this.state.vehicle_types
+        spot.spot_type = this.state.spot_type
+        spot.rental_rate = this.state.rental_rate
+        spot.rental_type = this.state.rental_type
+        spot.img_url = this.state.img_url
+        spot.latitude = this.state.latitude
+        spot.longitude = this.state.longitude
+
+        this.props.createSpot(spot);
         this.setState({
           line1: "",
           line2: "",
@@ -100,7 +115,8 @@ class CreateSpot extends React.Component {
           rental_type: "",
           img_url: "",
           latitude: "",
-          longitude: ""
+          longitude: "",
+          files:null,
         });
     }
 
