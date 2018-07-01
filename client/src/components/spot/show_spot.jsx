@@ -26,12 +26,11 @@ class ShowSpot extends React.Component {
       seller_id: "",
       optional_msg: ""
     };
-    debugger;
   }
 
   componentWillMount() {
     //requesting spot from backend...
-    this.props.fetchSpotById(this.props.spotId);
+    this.props.fetchSpot(this.props.spotId);
   }
   componentWillUnmount() {
     //Erasing any errors...
