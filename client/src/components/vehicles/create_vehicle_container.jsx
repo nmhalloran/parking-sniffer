@@ -7,13 +7,13 @@ import CreateVehicle from './create_vehicle';
 const mapStateToProps = (state, ownProps) => {
 
     return ({
-        // vehicle: {
-        //     vehicle_type: '',
-        //     plate_no: '',
-        //     color: '',
-        //     model: '',
-        //     year: ''
-        // }
+        vehicle: {
+            vehicle_type: '',
+            plate_no: '',
+            color: '',
+            model: '',
+            year: ''
+        }
     });
 };
 

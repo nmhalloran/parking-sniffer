@@ -45,7 +45,7 @@ export const updateReservation = (spot_id, reservation) => dispatch =>
     .then(res => dispatch(receiveReservation(res)))
     .catch(err => console.log(err));
 
-export const deleteReservation = id => dispatch =>
-  ReservationAPIUtil.deleteReservation(id)
+export const deleteReservation = (spot_id,reservation) => dispatch =>
+  ReservationAPIUtil.deleteReservation(spot_id,reservation)
     .then(res => dispatch(removeReservation(res.id)))
     .catch(err => console.log(err));

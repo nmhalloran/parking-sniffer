@@ -19,15 +19,15 @@ export const createReservation = (spot_id, reservation) =>
     data: reservation
   });
 
-export const updateReservation = (spot_id, reservation) =>
+export const updateReservation = (spot_id,reservation) =>
   axios({
     method: "patch",
-    url: `api/users/spot/${spot_id}/reservations`,
+    url: `api/users/spot/${spot_id}/reservations/${reservation._id}`,
     data: reservation
   });
 
-export const deleteReservation = id =>
+export const deleteReservation = (spot_id,reservation) =>
   axios({
     method: "delete",
-    url: `api/users/spot/:spot_id/reservations/${id}`
+    url: `api/users/spot/${spot_id}/reservations/${reservation._id}`
   });

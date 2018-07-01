@@ -9,7 +9,7 @@ class ReservationIndexPage extends React.Component {
   componentWillMount() {
     this.props.fetchReservations(this.props.spotId);
   }
-
+  
   render() {
     if(this.props.reservations){
     const reservations= Array.from(this.props.reservations);
@@ -18,7 +18,10 @@ class ReservationIndexPage extends React.Component {
         {reservations.map((res, i) => (
 
         <div>
-        <ReservationIndexItem reservation={res} key={i} />
+        <ReservationIndexItem reservation={res} key={i}
+          updateReservation={this.props.updateReservation}
+          deleteReservation={this.props.deleteReservation}
+          currentUser={this.props.currentUser}/>
         </div>
       ))};
       </div>);

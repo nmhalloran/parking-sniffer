@@ -16,7 +16,8 @@ class ShowVehicle extends React.Component{
       this.props.fetchVehicle(this.props.VehicleId);
   }
   handleDelete(e){
-    this.props.deleteVehicle(this.props.match.params.id);
+    this.props.deleteVehicle(this.props.match.params.id)
+    .then((_)=>this.props.history.push(`/user/profile`));
   }
   componentWillUnmount(){
   //Erasing any errors...

@@ -10,8 +10,7 @@ const reservationsReducer = (state = {}, action) => {
 
         case RECEIVE_RESERVATION:
             let res = action.reservation.data;
-            debugger
-            return merge({}, state, { [res._id]: res });
+            return merge({}, state, { res});
 
         case REMOVE_RESERVATION:
             let newState = merge({}, state)

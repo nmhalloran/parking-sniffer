@@ -25,8 +25,11 @@ class ShowSpot extends React.Component {
       spot_id: this.props.spotId,
       parker_id: this.props.user.id,
       seller_id: "",
-      optional_msg: ""
+      optional_msg: "",
+      loading:true
     };
+
+
   }
 
   componentDidMount() {
@@ -37,6 +40,7 @@ class ShowSpot extends React.Component {
     //Erasing any errors...
     this.props.clearErrors();
   }
+
 
   handleChange(e, val) {
     switch (val) {
@@ -67,7 +71,6 @@ class ShowSpot extends React.Component {
 
   handleSubmit(e) {
     this.state.seller_id = this.props.spot.seller_id;
-    console.log(this.state);
     if (
       this.state.start_date === "" ||
       this.state.end_date === "" ||
@@ -75,10 +78,9 @@ class ShowSpot extends React.Component {
     ) {
       alert("please fill in required inputs");
     } else {
-      debugger;
       this.props
         .createReservation(this.props.spotId, this.state)
-        .then(res => console.log(res))
+        .then((_) => this.setState({loading:false}))
         .catch(err => console.log(err));
     }
   }
