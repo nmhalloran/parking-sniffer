@@ -8,6 +8,10 @@ const SpotIndexItem = (props) => {
     backgroundSize: "contain",
     borderRadius: "10px",
   };
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 //Structure
 // city:"SanFrancisco"
 // description:"spot in sanfrancisco"
@@ -35,7 +39,7 @@ return(
     </div>
     <div className="spot-display-rate" >
       <span>$ {props.spot.rental_rate}</span>
-      <span>{props.spot.rental_type}</span>
+      <span>{capitalizeFirstLetter(props.spot.rental_type)}</span>
 
     </div>
   </div>

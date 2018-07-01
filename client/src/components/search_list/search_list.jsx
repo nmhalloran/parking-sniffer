@@ -259,7 +259,7 @@ handleCheckBox(e){
 
 loadMore(){
   let tempQuantity = this.state.listingsQuantity
-  tempQuantity = tempQuantity + 5
+  tempQuantity = tempQuantity + 10
   this.setState({listingsQuantity:tempQuantity})
 }
 
@@ -350,10 +350,15 @@ console.log(this.state)
                         <span>Try to change filters or extend search range</span>
                     </div>
                     ) : (
+                  <div>
                     <div className="search-list-container">
                       {listingsOnMain.map((spot,idx)=>(<SpotIndexItem key={idx} spot={spot}/>))}
-                      <button className="search-list-load-more" onClick={()=>this.loadMore()}>Load more</button>
+
                     </div>
+                    <div className="search-list-load-more-div">
+                       {this.state.spots.length > listingsOnMain.length ? (<button className="search-list-load-more" onClick={()=>this.loadMore()}>Load more</button>) : (null) }
+                    </div>
+                  </div>
                   )}
 
 
