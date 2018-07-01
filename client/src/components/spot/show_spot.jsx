@@ -16,25 +16,62 @@ import "./show_spot.css";
 class ShowSpot extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { start_date: '',
+        end_date: '',
+        booking_status: 'pending',
+        vehicle_id: '',
+        spot_id: this.props.spotId,
+        parker_id: this.props.user.id,
+        seller_id: '',
+        optional_msg: ''
+      }
 
-        // this.currentUser = props.user;
-        // this.state = props.spot;
-
-        // App Academy Coordinates
-
-        // this.state = {
-        //   spotId = props.spotId
-        // }
 }
 
-componentDidMount() {
+componentWillMount() {
   //requesting spot from backend...
-      this.props.fetchSpotById(this.props.spotId);
+    this.props.fetchSpotById(this.props.spotId);
 }
 componentWillUnmount(){
 //Erasing any errors...
-this.props.clearErrors()
+    this.props.clearErrors()
 
+}
+
+handleChange(e, val) {
+    switch (val) {
+        case 'from':
+            this.state.start_date = e.currentTarget.value;
+            break;
+
+        case 'to':
+            this.state.end_date = e.currentTarget.value;      
+            break;
+
+        case 'vehicle':
+            this.state.vehicle_id = e.currentTarget.value;
+            break        
+        
+        case 'message':
+            this.state.optional_msg = e.currentTarget.value;
+            break
+
+        default:
+            break;
+    }
+}
+
+handleSubmit(e) {
+        this.state.seller_id = this.props.spot.seller_id
+    console.log(this.state);
+        if (this.state.start_date === '' || this.state.end_date === '' || this.state.vehicle_id === '') {
+            alert('please fill in required inputs')
+        } else {
+            debugger
+            this.props.createReservation(this.props.spotId, this.state)
+              .then(res => console.log(res))
+              .catch(err => console.log(err))
+        }
 }
 
 render() {
@@ -57,8 +94,8 @@ render() {
 
     var MyMapComponent = withScriptjs(withGoogleMap((props) => {
 
-        return <GoogleMap defaultZoom={18} defaultCenter={{ lat: this.props.spot.latitude, lng: this.props.spot.longitude }}>
-            {props.isMarkerShown && <Marker position={{ lat: this.props.spot.latitude, lng: this.props.spot.longitude }} />}
+      return <GoogleMap defaultZoom={17} defaultCenter={{ lat: this.props.spot.geometry.coordinates[1], lng: this.props.spot.geometry.coordinates[0] }}>
+        {props.isMarkerShown && <Marker position={{ lat: this.props.spot.geometry.coordinates[1], lng: this.props.spot.geometry.coordinates[0] }} />}
           </GoogleMap>;
     }))
 
@@ -113,15 +150,15 @@ render() {
             <h5>
               <label> Date: </label>
               <br />
-              from <input type="date" />
+              from <input type="date" onChange={ e => this.handleChange(e, "from") } />
               <br />
-              to <input type="date" />
+              to <input type="date" onChange={ e => this.handleChange(e, "to") } />
             </h5>
 
             <h5>
               <label>Your Vehicle:</label>
               <br />
-              <select>
+              <select onChange={ e => this.handleChange(e, 'vehicle') }>
                 <option hidden value="">
                   --Select One--
                 </option>
@@ -136,10 +173,10 @@ render() {
 
             <h5>
               <label>Optional Message to Parking Spot Owner:</label>
-              <textarea />
+              <textarea onChange={e => this.handleChange(e, 'message') }/>
             </h5>
 
-            <input type="submit" value="Request Parking Spot" />
+            <input type="submit" onClick={e => this.handleSubmit(e) } value="Request Parking Spot" />
           </div>
         </div>
 

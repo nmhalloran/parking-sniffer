@@ -8,7 +8,7 @@ class VehicleIndexPage extends React.Component {
     if (vehicles.length > 0) {
       let cars = vehicles.map((vehicle, i) => {
         console.log(vehicles);
-        return <VehiclesIndexItem vehicle={vehicle} />;
+        return <VehiclesIndexItem key={vehicle._id} vehicle={vehicle} />;
       });
       return cars;
     } else {
