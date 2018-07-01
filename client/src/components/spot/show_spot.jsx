@@ -25,7 +25,8 @@ class ShowSpot extends React.Component {
       spot_id: this.props.spotId,
       parker_id: this.props.user.id,
       seller_id: "",
-      optional_msg: ""
+      optional_msg: "",
+      loading:true
     };
 
 
@@ -75,7 +76,7 @@ class ShowSpot extends React.Component {
     } else {
       this.props
         .createReservation(this.props.spotId, this.state)
-        .then((_) => this.props.fetchSpot(this.props.spotId))
+        .then((_) => this.setState({loading:false}))
         .catch(err => console.log(err));
     }
   }
