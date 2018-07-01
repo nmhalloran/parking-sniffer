@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router'
 import Image from 'react-image'
 import "./searchlist.css";
-import { ARROW_DOWN, ARROW_UP } from '../../img/index';
+import { ARROW_DOWN, ARROW_UP, LOADING_GIF } from '../../img/index';
+import SpotIndexItem from "./spot_index_item"
 
 import {
   withScriptjs,
@@ -25,7 +26,7 @@ this.state = {
   underground: false,
   solar: false,
 
-  daily:true,
+  daily: true,
   weekly:false,
   monthly: false,
 
@@ -41,6 +42,8 @@ this.state = {
   pos: 0,
   range: this.props.range,
   zip: this.props.zip,
+  spots:[],
+  allSpots:[],
 }
 
 //If this.props.entities.spots.indexloading === true, no response from server was received.
@@ -49,6 +52,7 @@ this.toggleSearchDiv = this.toggleSearchDiv.bind(this)
 this.handleCheckBox = this.handleCheckBox.bind(this)
 this.handleField = this.handleField.bind(this)
 this.receiveSpotsDelayed = this.receiveSpotsDelayed.bind(this)
+this.filterSpots = this.filterSpots.bind(this)
 }
 
 receiveSpotsDelayed(){
@@ -76,59 +80,70 @@ componentDidMount(){
 
 
 componentWillReceiveProps(nextProps){
+
 if(nextProps.zip != this.state.zip){
   this.setState({zip:nextProps.zip})
 }
+let allSpots = Object.assign({}, nextProps.spots)
+let zip = allSpots.zip
+let range = allSpots.range
+delete allSpots.zip
+delete allSpots.range
+
+allSpots = Object.values(allSpots)
+
+let spots = this.filterSpots(allSpots)
+this.setState({spots:spots,allSpots:allSpots})
 
 }
-
 
 filterSpots(spots_arr){
-let filtered_spots_arr = []
+let filtered_spots_arr = spots_arr.slice()
 
 if(!this.state.garage){
-  filtered_spots_arr = spots_arr.map((spot)=>(spot.spot_type != 'garage'))
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.spot_type != 'garage'))
 }
 if(!this.state.openParking){
-  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.spot_type != 'openparking'))
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.spot_type != 'openparking'))
 }
 if(!this.state.underground){
-  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.spot_type != 'openparking'))
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.spot_type != 'underground'))
 }
 if(!this.state.solar){
-  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.spot_type != 'solar'))
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.spot_type != 'solar'))
 }
 
 if(!this.state.daily){
-  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.rental_type != 'daily'))
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.rental_type != 'daily'))
 }
+
 if(!this.state.weekly){
-  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.rental_type != 'weekly'))
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.rental_type != 'weekly'))
 }
 if(!this.state.monthly){
-  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.rental_type != 'monthly'))
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.rental_type != 'monthly'))
 }
 
 if(!this.state.motorcycle){
-  filtered_spots_arr = filtered_spots_arr.map((spot)=>(spot.vehicle_types.includes('motorcycle')))
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('motorcycle')))
 }
 
 if(!this.state.truck){
-
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('truck')))
 }
 if(!this.state.car){
-
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('car')))
 }
 if(!this.state.fullSize){
-
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('fullsize')))
 }
 if(!this.state.compact){
-
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('compact')))
 }
 if(!this.state.other){
-
+  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('other')))
 }
-
+  return filtered_spots_arr
 }
 
 toggleSearchDiv(){
@@ -154,9 +169,15 @@ handleCheckBox(e){
     if(e === 'car'){
       this.setState({fullSize:false,
                       compact:false,
-                      [e]:false, })
+                      [e]:false, },()=>{
+                      let spots = this.filterSpots(this.state.allSpots)
+                      this.setState({spots:spots})
+                    })
     }else{
-        this.setState({[e]:false})
+        this.setState({[e]:false},()=>{
+        let spots = this.filterSpots(this.state.allSpots)
+        this.setState({spots:spots})
+      })
     }
   }
   else{
@@ -164,18 +185,29 @@ handleCheckBox(e){
     if(e === 'car'){
       this.setState({fullSize:true,
                       compact:true,
-                      [e]:true, })
+                      [e]:true, },()=>{
+                      let spots = this.filterSpots(this.state.allSpots)
+                      this.setState({spots:spots})
+                    })
     }else if (e != 'compact' && e != 'fullSize'){
-        this.setState({[e]:true})
+        this.setState({[e]:true},()=>{
+        let spots = this.filterSpots(this.state.allSpots)
+        this.setState({spots:spots})
+      })
     }else{
       if(this.state.car){
-        this.setState({[e]:true})
+        this.setState({[e]:true},()=>{
+        let spots = this.filterSpots(this.state.allSpots)
+        this.setState({spots:spots})
+      })
       }
     }
   }
 }
 
 render(){
+
+console.log(this.props.indexfirstload)
 console.log(this.state)
   return(<div>
 
@@ -235,6 +267,17 @@ console.log(this.state)
              <Image className="search-list-arrow" src={ ARROW_UP } />
            )}
           </div>
+
+          {this.props.indexfirstload ? (
+            <div className="search-list-loading">
+
+                <Image className="search-list-loading-gif" src={ LOADING_GIF } />
+              <span>One moment please...</span>
+
+            </div>
+          ) : (
+            this.state.spots.map((spot,idx)=>(<SpotIndexItem key={idx} spot={spot}/>))
+          )}
 
 
         </div>)

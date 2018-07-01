@@ -16,13 +16,21 @@
 // );
 //
 // export default store;
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import RootReducer from './reducers/root_reducer.js';
-import logger from 'redux-logger'
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import RootReducer from "./reducers/root_reducer.js";
+import logger from "redux-logger";
 
-const configureStore = (preloadedState = {entities:{spots:{zip:20565,range:5,indexloading:true}}}) => {
-  return createStore(RootReducer, preloadedState, applyMiddleware(thunk, logger))
+const configureStore = (
+  preloadedState = {
+    entities: { spots: { zip: 94105, range: 200, indexfirstload: true } }
+  }
+) => {
+  return createStore(
+    RootReducer,
+    preloadedState,
+    applyMiddleware(thunk, logger)
+  );
   // return createStore(RootReducer, preloadedState, applyMiddleware(thunk))
 };
 

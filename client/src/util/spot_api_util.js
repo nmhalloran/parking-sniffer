@@ -16,6 +16,14 @@ export const fetchSpotsByZip = (zip) => (
     })
 );
 
+export const fetchSpotById = (id) => (
+    axios({
+        method: 'get',
+        url: `/api/search/byid`,
+        params: {id:id}
+    })
+);
+
 export const fetchSpot = (id) => (
     axios({
         method: 'get',
