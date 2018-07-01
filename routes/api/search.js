@@ -136,7 +136,7 @@ router.get("/byid",
       let response
       if (spot.length === 0){
         res.status(404)
-        response = { error:`Parking spot ${spotId} was not found.` }
+        response = { error:`Parking spot was not found.` }
       }else{
         response = spot[0]
       }

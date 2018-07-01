@@ -12,11 +12,28 @@ import {
 import "./create_spot.css";
 
 
+
 class CreateSpot extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = props.spot;
+        this.state = {
+            line1: '',
+            line2: '',
+            city: '',
+            state: '',
+            zipcode: '',
+            description: '',
+            vehicle_types: [],
+            spot_type: '',
+            rental_rate: '',
+            rental_type: '',
+            img_url: null,
+            latitude: '',
+            longitude: '',
+            files: null,
+        }
+
 
         this.lat = 37.798965;
         this.lng = -122.4013603;
@@ -28,10 +45,40 @@ class CreateSpot extends React.Component {
         this.renderMapAfterTime = this.renderMapAfterTime.bind(this);
         this.geocode = this.geocode.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.setImg = this.setImg.bind(this)
 
         this.renderMap = true;
 
         this.timeout = undefined;
+    }
+
+
+  uploadFile() {
+      var formData = new FormData(),
+        file = this.state.files[0],
+        xhr = new XMLHttpRequest(),
+        cloudName = "clustermass";
+
+      formData.append("file", file);
+      formData.append("upload_preset", "pykxpoqv"); // REQUIRED
+      xhr.open("POST", "https://api.cloudinary.com/v1_1/" +
+        cloudName +
+        "/image/upload");
+
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          // Success! You probably want to save the URL somewhere
+          var response = JSON.parse(xhr.response);
+          this.setState({img_url:response.secure_url}) // https address of uploaded file
+        } else {
+          alert("Image upload failed. Please try agian.");
+        }
+      }
+      xhr.send(formData);
+    }
+
+    setImg(e){
+      this.setState({files: e.target.files},this.uploadFile)
     }
 
     handleSubmit(e) {
@@ -43,7 +90,7 @@ class CreateSpot extends React.Component {
     }
 
     handleAddressChange(val) {
-        // 
+        //
         this.renderMap = false;
 
 
@@ -58,21 +105,21 @@ class CreateSpot extends React.Component {
 
     handleChange(val) {
         return (e) => {
-            // 
+            //
             if (val === 'vehicle_type') {
                 // console.log(this.state.vehicle_types)
                 // console.log(e.currentTarget.value)
                 if (this.state.vehicle_types.includes(e.currentTarget.value)) {
                     // this.state.vehicle_types.push(e.currentTarget.value);
-                    // 
+                    //
                     let arr = this.state.vehicle_types
                     let index = arr.indexOf(e.currentTarget.value);
 
                     arr.splice(index, 1)
-                    
+
                 } else {
                     this.state.vehicle_types.push(e.currentTarget.value);
-                    // 
+                    //
                 }
             } else if (val === 'spot_type') {
                 this.state.spot_type = e.currentTarget.value
@@ -101,7 +148,7 @@ class CreateSpot extends React.Component {
         // let axiosRequest = axios.create();
         // axiosRequest.defaults.headers.common['Content-Type'] = 'application/json';
         // delete axiosRequest.defaults.headers.common['Authorization'];
-        // 
+        //
         var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state} + ${this.state.zipcode}`;
         $.ajax({
             method: 'GET',
@@ -119,7 +166,7 @@ class CreateSpot extends React.Component {
         // })
         .then(res => {
             // console.log(res)
-            // 
+            //
             this.lat = res.results[0].geometry.location.lat;
             this.lng = res.results[0].geometry.location.lng;
 
@@ -132,12 +179,12 @@ class CreateSpot extends React.Component {
 
     render() {
         this.geocode();
-        
+
         let renderMap;
-        
+
         if (this.state.line1.length > 0 && this.state.city.length > 0 &&
             this.state.state.length >= 2 && this.state.zipcode.toString().length >= 5 && this.renderMap) {
-            
+
             var MyMapComponent = compose(
                 withStateHandlers(() => ({
                     isMarkerShown: false,
@@ -155,12 +202,12 @@ class CreateSpot extends React.Component {
                 withGoogleMap
             )
                 (props => {
-                    
+
                     // when the map is clicked, a marker is created and lat/lng is stored in this.state
                     if (props.markerPosition) {
                         this.state.latitude = props.markerPosition.lat();
                         this.state.longitude = props.markerPosition.lng();
-                        
+
                     }
 
                     return (
@@ -192,11 +239,31 @@ class CreateSpot extends React.Component {
 
         // console.log(this.state) // for testing purposes
 
+
+        let imageStyle
+        if (this.state.main_picture_url != ''){
+          imageStyle = {
+            backgroundImage: `url('${this.state.img_url}')`,
+            backgroundRepeat  : 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+      };
+  }
         return <div>
             <h4> Create a new Parking Spot </h4>
 
             <form>
-              <button>Upload Image</button>
+              {this.state.img_url === null ? (
+                <div style={{fontSize:'20px',color:'#737373'}}>
+                  <span>Please, select parking photo</span>
+                  <input type="file" onChange={ (e) => this.setImg(e) } />
+                </div>
+              ) : (
+                <div className="create-spot-main-img" style={imageStyle}>
+                </div>
+              )}
+
+
               <div className="Address">
                 <label> Address: </label>
                 <div id="building-street">
@@ -268,7 +335,7 @@ class CreateSpot extends React.Component {
               <input type="submit" onClick={ (e) => this.handleSubmit(e) } value="Create Parking Spot" />
             </form>
           </div>;
-        
+
     }
 };
 
