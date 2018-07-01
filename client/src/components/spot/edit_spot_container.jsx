@@ -1,34 +1,24 @@
 import { connect } from "react-redux";
 import React from "react";
 
-import { fetchSpot, updateSpot } from '../../actions/spot_actions';
+import { fetchSpotById, updateSpot } from '../../actions/spot_actions';
+import { clearErrors } from "../../actions/errors_actions";
 import EditSpot from './edit_spot'
 
 const mapStateToProps = (state, ownProps) => {
 
     return ({
-        // spot: state.entities.spots[ownProps.match.params.id], //request spot from backend
-        spot: {
-            line1: '825',
-            line2: 'Battery St.',
-            city: 'san francisco',
-            state: 'ca',
-            zipcode: 94105,
-            description: 'lalalalal',
-            vehicle_types: [],
-            spot_type: 'Canopy Parking Lot',
-            rental_rate: 1000,
-            rental_type: 'daily',
-            img_url: '',
-            reservations: [],
-            latitude: '',
-            longitude: ''
-        }
+        spot: state.entities.spots[ownProps.match.params.id], //request spot from backend
+        spotId: ownProps.match.params.id,
+        user: state.isAuthenticated.user,
+        isAuthenticated: state.isAuthenticated.isAuthenticated,
+        errors: Object.values(state.errors)
     })
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    fetchSpot: (id) => dispatch(fetchSpot(id)),
+    fetchSpotById: id => dispatch(fetchSpotById(id)),
+    clearErrors: () => dispatch(clearErrors()),
     updateSpot: (spot) => dispatch(updateSpot(spot))
 });
 
