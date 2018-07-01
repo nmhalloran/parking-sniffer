@@ -12,7 +12,9 @@ class CreateVehicle extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.createVehicle(this.state);
+        this.props.createVehicle(this.state)
+       .then((res)=>this.props.history
+       .push(`/vehicles/${res.vehicle.data.vehicles[0]._id}`));
     }
 
     handleChange(val) {

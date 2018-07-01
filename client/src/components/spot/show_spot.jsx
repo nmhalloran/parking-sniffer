@@ -39,7 +39,7 @@ class ShowSpot extends React.Component {
     //Erasing any errors...
     this.props.clearErrors();
   }
-  
+
 
   handleChange(e, val) {
     switch (val) {
@@ -66,7 +66,6 @@ class ShowSpot extends React.Component {
 
   handleSubmit(e) {
     this.state.seller_id = this.props.spot.seller_id;
-    console.log(this.state);
     if (
       this.state.start_date === "" ||
       this.state.end_date === "" ||
@@ -74,10 +73,9 @@ class ShowSpot extends React.Component {
     ) {
       alert("please fill in required inputs");
     } else {
-      debugger;
       this.props
         .createReservation(this.props.spotId, this.state)
-        .then(res => console.log(res))
+        .then((_) => this.props.fetchSpot(this.props.spotId))
         .catch(err => console.log(err));
     }
   }

@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchVehicle: id => dispatch(fetchVehicle(id)),
   deleteVehicle: id => dispatch(deleteVehicle(id)),
-  clearErrors: () => dispatch(clearErrors())
+  clearErrors: () => dispatch(clearErrors()),
 });
 
 export default connect(
