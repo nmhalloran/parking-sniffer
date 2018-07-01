@@ -84,7 +84,6 @@ class CreateSpot extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        console.log(this.state);
         let spot = {}
         spot.line1 = this.state.line1
         spot.line2 = this.state.line2
@@ -100,6 +99,7 @@ class CreateSpot extends React.Component {
         spot.latitude = this.state.latitude
         spot.longitude = this.state.longitude
         
+        console.log(this.state);
         this.props.createSpot(spot);
         // debugger
         this.setState({
@@ -136,7 +136,6 @@ class CreateSpot extends React.Component {
 
     handleChange(val) {
         return (e) => {
-            //
             
             if (val === 'vehicle_type') {
    
@@ -296,8 +295,15 @@ class CreateSpot extends React.Component {
               <div className="Address">
                 <label> Address: </label>
                 <div id="building-street">
-                  <input type="text" placeholder="Building" onChange={this.handleAddressChange("line1")} />
-                  <input type="text" placeholder="Street" onChange={this.handleAddressChange("line2")} />
+                  <input 
+                  type="text" 
+                  placeholder="Building" 
+                  onChange={this.handleAddressChange("line1")} />
+
+                  <input type="text" 
+                  placeholder="Street" 
+                  onChange={this.handleAddressChange("line2")} />
+
                 </div>
                 <div id="city-state-zip">
                   <input type="text" placeholder="City/Town" onChange={this.handleAddressChange("city")} />

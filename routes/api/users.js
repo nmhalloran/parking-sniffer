@@ -195,13 +195,13 @@ router.patch(
   "/spot/:spot_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateSpotInput(req.body);
+    // const { errors, isValid } = validateSpotInput(req.body);
 
-    // Check Validation
-    if (!isValid) {
-      // Return any errors with 400 status
-      return res.status(400).json(errors);
-    }
+    // // Check Validation
+    // if (!isValid) {
+    //   // Return any errors with 400 status
+    //   return res.status(400).json({msg:"hello"});
+    // }
 
     // Get fields
     let profileFields = {};
@@ -223,6 +223,7 @@ router.patch(
       profileFields.spots.rental_rate = req.body.rental_rate;
     if (req.body.rental_type)
       profileFields.spots.rental_type = req.body.rental_type;
+    if (req.body.seller_id) profileFields.spots.seller_id = req.body.seller_id;
     if (req.body.img_url) profileFields.spots.img_url = req.body.img_url;
 
     User.findOne({ _id: req.user.id }).then(user => {

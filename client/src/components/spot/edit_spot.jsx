@@ -52,7 +52,7 @@ class EditSpot extends React.Component {
     this.state.seller_id = this.props.user.id;
 
     // debugger
-
+    console.log(this.state)
     this.props.updateSpot(this.state);
   }
 

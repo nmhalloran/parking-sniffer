@@ -44,7 +44,7 @@ export const updateSpot = (spot) => (
     axios({
         method: 'patch',
         url: `/api/users/spot/${spot._id}`,
-        data: { spot }
+        data: spot
     })
 );
 

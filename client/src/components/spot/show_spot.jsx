@@ -146,6 +146,18 @@ class ShowSpot extends React.Component {
           backgroundSize: "cover"
         };
       }
+      // debugger
+      if (this.props.user.id === this.props.spot.seller_id) {
+        var renderEdit = (
+          <Link to={`/spots/edit/${this.props.spot._id}`}>
+            <input type="button" value="Edit Spot" />
+          </Link>
+        );
+      } else {
+        renderEdit = (
+          <div>can't edit</div>
+        )
+      }
 
       return (
         <div>
@@ -215,7 +227,11 @@ class ShowSpot extends React.Component {
                 onClick={e => this.handleSubmit(e)}
                 value="Request Parking Spot"
               />
+              
+              {renderEdit}
             </div>
+
+
           </div>
 
           {/* <div>Hello {this.currentUser.name}</div> */}
