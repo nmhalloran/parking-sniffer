@@ -100,55 +100,101 @@ this.setState({spots:spots,allSpots:allSpots})
 }
 
 filterSpots(spots_arr){
-let filtered_spots_arr = spots_arr.slice()
+let all_spots_arr = spots_arr.slice()
 
-if(!this.state.garage){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.spot_type != 'garage'))
-}
-if(!this.state.openParking){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.spot_type != 'openparking'))
-}
-if(!this.state.underground){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.spot_type != 'underground'))
-}
-if(!this.state.solar){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.spot_type != 'solar'))
-}
+let filteredByTypeSpots = []
 
-if(!this.state.daily){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.rental_type != 'daily'))
+if(this.state.garage){
+  let filtered_spots_arr = all_spots_arr.filter((spot)=>(spot.spot_type === 'garage'))
+  filteredByTypeSpots = filteredByTypeSpots.concat(filtered_spots_arr)
 }
-
-if(!this.state.weekly){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.rental_type != 'weekly'))
+if(this.state.openParking){
+  let filtered_spots_arr = all_spots_arr.filter((spot)=>(spot.spot_type === 'openparking'))
+  filteredByTypeSpots = filteredByTypeSpots.concat(filtered_spots_arr)
 }
-if(!this.state.monthly){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.rental_type != 'monthly'))
+if(this.state.underground){
+  let filtered_spots_arr = all_spots_arr.filter((spot)=>(spot.spot_type === 'underground'))
+  filteredByTypeSpots = filteredByTypeSpots.concat(filtered_spots_arr)
 }
-if(!this.state.monthly){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(spot.rental_type != 'yearly'))
+if(this.state.solar){
+  let  filtered_spots_arr = all_spots_arr.filter((spot)=>(spot.spot_type === 'solar'))
+  filteredByTypeSpots = filteredByTypeSpots.concat(filtered_spots_arr)
 }
 
-if(!this.state.motorcycle){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('motorcycle')))
+let filteredByTermSpots = []
+
+if(this.state.daily){
+  let filtered_spots_arr = filteredByTypeSpots.filter((spot)=>(spot.rental_type === 'daily'))
+  filteredByTermSpots = filteredByTermSpots.concat(filtered_spots_arr)
 }
 
-if(!this.state.truck){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('truck')))
+if(this.state.weekly){
+ let  filtered_spots_arr = filteredByTypeSpots.filter((spot)=>(spot.rental_type === 'weekly'))
+  filteredByTermSpots = filteredByTermSpots.concat(filtered_spots_arr)
 }
-if(!this.state.car){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('car')))
+if(this.state.monthly){
+let  filtered_spots_arr = filteredByTypeSpots.filter((spot)=>(spot.rental_type === 'monthly'))
+  filteredByTermSpots = filteredByTermSpots.concat(filtered_spots_arr)
 }
-if(!this.state.fullSize){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('full_size')))
+if(this.state.yearly){
+  let filtered_spots_arr = filteredByTypeSpots.filter((spot)=>(spot.rental_type === 'yearly'))
+  filteredByTermSpots = filteredByTermSpots.concat(filtered_spots_arr)
 }
-if(!this.state.compact){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('compact')))
+
+let filteredByVehicleSpots = []
+
+if(this.state.motorcycle){
+ let  filtered_spots_arr = filteredByTermSpots.filter((spot)=>(spot.vehicle_types.includes('motorcycle')))
+  filtered_spots_arr.forEach((spot)=>{
+    if(!filteredByVehicleSpots.includes(spot)){
+      filteredByVehicleSpots.push(spot)
+    }
+  })
 }
-if(!this.state.other){
-  filtered_spots_arr = filtered_spots_arr.filter((spot)=>(!spot.vehicle_types.includes('other')))
+
+if(this.state.truck){
+  let filtered_spots_arr = filteredByTermSpots.filter((spot)=>(spot.vehicle_types.includes('truck')))
+  filtered_spots_arr.forEach((spot)=>{
+    if(!filteredByVehicleSpots.includes(spot)){
+      filteredByVehicleSpots.push(spot)
+    }
+  })
 }
-  return filtered_spots_arr
+
+if(this.state.car){
+ let  filtered_spots_arr = filteredByTermSpots.filter((spot)=>(spot.vehicle_types.includes('car')))
+  filtered_spots_arr.forEach((spot)=>{
+    if(!filteredByVehicleSpots.includes(spot)){
+      filteredByVehicleSpots.push(spot)
+    }
+  })
+
+}
+if(this.state.fullSize){
+ let  filtered_spots_arr = filteredByTermSpots.filter((spot)=>(spot.vehicle_types.includes('full_size')))
+  filtered_spots_arr.forEach((spot)=>{
+    if(!filteredByVehicleSpots.includes(spot)){
+      filteredByVehicleSpots.push(spot)
+    }
+  })
+}
+if(this.state.compact){
+ let  filtered_spots_arr = filteredByTermSpots.filter((spot)=>(spot.vehicle_types.includes('compact')))
+  filtered_spots_arr.forEach((spot)=>{
+    if(!filteredByVehicleSpots.includes(spot)){
+      filteredByVehicleSpots.push(spot)
+    }
+  })
+}
+if(this.state.other){
+ let  filtered_spots_arr = filteredByTermSpots.filter((spot)=>(spot.vehicle_types.includes('other')))
+ filtered_spots_arr.forEach((spot)=>{
+   if(!filteredByVehicleSpots.includes(spot)){
+     filteredByVehicleSpots.push(spot)
+   }
+ })
+}
+  return filteredByVehicleSpots
 }
 
 toggleSearchDiv(){

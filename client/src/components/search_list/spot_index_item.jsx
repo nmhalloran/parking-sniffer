@@ -5,6 +5,8 @@ const SpotIndexItem = (props) => {
 
   let spotItemBgImgStyle = {
     backgroundImage: "url(" + props.spot.img_url  + ")",
+    backgroundSize: "contain",
+    borderRadius: "10px",
   };
 //Structure
 // city:"SanFrancisco"
@@ -21,15 +23,19 @@ const SpotIndexItem = (props) => {
 // zipcode:94105
 // _id:"5b36d9aa8ec33babea85fb4e"
 return(
-<Link className="" to={`/spots/${props.spot._id}`}>
+<Link className="spot-display-link" to={`/spots/${props.spot._id}`}>
   <div className="spot-index-box"  >
 
-    <div className="recipe-item-img" style={ spotItemBgImgStyle }>
-      {props.spot.city}
-      {props.spot.rental_rate}
-      {props.spot.rental_type}
-      {props.spot.city}
-      {props.spot.state}
+    <div className="spot-item-img" style={ spotItemBgImgStyle }>
+
+
+    </div>
+    <div className="spot-display-city">
+      <span>{props.spot.city}</span>
+    </div>
+    <div className="spot-display-rate" >
+      <span>$ {props.spot.rental_rate}</span>
+      <span>{props.spot.rental_type}</span>
 
     </div>
   </div>
