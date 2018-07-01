@@ -18,7 +18,9 @@ class ReservationIndexPage extends React.Component {
         {reservations.map((res, i) => (
 
         <div>
-        <ReservationIndexItem reservation={res} key={i} />
+        <ReservationIndexItem reservation={res} key={i}
+          updateReservation={this.props.updateReservation}
+          deleteReservation={this.props.deleteReservation}/>
         </div>
       ))};
       </div>);

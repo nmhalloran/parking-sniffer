@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
   fetchReservations: (spot_id) => dispatch(fetchReservations(spot_id)),
   updateReservation: (spot_id, reservation) =>
     dispatch(updateReservation(spot_id, reservation)),
-  deleteReservation: id => dispatch(deleteReservation(id))
+  deleteReservation: (spot_id,reservation) => dispatch(deleteReservation(spot_id,reservation))
 });
 
 export default connect(
