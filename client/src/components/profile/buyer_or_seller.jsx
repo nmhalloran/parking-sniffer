@@ -28,16 +28,14 @@ class BuyerOrSeller extends React.Component {
       );
     } else {
       return (
-        <div>
-          <SearchListContainer />
-
+        <div className="profile-body">
+          <div className="index-title">Your Spots</div>
           <div className="index-wrapper">
-            <SpotsIndexPage spots={user.spots}/>
+            <SpotsIndexPage spots={user.spots} />
           </div>
-          <div>
+          <div className="index-wrapper">
             <VehiclesIndexPage vehicles={user.vehicles} />
           </div>
-
         </div>
       );
     }

@@ -1,12 +1,41 @@
 .item-container {
   display: flex;
   width: 33%;
-  height: 100px;
+  min-width: 150px;
+  height: 150px;
   box-sizing: border-box;
+  border: 1px solid black;
+  margin: 10px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  background-color: #f1efea;
+}
+
+.profile-body {
+  width: 100%;
+  justify-content: center;
+}
+
+.index-title {
+  text-align: center;
+  display: block;
+  width: 100%;
 }
 
 .index-wrapper {
   display: flex;
-  width: 100%;
+  width: 90%;
+  max-width: 1280px;
   min-height: 200px;
+  margin: 0 auto;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  max-width: 960px;
+  margin: 73px 10px 10px 10px;
+  box-sizing: border-box;
+  height: 1000px;
+  background-color: #f1efea;
 }
