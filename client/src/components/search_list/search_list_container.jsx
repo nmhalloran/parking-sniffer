@@ -19,9 +19,14 @@ return ({
   isAuthenticated: state.isAuthenticated.isAuthenticated,
   spots: state.entities.spots,
   zip: state.entities.spots.zip,
+<<<<<<< HEAD
   range: state.entities.spots.range,
   indexfirstload : indexfirstload,
 })}
+=======
+  range: state.entities.spots.ranges
+})
+>>>>>>> alfred
 
 
 const mdp = (dispatch) =>({

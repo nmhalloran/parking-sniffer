@@ -17,6 +17,7 @@ import { AuthRoute, ProtectedRoute } from "./util/route_util";
 
 const App = () => (
   <div className="root-container">
+<<<<<<< HEAD
     <header>
       <TopNavBarContainer />
     </header>
@@ -33,6 +34,20 @@ const App = () => (
     <footer>
       <Footer />
     </footer>
+=======
+    <Route path="/" component={TopNavBarContainer} />
+<Switch>
+    <Route exact path="/" component={SearchListContainer} />
+    <Route exact path="/signup" component={SignUpContainer} />
+    <Route exact path="/signin" component={SignInContainer} />
+    <Route exact path="/spots/new" component={CreateSpotContainer} />
+    <Route exact path="/spots/edit/:id" component={EditSpotContainer} />
+    <Route exact path="/spots/:id" component={ShowSpotContainer} />
+    <Route exact path="/user/profile" component={ProfileContainer} />
+
+  </Switch>
+      <Route path="/" component={Footer} />
+>>>>>>> alfred
   </div>
 );
 

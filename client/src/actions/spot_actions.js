@@ -1,5 +1,5 @@
 import * as SpotAPIUtil from '../util/spot_api_util';
-
+import { CLEAR_ERRORS, ADD_ERRORS } from './errors_actions'
 export const RECEIVE_SPOTS = 'RECEIVE_SPOTS';
 export const RECEIVE_SPOT = 'RECEIVE_SPOT';
 export const REMOVE_SPOT = 'REMOVE_SPOT';
@@ -37,6 +37,19 @@ export const fetchSpotsByZip = (zip) => dispatch => (
         .catch(err => console.log(err)) //deal with errors later
 )
 
+<<<<<<< HEAD
+export const fetchSpotById = (id) => dispatch => (
+    SpotAPIUtil.fetchSpotById(id)
+        .then(spot => dispatch(receiveSpot(spot)))
+        .catch(error => dispatch({type: ADD_ERRORS, payload: error.response.data}))
+=======
+export const fetchSpotsByOwner = () => dispatch => (
+    SpotAPIUtil.fetchSpotsByOwner()
+        .then(spots => dispatch(receiveSpots(spots)))
+        .catch(err => console.log(err))
+>>>>>>> alfred
+)
+
 export const fetchSpot = (id) => dispatch => (
     SpotAPIUtil.fetchSpot(id)
         .then(spot => dispatch(receiveSpot(spot)))
@@ -44,7 +57,7 @@ export const fetchSpot = (id) => dispatch => (
 )
 
 export const createSpot = (spot) => dispatch => {
-    
+
     // debugger
 
     return (
