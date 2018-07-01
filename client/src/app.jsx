@@ -17,7 +17,6 @@ import { AuthRoute, ProtectedRoute } from "./util/route_util";
 
 const App = () => (
   <div className="root-container">
-<<<<<<< HEAD
     <header>
       <TopNavBarContainer />
     </header>
@@ -34,7 +33,6 @@ const App = () => (
     <footer>
       <Footer />
     </footer>
-
   </div>
 );
 
