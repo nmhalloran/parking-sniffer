@@ -85,13 +85,13 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 
-  height: 600px;
+  height: 450px;
   background-color: #F4F7F6;
 }
 .search-list-loading span{
   margin-left: auto;
   margin-right: auto;
-  color:#dadfdd;
+  color:#14A2B4;
 
 }
 .search-list-loading-gif{
@@ -100,4 +100,35 @@ justify-content: center;
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.search-list-no-results{
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+
+    height: 450px;
+    background-color: #F4F7F6;
+}
+
+.search-list-no-results span {
+  margin-left: auto;
+  margin-right: auto;
+  color:#14A2B4;
+}
+.spot-index-box{
+  width:250px;
+  height:250px;
+  background-color: lightgrey;
+  margin: 5px;
+  border-radius: 10px;
+}
+.search-list-load-more{
+
+}
+.search-list-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

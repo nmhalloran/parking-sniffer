@@ -75,3 +75,9 @@ justify-content: center;
     margin: 15px 0px;
     border: 1px solid black;
 }
+.show-spot-main-img{
+  width: 400px;
+  height: 200px;
+  border-collapse:collapse;
+  border-radius: 15px;
+}
