@@ -34,7 +34,7 @@ class SignIn extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-
+    this.props.clearErrors()
     const userData = {
       email: this.state.email,
       password: this.state.password

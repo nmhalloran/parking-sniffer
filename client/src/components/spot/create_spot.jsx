@@ -84,7 +84,6 @@ class CreateSpot extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        console.log(this.state);
         let spot = {}
         spot.line1 = this.state.line1
         spot.line2 = this.state.line2
@@ -96,10 +95,15 @@ class CreateSpot extends React.Component {
         spot.spot_type = this.state.spot_type
         spot.rental_rate = this.state.rental_rate
         spot.rental_type = this.state.rental_type
-        spot.img_url = this.state.img_url
+        if(this.state.img_url === null){
+          spot.img_url = "https://res.cloudinary.com/clustermass/image/upload/v1530477397/vafbxhikgkofcuewcvvs.png"
+        }else{
+          spot.img_url = this.state.img_url
+        }
         spot.latitude = this.state.latitude
         spot.longitude = this.state.longitude
         
+        console.log(this.state);
         this.props.createSpot(spot);
         // debugger
         this.setState({
@@ -136,10 +140,9 @@ class CreateSpot extends React.Component {
 
     handleChange(val) {
         return (e) => {
-            //
             
             if (val === 'vehicle_type') {
-   
+
                 if (this.state.vehicle_types.includes(e.currentTarget.value)) {
 
                     let arr = this.state.vehicle_types
@@ -296,8 +299,15 @@ class CreateSpot extends React.Component {
               <div className="Address">
                 <label> Address: </label>
                 <div id="building-street">
-                  <input type="text" placeholder="Building" onChange={this.handleAddressChange("line1")} />
-                  <input type="text" placeholder="Street" onChange={this.handleAddressChange("line2")} />
+                  <input 
+                  type="text" 
+                  placeholder="Building" 
+                  onChange={this.handleAddressChange("line1")} />
+
+                  <input type="text" 
+                  placeholder="Street" 
+                  onChange={this.handleAddressChange("line2")} />
+
                 </div>
                 <div id="city-state-zip">
                   <input type="text" placeholder="City/Town" onChange={this.handleAddressChange("city")} />
@@ -313,27 +323,38 @@ class CreateSpot extends React.Component {
                 <input type="checkbox" id="motorcycle" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="motorcycle" />
                 <label htmlFor="motorcycle">Motorcycle</label>
 
+                <input type="checkbox" id="car" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="car" />
+                <label htmlFor="car">Car</label>
+
+               <input type="checkbox" id="full_size" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="full_size" />
+                <label htmlFor="full_size">Full size</label>
+
                 <input type="checkbox" id="compact" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="compact" />
                 <label htmlFor="compact">Compact</label>
 
-                <input type="checkbox" id="sedan" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="sedan" />
-                <label htmlFor="fullsize">Sedan</label>
-
                 <input type="checkbox" id="truck" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="truck" />
                 <label htmlFor="truck">Truck</label>
+
+                  <input type="checkbox" id="other" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="other" />
+                  <label htmlFor="other">Other</label>
               </div>
 
               <div>
                 <label> Type of Parking </label>
-                <input type="radio" id="covered" onChange={this.handleChange("spot_type")} name="parkingtype" value="covered" />
-                <label htmlFor="covered">Covered</label>
+                <input type="radio" id="garage" onChange={this.handleChange("spot_type")} name="parkingtype" value="garage" />
+                <label htmlFor="garage">Garage</label>
 
-                <input type="radio" id="uncovered" onChange={this.handleChange("spot_type")} name="parkingtype" value="uncovered" />
-                <label htmlFor="uncovered">Uncovered</label>
+                <input type="radio" id="openparking" onChange={this.handleChange("spot_type")} name="parkingtype" value="openparking" />
+                <label htmlFor="openparking">Open Parking</label>
 
-                <input type="radio" id="california_canopy" onChange={this.handleChange('spot_type')} name="parkingtype" value="california_canopy" />
-                <label htmlFor="california_canopy">
-                  California Canopy
+                <input type="radio" id="underground" onChange={this.handleChange('spot_type')} name="parkingtype" value="underground" />
+                <label htmlFor="underground">
+                  Underground
+                </label>
+
+                <input type="radio" id="solar" onChange={this.handleChange('spot_type')} name="parkingtype" value="solar" />
+                <label htmlFor="solar">
+                  Solar Carport
                 </label>
 
               </div>

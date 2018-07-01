@@ -62,8 +62,8 @@ module.exports = function validateSpotInput(data) {
     "WV",
     "WY"
   );
-  // const vehicleTypes = ["motorcycle", "compact", "sedan", "truck/full-size"];
-  const spotTypes = ["uncovered", "covered", "california_canopy"];
+  // const vehicleTypes = ["motorcycle", "car", "full_size", "compact", "truck", "other"];
+  const spotTypes = ["garage", "openparking", "underground", "solar"];
   const rentalTypes = ["daily", "weekly", "monthly", "yearly"];
 
   data.line1 = !isEmpty(data.line1) ? data.line1 : "";

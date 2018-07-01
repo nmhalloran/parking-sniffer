@@ -44,13 +44,13 @@ export const updateSpot = (spot) => (
     axios({
         method: 'patch',
         url: `/api/users/spot/${spot._id}`,
-        data: { spot }
+        data: spot
     })
 );
 
 export const deleteSpot = (id) => (
     axios({
         method: 'delete',
-        url: `/api/users/spots/${id}`
+        url: `/api/users/spot/${id}`
     })
 );

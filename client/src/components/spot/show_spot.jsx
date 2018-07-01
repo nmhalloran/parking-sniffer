@@ -29,7 +29,7 @@ class ShowSpot extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     //requesting spot from backend...
     this.props.fetchSpot(this.props.spotId);
   }
@@ -59,6 +59,10 @@ class ShowSpot extends React.Component {
       default:
         break;
     }
+  }
+
+  handleDelete(e) {
+    this.props.deleteSpot(this.props.spotId);
   }
 
   handleSubmit(e) {
@@ -146,6 +150,26 @@ class ShowSpot extends React.Component {
           backgroundSize: "cover"
         };
       }
+      // debugger
+      if (this.props.user.id === this.props.spot.seller_id) {
+        var renderEdit = (
+          <Link to={`/spots/edit/${this.props.spot._id}`}>
+            <input type="button" value="Edit Spot" />
+          </Link>
+        );
+
+        var renderDelete = (
+          <input type="button" onClick={ e => this.handleDelete(e)} value="Delete Spot" />
+        )
+      } else {
+        var renderEdit = (
+          <div>can't edit</div>
+        )
+
+        var renderDelete = (
+          <div>can't delete</div>
+        )
+      }
 
       return (
         <div>
@@ -215,7 +239,13 @@ class ShowSpot extends React.Component {
                 onClick={e => this.handleSubmit(e)}
                 value="Request Parking Spot"
               />
+              
+              {renderEdit}
+
+              {renderDelete}
             </div>
+
+
           </div>
           <ReservationsContainer spotId={this.props.spotId}/>
           {/* <div>Hello {this.currentUser.name}</div> */}
