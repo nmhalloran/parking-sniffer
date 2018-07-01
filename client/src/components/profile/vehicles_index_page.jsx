@@ -6,7 +6,6 @@ class VehicleIndexPage extends React.Component {
     const { vehicles } = this.props;
     if (vehicles.length > 0) {
       let cars = vehicles.map((vehicle, i) => {
-        console.log(vehicles);
         return (
           <div>
 

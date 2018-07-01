@@ -15,6 +15,7 @@ const mapStateToProps = (state, ownProps) => (
   }
 );
 
+
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchSpot: id => dispatch(fetchSpot(id)),
   clearErrors: () => dispatch(clearErrors()),

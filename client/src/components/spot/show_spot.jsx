@@ -27,7 +27,6 @@ class ShowSpot extends React.Component {
       seller_id: "",
       optional_msg: ""
     };
-
   }
 
   componentWillMount() {

@@ -9,7 +9,6 @@ class SpotsIndexItem extends React.Component {
 
   render() {
     let spot = this.props.spot;
-
     return (
       <li className="item-container">
         <Link to={`/spots/${spot._id}`}>{spot.description}</Link>
