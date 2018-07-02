@@ -3,6 +3,7 @@ import React from "react";
 
 import { fetchSpot, fetchSpotById, deleteSpot } from "../../actions/spot_actions";
 import { createReservation } from "../../actions/reservation_actions";
+import { fetchVehicles } from "../../actions/vehicle_actions"
 import ShowSpot from "./show_spot";
 import { clearErrors } from '../../actions/errors_actions';
 const mapStateToProps = (state, ownProps) => (
@@ -10,6 +11,7 @@ const mapStateToProps = (state, ownProps) => (
     spotId: ownProps.match.params.id,
     spot: state.entities.spots[ownProps.match.params.id],
     user: state.isAuthenticated.user,
+    vehicles: Object.values(state.entities.vehicles),
     isAuthenticated: state.isAuthenticated.isAuthenticated,
     errors: Object.values(state.errors)
   }
@@ -22,7 +24,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteSpot: id => dispatch(deleteSpot(id)),
   clearErrors: () => dispatch(clearErrors()),
   createReservation: (spot_id, data) =>
-    dispatch(createReservation(spot_id, data))
+    dispatch(createReservation(spot_id, data)),
+  fetchVehicles: () => dispatch(fetchVehicles())
+  
 });
 
 export default connect(
