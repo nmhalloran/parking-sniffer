@@ -1,6 +1,25 @@
-.create-spot-form {
+.create-spot-page {
+  /* width: 800px; */
   text-align: center;
-  align-content: center;
+
+}
+
+.create-spot-page h2 {
+  /* font-size: 24px; */
+  color: rgba(36, 162, 181);
+  border-radius: 15px 15px 0px 0px;
+  background-color: black;
+  padding: 15px 0px;
+}
+
+.create-spot-form {
+  width: 800px;
+  margin: 25px auto;
+  border: 1px solid black;
+  border-radius: 15px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  padding-bottom: 25px;
+  /* background-color: lightskyblue; */
 }
 
 .create-spot-main-img {
@@ -8,4 +27,153 @@
   height: 200px;
   border-collapse:collapse;
   border-radius: 15px;
+}
+
+#upload-image {
+  width: 350px;
+  padding: 10px;
+  margin: 25px auto;
+  font-size: 20px;
+  color: white;
+  text-shadow: 2px 2px black;
+  background-color: lightgrey;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 15px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.create-spot-main-img {
+  width: 400px;
+  padding: 10px;
+  margin: 25px auto;
+  text-align: center;
+  border: 1px solid black;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+
+#upload-image input {
+  color: white;
+  text-shadow: 2px 2px black;
+  width: 260px;
+}
+
+.Address {
+  width: 600px;
+  margin: 0 auto;
+  padding: 10px 0px;
+  border: 1px solid black;
+  border-radius: 15px 15px 0 0;
+  background-color: #F4F7F6;
+}
+
+.Address label {
+  /* padding: 0px 0px 25px 0px; */
+  padding-right: 375px;
+  font-size: 28px;
+  color: black;
+  text-align: left;
+  
+}
+
+.Address input {
+  width: 250px;
+  margin: 5px;
+  border: 1px solid grey;
+}
+
+.create-spot-info {
+  width: 600px;
+  margin: 25px auto;
+  padding: 10px 0px;
+  border: 1px solid black;
+  border-radius: 15px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  color: black;
+  background-color: #F4F7F6;
+}
+
+.create-spot-info #spot-info-title {
+  /* display: flex; */
+  /* margin: 0 auto; */
+  width: 100%;
+  font-size: 28px;
+  color: black;
+}
+
+.create-spot-info #spot-info-title-2 {
+  /* display: flex; */
+  /* margin: 0 auto; */
+  position: relative;
+  width: 100px;
+  font-size: 24px;
+  color: black;
+  margin-left: 25px;
+  bottom: 15px;
+}
+
+.rental-rate input {
+  position: relative;
+  margin-left: 25px;
+  bottom: 35px;
+}
+
+
+
+.vehicle-types {
+  border-bottom: 1px solid silver;
+  padding-bottom: 10px;
+}
+
+.vehicle-types label {
+  /* font-size: 50px; */
+  margin: 5px 20px 5px 3px;
+  font-size: 18px;
+}
+
+.spot-type {
+  border-bottom: 1px solid silver;
+  padding: 10px 0;
+}
+
+.spot-type label {
+  margin: 5px 20px 5px 3px;
+  font-size: 18px;
+}
+
+.rental-type {
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid silver;
+  padding: 30px 0;
+  display: flex;
+  margin: 0 auto;
+  text-align: center;
+  
+}
+
+.rental-type select {
+  width: 125px;
+  height: 40px;
+  padding: 15px 0px;
+}
+
+.rental-type #spot-info-title {
+  width: 125px;
+  
+}
+
+.description textarea {
+  width: 250px;
+}
+
+#submit-button {
+  color: white;
+  background-color: rgb(234,112,42);
+  text-shadow: 2px 2px black;
+  padding: 10px 25px;
+  border-radius: 5px;
+  border: 1px solid black;
+  margin: 15px 0;
 }

@@ -140,7 +140,7 @@ justify-content: center;
     padding-left: 45px;
     color: white;
     text-shadow: 2px 2px black;
-    background-color: lightsalmon;
+    background-color: rgb(234,112,42);
     
 }
 
@@ -156,14 +156,14 @@ justify-content: center;
 
 #show-spot-button {
     
-    background-color: lightsalmon;
+    background-color: rgb(234,112,42);
     color:white;
-    font-size: 18px;
+    font-size: 16px;
     text-shadow: 2px 2px black;
     border: 1px solid black;
     border-radius: 8px;
     /* margin: 8px; */
     margin: 5px 5px;
     width: auto;
-    height: 50px;
+    height: 35px;
 }
