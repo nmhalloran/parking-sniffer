@@ -47,46 +47,48 @@ class SignIn extends React.Component {
   }
 
   render() {
+    //col-md-8 m-auto
     const { errors } = this.state;
 
-    return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">
-                Sign in to your Parking Sniffer account
-              </p>
-              <form onSubmit={this.onSubmit}>
-                <input
-                  type="text"
-                  placeholder="Email Address"
-                  name="email"
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                  error={errors.email}
-                />
+    let style = {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      width: "200px",
+      marginLeft: "auto",
+      marginRight: "auto"
+    };
 
-                <input
-                  type="text"
-                  placeholder="Password"
-                  name="password"
-                  type="password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                  error={errors.password}
-                />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
-              <Link className="generic-link-1" to={"/signup"}>
-                {" "}
-                I don't have an account
-              </Link>
-            </div>
-          </div>
-        </div>
+    return (
+      <div style={style}>
+        <h3>&nbsp;&nbsp;&nbsp;Sign In</h3>
+
+        <form onSubmit={this.onSubmit}>
+          <input
+            type="text"
+            placeholder="Email Address"
+            name="email"
+            type="email"
+            value={this.state.email}
+            onChange={this.onChange}
+            error={errors.email}
+          />
+
+          <input
+            type="text"
+            placeholder="Password"
+            name="password"
+            type="password"
+            value={this.state.password}
+            onChange={this.onChange}
+            error={errors.password}
+          />
+          <input type="submit" className="btn btn-info btn-block mt-4" />
+        </form>
+        <Link className="generic-link-1" to={"/signup"}>
+          {" "}
+          I don't have an account
+        </Link>
       </div>
     );
   }

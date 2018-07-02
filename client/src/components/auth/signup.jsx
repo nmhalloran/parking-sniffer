@@ -51,15 +51,22 @@ class SignUp extends React.Component {
 
   render() {
     const { errors } = this.state;
+    let style={
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      width:"200px",
+      marginLeft:"auto",
+      marginRight:"auto"
+    }
+
 
     return (
-      <div className="register">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Sign Up</h1>
+
+              <div style={style}>
+
               <p className="lead text-center">
-                Create your Parking Sniffer account
+                Create your account
               </p>
               <form noValidate onSubmit={this.onSubmit}>
                 <input
@@ -105,9 +112,7 @@ class SignUp extends React.Component {
                 I already have an account
               </Link>
             </div>
-          </div>
-        </div>
-      </div>
+
     );
   }
 }

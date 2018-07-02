@@ -12,13 +12,8 @@ const VehiclesReducer = (state = {}, action) => {
             return action.vehicles.data.vehicles;
 
         case RECEIVE_VEHICLE:
-            newState = Object.assign({}, state);
-            let vehicles = action.vehicle.data;
-            vehicles.forEach((vehicle) => {
-                Object.assign(newState, {[vehicle._id]: vehicle})
-            })
-            debugger
-            return newState;
+        let vehicle = action.vehicle.data;
+        return Object.assign({}, state, {[vehicle._id]: vehicle});
 
         case REMOVE_VEHICLE:
             newState = Object.assign({}, state);

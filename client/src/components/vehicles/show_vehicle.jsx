@@ -3,6 +3,7 @@ import axios from "axios";
 import ReactDOM from "react-dom";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
+import "./show_vehicle.css";
 //import { LOADING_GIF } from '../../img/index';
 class ShowVehicle extends React.Component{
   constructor(props) {
@@ -39,16 +40,25 @@ class ShowVehicle extends React.Component{
              </div>);
     }else{
     return (
-      <div>
-        <h1>Vehicle Show Page</h1>
-        <h2>Vehicle Type: {this.props.vehicle.vehicle_type}</h2>
-        <h2>Plate No: {this.props.vehicle.plate_no}</h2>
-        <h2>Color: {this.props.vehicle.color}</h2>
-        <h2>Model: {this.props.vehicle.model}</h2>
-        <h2>Year: {this.props.vehicle.year}</h2>
-        <button value="Delete Vehicle" onClick={ (e) => this.handleDelete(e) }>
-          Delete Vehicle
-        </button>
+      <div className="showVehicle">
+        <div className="showVehicle-Info">
+          <div className="vehicle-Info">
+            <h3>Vehicle Information</h3>
+            <div className="vehicle-info-body">
+              <h5>Vehicle Type: {this.props.vehicle.vehicle_type}</h5>
+              <h5>Plate No: {this.props.vehicle.plate_no}</h5>
+              <h5>Color: {this.props.vehicle.color}</h5>
+              <h5>Model: {this.props.vehicle.model}</h5>
+              <h5>Year: {this.props.vehicle.year}</h5>
+           </div>
+           <div className="vehicle-info-button">
+              <button value="Delete Vehicle"
+                onClick={ (e) => this.handleDelete(e) }>
+                Delete Vehicle
+              </button>
+          </div>
+        </div>
+        </div>
       </div>
     );
   }
