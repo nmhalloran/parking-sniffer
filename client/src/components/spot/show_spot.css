@@ -88,6 +88,25 @@ justify-content: center;
     
 }
 
+.info-buttons {
+    border-top: 1px solid black;
+    width: 100%;
+    position: relative;
+    display: block;
+    
+}
+
+.spot-info-body div {
+    /* background-color: red; */
+    display: inline-block;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+}
+
+
 .Spot-Info h5 {
     margin: 15px 45px;
     text-align: left;
@@ -101,11 +120,6 @@ justify-content: center;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
     
     
-}
-
-.button-container {
-    width: 100%;
-    display: flex;
 }
 
 .reservation-form h5 {
@@ -127,28 +141,29 @@ justify-content: center;
     color: white;
     text-shadow: 2px 2px black;
     background-color: lightsalmon;
-
+    
 }
 
 .show-spot-main-img{
-  width: 400px;
-  height: 200px;
-  border-collapse:collapse;
-  border-radius: 15px;
-  margin: 25px 0px;
-  border: 1px solid black;
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+    width: 400px;
+    height: 200px;
+    border-collapse:collapse;
+    border-radius: 15px;
+    margin: 25px 0px;
+    border: 1px solid black;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
 
 #show-spot-button {
-
+    
     background-color: lightsalmon;
     color:white;
     font-size: 18px;
     text-shadow: 2px 2px black;
     border: 1px solid black;
+    border-radius: 8px;
     /* margin: 8px; */
-    margin: 10px auto;
+    margin: 5px 5px;
     width: auto;
     height: 50px;
 }
