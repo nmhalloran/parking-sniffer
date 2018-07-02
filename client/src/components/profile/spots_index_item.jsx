@@ -13,8 +13,7 @@ class SpotsIndexItem extends React.Component {
       backgroundImage: "url(" + spot.img_url + ")",
       backgroundSize: "contain",
       backgroundRepeat: "no-repeat",
-      backgroundPosition: "center",
-      borderRadius: "10px"
+      backgroundPosition: "center"
     };
 
     function capitalizeFirstLetter(string) {

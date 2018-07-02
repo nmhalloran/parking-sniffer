@@ -170,10 +170,13 @@
 .spot-item-img {
   width: 250px;
   height: 170px;
+  background-color: #234885;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .spot-display-link {
-  color: white;
+  color: black;
   font-size: 19px;
   text-decoration: none;
 }
