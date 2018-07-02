@@ -7,8 +7,8 @@ Parking Sniffer is a project aiming to create a peer to peer parking space netwo
 * [Background And Overview](https://github.com/nmhalloran/parking-sniffer#background-and-overview)
 * [Technologies](https://github.com/nmhalloran/parking-sniffer#technologies)
 * [Features](https://github.com/nmhalloran/parking-sniffer#features)
-* [MERN Stack - User Authentication]()
-* [Functionality and MVP](https://github.com/nmhalloran/parking-sniffer#fuctionality-and-mvp)
+* [MERN Stack - User Authentication](https://github.com/nmhalloran/parking-sniffer#mern-stack---user-authentication)
+* [Functionality and MVP](https://github.com/nmhalloran/parking-sniffer#functionality-and-mvp)
 * [Bonus Features](https://github.com/nmhalloran/parking-sniffer#bonus-features)
 
 ## Background And Overview
@@ -22,19 +22,23 @@ A person to person parking app that connects users in an area that need parking,
 
 ## Features
 
-Parking Sniffer Landing Page
+* Parking Sniffer Landing Page
 ![](https://s6.postimg.cc/fq2p6lbpt/parking_sniffer_1.png)
 
-While logged in or out, anyone can search for nearby parking spots by inputting a zipcode and search distance. Users are then required to log in if they want to access further features - such as renting out their spots to users, storing their vehicle information, and creating parking reservations.
+
+* While logged in or out, anyone can search for nearby parking spots by inputting a zipcode and search distance. Users   are then required to log in if they want to access further features - such as renting out their spots to users,        storing their vehicle information, and creating parking reservations.
 ![](https://s6.postimg.cc/x3czlgeqp/search_spots_index.png)
 
-When logged in, a user's personal dashboard displays the parking spots they want to rent out and their current vehicle information. They can create more of these by clicking the links on the right side.
+
+* When logged in, a user's personal dashboard displays the parking spots they want to rent out and their current         vehicle information. They can create more of these by clicking the links on the right side.
 ![](https://s6.postimg.cc/koq7l3sdd/user_profile.png)
 
-Want to lease your parking spot to others? Great! Just fill up this form and nearby renters will see your parking information. Fill in your address and click on the map to pinpoint exactly where your parking spot is. Use the Googlemaps satellite feature to show terrain details.
+
+* Want to lease your parking spot to others? Great! Just fill up this form and nearby renters will see your parking      information. Fill in your address and click on the map to pinpoint exactly where your parking spot is. Use the         Googlemaps satellite feature to show terrain details.
 ![](https://s6.postimg.cc/8zm7x594h/create_spot_form.png)
 
-Did you find the parking spot you wanted to rent for.. a few days? weeks? months? Clicking on a specific parking spot will show you more of its information and you can book your reservation on the same page as well.
+
+* Did you find the parking spot you wanted to rent for.. a few days? weeks? months? Clicking on a specific parking       spot will show you more of its information and you can book your reservation on the same page as well.
 ![](https://s6.postimg.cc/u99u84mw1/show_spot_page_and_reservation.png)
 
 
