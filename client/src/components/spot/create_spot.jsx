@@ -102,8 +102,10 @@ class CreateSpot extends React.Component {
         }
         spot.latitude = this.state.latitude
         spot.longitude = this.state.longitude
-        this.props.createSpot(spot).then((res)=>this.props.history
-        .push(`/spots/${res.spot.data.spots[0]._id}`));
+        this.props.createSpot(spot)
+            .then((res)=>this.props.history
+            .push(`/spots/${res.spot.data.spots[0]._id}`))
+            .catch(err => console.log(err))
 
         // debugger
         this.setState({
@@ -176,11 +178,7 @@ class CreateSpot extends React.Component {
     }
 
     geocode() {
-        // var location = '825 battery st. sf, ca';
-        // let axiosRequest = axios.create();
-        // axiosRequest.defaults.headers.common['Content-Type'] = 'application/json';
-        // delete axiosRequest.defaults.headers.common['Authorization'];
-        //
+ 
         var location = `${this.state.line1} + ${this.state.line2} + ${this.state.city} + ${this.state.state} + ${this.state.zipcode}`;
         $.ajax({
             method: 'GET',
@@ -190,15 +188,9 @@ class CreateSpot extends React.Component {
                 key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
             }
         })
-        // axiosRequest.get("https://maps.googleapis.com/maps/api/geocode/json", {
-        //   params: {
-        //     address: location,
-        //     key: 'AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg'
-        //   }
-        // })
+     
         .then(res => {
-            // console.log(res)
-            //
+ 
             this.lat = res.results[0].geometry.location.lat;
             this.lng = res.results[0].geometry.location.lng;
 
@@ -255,18 +247,14 @@ class CreateSpot extends React.Component {
                     )
                 })
 
-            renderMap = <MyMapComponent
-                isMarkerShown
-                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg"
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div className="myMapComponent" style={{ height: `400px`, width: `800px` }} />}
-                mapElement={<div style={{ height: `100%` }} />} />
+            renderMap = <MyMapComponent 
+                            isMarkerShown 
+                            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg" 
+                            loadingElement={<div style={{ height: `100%` }} />} 
+                containerElement={<div className="myMapComponent" style={{ height: `400px`, width: `600px`, margin: `0px auto 0px auto`, borderRadius: `0px 0px 15px 15px`, boxShadow: `0px 3px 3px rgba(0, 0, 0, 0.5)` }} />} 
+                mapElement={<div style={{ height: `100%`, borderRadius: `0px 0px 15px 15px` }} />} />;
         } else {
-            renderMap = <h3
-                className="noMapComponent"
-                style={{ height: `400px`, width: `800px` }}
-              >
-              </h3>;
+            renderMap = <h3 className="noMapComponent" style={{ height: `400px`, width: `600px`, margin: `0px auto 0px auto`, borderRadius: `0px 0px 15px 15px`, border: `1px solid black`, boxShadow: `0px 3px 3px rgba(0, 0, 0, 0.5)` }} />;
         }
 
 
@@ -279,109 +267,99 @@ class CreateSpot extends React.Component {
             backgroundSize: 'cover',
       };
   }
-        return <div>
-            <h4> Create a new Parking Spot </h4>
+        return <div className="create-spot-page">
+            <div className="create-spot-form">
+              <h2> Create a new Parking Spot </h2>
 
-            <form>
-              {this.state.img_url === null ? (
-                <div style={{fontSize:'20px',color:'#737373'}}>
-                  <span>Please, select parking photo</span>
-                  <input type="file" onChange={ (e) => this.setImg(e) } />
+              <form>
+                {this.state.img_url === null ? <div id="upload-image">
+                    <span>Please upload a parking photo:</span>
+                    <br />
+                    <input type="file" onChange={e => this.setImg(e)} />
+                  </div> : <div className="create-spot-main-img" style={imageStyle} />}
+
+                <div className="Address">
+                  <label> Address: </label>
+                  <div id="building-street">
+                    <input type="text" placeholder="Number" onChange={this.handleAddressChange("line1")} />
+
+                    <input type="text" placeholder="Street" onChange={this.handleAddressChange("line2")} />
+                  </div>
+                  <div id="city-state-zip">
+                    <input type="text" placeholder="City/Town" onChange={this.handleAddressChange("city")} />
+                    <input type="text" placeholder="State" onChange={this.handleAddressChange("state")} value={this.state.state} />
+                    <input type="number" placeholder="Zip Code" onChange={this.handleAddressChange("zipcode")} value={this.state.zipcode} />
+                  </div>
                 </div>
-              ) : (
-                <div className="create-spot-main-img" style={imageStyle}>
+
+                {renderMap}
+
+                <div className="create-spot-info">
+                  <div className="vehicle-types">
+                    <label id="spot-info-title">
+                      {" "}
+                      Vehicle Types Allowed{" "}
+                    </label> <br />
+                    <input type="checkbox" id="motorcycle" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="motorcycle" />
+                    <label htmlFor="motorcycle">Motorcycle</label>
+                    <input type="checkbox" id="car" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="car" />
+                    <label htmlFor="car">Car</label>
+                    <input type="checkbox" id="full_size" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="full_size" />
+                    <label htmlFor="full_size">Full size</label>
+                    <input type="checkbox" id="compact" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="compact" />
+                    <label htmlFor="compact">Compact</label>
+                    <input type="checkbox" id="truck" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="truck" />
+                    <label htmlFor="truck">Truck</label>
+                    <input type="checkbox" id="other" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="other" />
+                    <label htmlFor="other">Other</label>
+                  </div>
+
+                  <div className="spot-type">
+                    <label id="spot-info-title">
+                      {" "}
+                      Type of Parking{" "}
+                    </label> <br />
+                    <input type="radio" id="garage" onChange={this.handleChange("spot_type")} name="parkingtype" value="garage" />
+                    <label htmlFor="garage">Garage</label>
+                    <input type="radio" id="openparking" onChange={this.handleChange("spot_type")} name="parkingtype" value="openparking" />
+                    <label htmlFor="openparking">Open Parking</label>
+                    <input type="radio" id="underground" onChange={this.handleChange("spot_type")} name="parkingtype" value="underground" />
+                    <label htmlFor="underground">Underground</label>
+                    <input type="radio" id="solar" onChange={this.handleChange("spot_type")} name="parkingtype" value="solar" />
+                    <label htmlFor="solar">Solar Carport</label>
+                  </div>
+
+                  <div className="rental-type">
+                    <label id="spot-info-title"> Term </label>
+                    <select onChange={this.handleChange("rental_type")}>
+                      <option hidden value="">
+                        --Select One--
+                      </option>
+                      <option value="daily">Daily</option>
+                      <option value="weekly">Weekly</option>
+                      <option value="monthly">Monthly</option>
+                      <option value="yearly">Yearly</option>
+                    </select>
+                    <div className="rental-rate">
+                        <label id="spot-info-title-2"> Rate ($ per term) </label>
+                        <input onChange={this.handleChange("rental_rate")} type="number" />
+                    </div>
+                  </div>
+
+
+                  <div className="description">
+                    <label id="spot-info-title">
+                      {" "}
+                      Additional Information / Description:{" "}
+                    </label>
+                    <textarea onChange={this.handleChange("description")} />
+                  </div>
+
+                <input id="submit-button" type="submit" onClick={e => this.handleSubmit(e)} value="Create Parking Spot" />
                 </div>
-              )}
 
-
-              <div className="Address">
-                <label> Address: </label>
-                <div id="building-street">
-                  <input
-                  type="text"
-                  placeholder="Building"
-                  onChange={this.handleAddressChange("line1")} />
-
-                  <input type="text"
-                  placeholder="Street"
-                  onChange={this.handleAddressChange("line2")} />
-
-                </div>
-                <div id="city-state-zip">
-                  <input type="text" placeholder="City/Town" onChange={this.handleAddressChange("city")} />
-                  <input type="text" placeholder="State" onChange={this.handleAddressChange("state")} value={this.state.state} />
-                  <input type="number" placeholder="Zip Code" onChange={this.handleAddressChange("zipcode")} value={this.state.zipcode} />
-                </div>
-              </div>
-
-              {renderMap}
-
-              <div>
-                <label> Vehicle Types Allowed </label>
-                <input type="checkbox" id="motorcycle" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="motorcycle" />
-                <label htmlFor="motorcycle">Motorcycle</label>
-
-                <input type="checkbox" id="car" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="car" />
-                <label htmlFor="car">Car</label>
-
-               <input type="checkbox" id="full_size" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="full_size" />
-                <label htmlFor="full_size">Full size</label>
-
-                <input type="checkbox" id="compact" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="compact" />
-                <label htmlFor="compact">Compact</label>
-
-                <input type="checkbox" id="truck" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="truck" />
-                <label htmlFor="truck">Truck</label>
-
-                  <input type="checkbox" id="other" onClick={this.handleChange("vehicle_type")} name="vehicletype" value="other" />
-                  <label htmlFor="other">Other</label>
-              </div>
-
-              <div>
-                <label> Type of Parking </label>
-                <input type="radio" id="garage" onChange={this.handleChange("spot_type")} name="parkingtype" value="garage" />
-                <label htmlFor="garage">Garage</label>
-
-                <input type="radio" id="openparking" onChange={this.handleChange("spot_type")} name="parkingtype" value="openparking" />
-                <label htmlFor="openparking">Open Parking</label>
-
-                <input type="radio" id="underground" onChange={this.handleChange('spot_type')} name="parkingtype" value="underground" />
-                <label htmlFor="underground">
-                  Underground
-                </label>
-
-                <input type="radio" id="solar" onChange={this.handleChange('spot_type')} name="parkingtype" value="solar" />
-                <label htmlFor="solar">
-                  Solar Carport
-                </label>
-
-              </div>
-
-              <div>
-                <label> Term </label>
-                <select onChange={this.handleChange("rental_type")}>
-                  <option hidden value="">
-                    --Select One--
-                  </option>
-                  <option value="daily">Daily</option>
-                  <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
-                  <option value="yearly">Yearly</option>
-                </select>
-              </div>
-
-              <div>
-                <label> Rate ($ per term) </label>
-                <input onChange={this.handleChange("rental_rate")} type="number" />
-              </div>
-
-              <div>
-                <label> Additional Information / Description: </label>
-                <textarea onChange={this.handleChange("description")} />
-              </div>
-
-              <input type="submit" onClick={ (e) => this.handleSubmit(e) } value="Create Parking Spot" />
-            </form>
+              </form>
+            </div>
           </div>;
 
     }
