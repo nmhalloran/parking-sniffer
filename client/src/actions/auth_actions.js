@@ -11,8 +11,6 @@ export const setCurrentUser = decoded => ({
     payload: decoded
 });
 
-
-
 // signs up user
 export const createUser = (user, history) => dispatch => {
     axios
@@ -24,9 +22,6 @@ export const createUser = (user, history) => dispatch => {
         })
       );
 };
-
-
-
 
 // logs in user
 export const loginUser = (user) => dispatch => {
@@ -50,8 +45,6 @@ export const loginUser = (user) => dispatch => {
         })
       );
 }
-
-
 
 // log out user
 export const logoutUser = () => dispatch => {

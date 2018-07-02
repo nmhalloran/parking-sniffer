@@ -9,7 +9,12 @@ const VehiclesReducer = (state = {}, action) => {
 
     switch (action.type) {
         case RECEIVE_VEHICLES:
-            return action.vehicles.data.vehicles;
+            let newState = Object.assign({}, state)
+            let vehicles = action.vehicles.data
+            vehicles.forEach(vehicle => {
+                Object.assign(newState, {[vehicle._id]: vehicle})
+            })
+            return newState;
 
         case RECEIVE_VEHICLE:
         let vehicle = action.vehicle.data;

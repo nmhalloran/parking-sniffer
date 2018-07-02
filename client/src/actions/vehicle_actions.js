@@ -27,7 +27,7 @@ const receiveErrors = errors => ({
 
 export const fetchVehicles = () => dispatch => (
     VehicleAPIUtil.fetchVehicles()
-        .then(vehicle=> dispatch(receiveVehicle(vehicle)))
+        .then(vehicles=> dispatch(receiveVehicles(vehicles)))
         .catch(err => console.log(err))
 );
 
