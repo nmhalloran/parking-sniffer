@@ -37,10 +37,8 @@
   "devDependencies": {
     "nodemon": "^1.17.5"
   },
-  {
-    "engines": {
-      "node": "8.4.0",
-      "npm": "6.1.0"
-    }
+  "engines": {
+    "node": "8.4.0",
+    "npm": "6.1.0"
   }
 }
