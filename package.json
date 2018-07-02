@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "client-install": "npm install --prefix client",
+    "postinstall": "webpack",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -22,6 +23,7 @@
     "body-parser": "^1.18.3",
     "cities": "^1.1.2",
     "concurrently": "^3.6.0",
+    "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "express-winston": "^2.5.1",
     "gps2zip": "^2.2.0",
@@ -40,6 +42,7 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "jquery": "^3.3.1",
     "jwt-decode": "^2.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -63,6 +66,7 @@
   },
   "presets": [
     "env"
-  ],
+  ], 
   "proxy": "http://localhost:5000"
 }
+
