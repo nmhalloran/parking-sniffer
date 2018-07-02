@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import './auth.css';
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -61,55 +61,71 @@ class SignUp extends React.Component {
     };
 
     return (
-      <div style={style}>
-        <p className="lead text-center">Create your account</p>
-        <form noValidate onSubmit={this.onSubmit}>
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={this.state.name}
-            onChange={this.onChange}
-            error={errors.name}
-          />
-          <input
-            type="text"
-            placeholder="Email"
-            name="email"
-            type="email"
-            value={this.state.email}
-            onChange={this.onChange}
-            error={errors.email}
-            info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
-          />
-          <input
-            type="text"
-            placeholder="Password"
-            name="password"
-            type="password"
-            value={this.state.password}
-            onChange={this.onChange}
-            error={errors.password}
-          />
-          <input
-            type="text"
-            placeholder="Confirm Password"
-            name="password2"
-            type="password"
-            value={this.state.password2}
-            onChange={this.onChange}
-            error={errors.password2}
-          />
-          <input
-            type="submit"
-            className="btn btn-info btn-block mt-4"
-            value="SIGN UP"
-          />
-        </form>
-        <Link className="generic-link-1" to={"/signin"}>
-          {" "}
-          I already have an account
-        </Link>
+      <div>
+        <h2 id="title-spot">Create your account</h2>
+          <div className="showSignUp">
+            <div className="showSignUp-Info">
+              <div className="signUp-Info">
+                <form noValidate onSubmit={this.onSubmit}>
+                  <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                    value={this.state.name}
+                    onChange={this.onChange}
+                    error={errors.name}
+                  />
+                  </div>
+                  <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    type="email"
+                    value={this.state.email}
+                    onChange={this.onChange}
+                    error={errors.email}
+                    info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
+                  />
+                  </div>
+                  <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="Password"
+                    name="password"
+                    type="password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                    error={errors.password}
+                  />
+                  </div>
+                  <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="Confirm Password"
+                    name="password2"
+                    type="password"
+                    value={this.state.password2}
+                    onChange={this.onChange}
+                    error={errors.password2}
+                  />
+                  </div>
+                  <div>
+                  <input
+                    type="submit"
+                    className="button"
+                    value="Sign Up"
+                  />
+                 </div>
+                </form>
+                <Link className="generic-link-1" to={"/signin"}>
+                  {" "}
+                  I already have an account
+                </Link>
+              </div>
+            </div>
+          </div>
       </div>
     );
   }

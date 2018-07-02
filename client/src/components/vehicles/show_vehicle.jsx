@@ -40,10 +40,12 @@ class ShowVehicle extends React.Component{
              </div>);
     }else{
     return (
+      <div>
+      <h2 id="title-spot">Vehicle Information</h2>
       <div className="showVehicle">
         <div className="showVehicle-Info">
           <div className="vehicle-Info">
-            <h3>Vehicle Information</h3>
+            <h3>Vehicle Details</h3>
             <div className="vehicle-info-body">
               <h5>Vehicle Type: {this.props.vehicle.vehicle_type}</h5>
               <h5>Plate No: {this.props.vehicle.plate_no}</h5>
@@ -59,6 +61,7 @@ class ShowVehicle extends React.Component{
           </div>
         </div>
         </div>
+      </div>
       </div>
     );
   }

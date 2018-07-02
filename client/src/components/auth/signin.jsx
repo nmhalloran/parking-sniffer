@@ -60,39 +60,49 @@ class SignIn extends React.Component {
     };
 
     return (
-      <div style={style}>
-        <h3>&nbsp;&nbsp;&nbsp;Sign In</h3>
-
-        <form onSubmit={this.onSubmit}>
-          <input
-            type="text"
-            placeholder="Email Address"
-            name="email"
-            type="email"
-            value={this.state.email}
-            onChange={this.onChange}
-            error={errors.email}
-          />
-
-          <input
-            type="text"
-            placeholder="Password"
-            name="password"
-            type="password"
-            value={this.state.password}
-            onChange={this.onChange}
-            error={errors.password}
-          />
-          <input
-            type="submit"
-            className="btn btn-info btn-block mt-4"
-            value="LOG IN"
-          />
-        </form>
-        <Link className="generic-link-1" to={"/signup"}>
-          {" "}
-          I don't have an account
-        </Link>
+      <div>
+        <h2 id="title-spot">Sign In</h2>
+          <div className="showSignUp">
+            <div className="showSignUp-Info">
+              <div className="signUp-Info">
+                <form onSubmit={this.onSubmit}>
+                  <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="Email Address"
+                    name="email"
+                    type="email"
+                    value={this.state.email}
+                    onChange={this.onChange}
+                    error={errors.email}
+                  />
+                  </div>
+                  <div className="input-text">
+                  <input
+                    type="text"
+                    placeholder="Password"
+                    name="password"
+                    type="password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                    error={errors.password}
+                  />
+                  </div>
+                  <div className="input-text">
+                  <input
+                    type="submit"
+                    className="button"
+                    value="Log In"
+                  />
+                </div>
+                </form>
+              <Link className="generic-link-1" to={"/signup"}>
+                {" "}
+                I don't have an account
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

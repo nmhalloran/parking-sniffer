@@ -43,7 +43,7 @@ class TopNavBar extends React.Component {
       <div>
         <div className="top-nav-bar">
           <div className="top-nav-bar-logo">
-            <Link className="logo-link" to={"/"}>
+            <Link className="logo-link" to={"/user/profile"}>
               {" "}
               <Image className="top-nav-bar-logo-img" src={LOGO} />
               <span>Parking Sniffer</span>
@@ -68,6 +68,9 @@ class TopNavBar extends React.Component {
               </div>
             ) : (
               <div className="top-nav-bar-info-logged">
+                <Link to={"/search"} className="top-nav-bar-search-logged">
+                  Sniff parking spot
+                </Link>
                 <div>
                   <img src={this.props.currentUser.avatar} />
                 </div>

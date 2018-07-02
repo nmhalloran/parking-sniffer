@@ -6,23 +6,27 @@
   box-sizing: border-box;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
-body {
-  background-color: lightgrey;
+.root-container {
+  background-color: white;
 }
 
 .profile-body {
   width: 100%;
+  margin-top: 25px;
   background-color: white;
 }
 
 .index-title {
+  font-family: sans-serif;
   text-align: left;
-  padding-left: 10px;
+  padding-left: 25px;
   display: block;
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  font-size: 30px;
+  font-size: 22px;
+  color:salmon;
+  text-shadow: 1px 1px black;
 }
 
 .index-link {

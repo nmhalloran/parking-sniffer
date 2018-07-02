@@ -6,17 +6,19 @@
 
 .create-spot-page h2 {
   /* font-size: 24px; */
-  color: rgba(36, 162, 181);
+  background-color: rgba(36, 162, 181);
   border-radius: 15px 15px 0px 0px;
-  background-color: black;
+  color: white;
   padding: 15px 0px;
+  text-shadow: 2px 2px black;
 }
 
 .create-spot-form {
   width: 800px;
   margin: 25px auto;
-  border: 1px solid black;
+  border: 2px solid rgba(36, 162, 181);
   border-radius: 15px;
+  background: linear-gradient(#dadfdd, #f4f7f6);
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
   padding-bottom: 25px;
   /* background-color: lightskyblue; */
@@ -36,7 +38,7 @@
   font-size: 20px;
   color: white;
   text-shadow: 2px 2px black;
-  background-color: lightgrey;
+  background-color: salmon;
   text-align: center;
   border: 1px solid black;
   border-radius: 15px;
@@ -74,7 +76,7 @@
   font-size: 28px;
   color: black;
   text-align: left;
-  
+
 }
 
 .Address input {
@@ -150,7 +152,7 @@
   display: flex;
   margin: 0 auto;
   text-align: center;
-  
+
 }
 
 .rental-type select {
@@ -161,7 +163,7 @@
 
 .rental-type #spot-info-title {
   width: 125px;
-  
+
 }
 
 .description textarea {

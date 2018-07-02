@@ -121,7 +121,7 @@ justify-content: center;
   width:250px;
   height:250px;
   background-color: #00A2B5;
-  margin: 5px;
+  margin: 20px;
   border-radius: 10px;
 }
 .search-list-load-more{
@@ -131,6 +131,7 @@ justify-content: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .spot-item-img{

@@ -126,11 +126,11 @@ class ShowSpot extends React.Component {
         })
       );
 
-      var renderMap = <MyMapComponent 
-                        isMarkerShown 
-                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg" 
-                        loadingElement={<div style={{ height: `100%` }} />} 
-                        containerElement={<div className="myMapComponent" style={{ height: `250px`, width: `400px`, borderRadius: `15px` }} />} 
+      var renderMap = <MyMapComponent
+                        isMarkerShown
+                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg"
+                        loadingElement={<div style={{ height: `100%` }} />}
+                        containerElement={<div className="myMapComponent" style={{ height: `250px`, width: `400px`, borderRadius: `15px` }} />}
                         mapElement={<div style={{ height: `100%`, borderRadius: `15px` }} />} />;
 
       // console.log(this.state.latitude)
@@ -142,7 +142,7 @@ class ShowSpot extends React.Component {
           backgroundImage: `url('${this.props.spot.img_url}')`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
-          backgroundSize: "cover"
+          backgroundSize: "fill"
         };
       }
       if (this.props.user.id === this.props.spot.seller_id) {
@@ -226,13 +226,9 @@ class ShowSpot extends React.Component {
       }
 
       return <div>
-          <div className="backtosearch">
-            <Link to={`/user/profile`}>
-              <div>{"<< Back to User Profile Page"}</div>
-            </Link>
-          </div>
-
+          <h2 id="title-spot">Parking Spot Information</h2>
           <div className="ShowSpot">
+
             <div className="Image-Map">
               <div className="show-spot-main-img" style={imageStyle} />
               {renderMap}
@@ -242,7 +238,7 @@ class ShowSpot extends React.Component {
 
             <div className="ShowSpot-Info">
               <div className="Spot-Info">
-                <h3> Parking Spot Information </h3>
+                <h3> Spot Details </h3>
                 <div className="spot-info-body">
                   <div className="info-body">
                     <h5>
@@ -256,15 +252,16 @@ class ShowSpot extends React.Component {
                     <h5>
                       Rate: ${this.props.spot.rental_rate} {this.props.spot.rental_type}
                     </h5>
+                    <h5 >
+                      Description: {this.props.spot.description}
+                    </h5>
                   </div>
 
                     {renderButtons}
 
                 </div>
 
-                <h5 id="showspot-description">
-                  Description: {this.props.spot.description}
-                </h5>
+
               </div>
 
               <div className="reservation-form">

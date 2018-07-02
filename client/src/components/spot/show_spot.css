@@ -1,3 +1,7 @@
+body{
+  background: linear-gradient(#dadfdd, #f4f7f6);
+}
+
 .search-list-loading {
   display: flex;
 
@@ -28,12 +32,12 @@
 .ShowSpot {
   position: relative;
   display: flex;
-  margin: 0 auto;
+  margin: 30px auto;
   text-align: center;
   justify-content: center;
   width: 1200px;
   padding: 25px;
-  /* border: 1px solid black; */
+  border: 2px solid #16a2b6;
   background: linear-gradient(#dadfdd, #f4f7f6);
 }
 
@@ -69,9 +73,9 @@
 }
 
 .ShowSpot-Info h3 {
-  color: rgba(36, 162, 181);
+  background-color: rgba(36, 162, 181);
   border-radius: 15px 15px 0px 0px;
-  background-color: black;
+  color: white;
   padding: 7px 0px;
 }
 
@@ -143,6 +147,7 @@
   margin: 25px 0px;
   border: 1px solid black;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+
 }
 
 #show-spot-button {
@@ -156,4 +161,16 @@
   margin: 5px 5px;
   width: auto;
   height: 35px;
+}
+#title-spot{
+  font-family: sans-serif;
+  text-align: center;
+  padding-left: 25px;
+  display: block;
+  width: 100%;
+  max-width: 1280px;
+  margin: 20px auto;
+  font-size: 35px;
+  color: #e87128;
+  text-shadow: 1px 1px black;
 }

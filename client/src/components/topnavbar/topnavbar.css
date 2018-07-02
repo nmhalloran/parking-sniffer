@@ -76,8 +76,10 @@ header {
 }
 .top-nav-bar-info-logged {
   display: flex;
-  flex-direction: column;
-
+  padding-left: 100px;
+  /* flex-direction: column; */
+  margin-right: -60px;
+  margin-top: 50px;
   align-items: center;
 }
 
@@ -102,12 +104,14 @@ header {
 .top-nav-bar-info img {
   width: 45px;
   height: 45px;
+
   border-radius: 50%;
   margin-bottom: 2px;
   border: 1px solid #dadfdd;
 }
 .top-nav-bar-info span {
   color: #343a3f;
+  padding:5px;
 }
 
 .top-nav-bar-input {
@@ -167,6 +171,21 @@ header {
   cursor: pointer;
 }
 
+.top-nav-bar-search-logged {
+  box-shadow: none;
+  margin-right: 20px;
+  /* margin-top: 35px; */
+  max-height: 42px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #dadfdd;
+  background-color: #e87128;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
 .top-nav-bar-signout {
   box-shadow: none;
   padding: 5px 10px;
