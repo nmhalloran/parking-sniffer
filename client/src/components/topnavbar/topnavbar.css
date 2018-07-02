@@ -101,10 +101,10 @@ color:black
 }
 
 .top-nav-bar-info img{
-  width:60px;
-  height:60px;
+  width:45px;
+  height:45px;
   border-radius: 50%;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   border: 1px solid #dadfdd;
 }
 .top-nav-bar-info span{

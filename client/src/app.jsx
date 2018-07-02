@@ -3,7 +3,7 @@ import React from "react";
 import SignUpContainer from "./components/auth/signup_container";
 import SignInContainer from "./components/auth/signin_container";
 import TopNavBarContainer from "./components/topnavbar/topnavbar_container";
-
+import landingPage from "./components/landing/landing"
 import Footer from "./components/layout/Footer";
 import CreateSpotContainer from "./components/spot/create_spot_container";
 import CreateVehicleContainer from "./components/vehicles/create_vehicle_container";
@@ -31,6 +31,7 @@ const App = () => (
       <Route exact path="/vehicle/new" component={CreateVehicleContainer} />
       <Route exact path="/vehicles/:id" component={ShowVehicleContainer} />
       <Route exact path="/search" component={SearchListContainer} />
+      <Route exact path="/" component={landingPage} />
       <ProtectedRoute exact path="/user/profile" component={ProfileContainer} />
       <AuthRoute exact path="/" component={SearchListContainer} />
       <Redirect from="/*" to="/" />
