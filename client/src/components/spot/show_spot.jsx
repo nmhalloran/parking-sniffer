@@ -126,7 +126,12 @@ class ShowSpot extends React.Component {
         })
       );
 
-      var renderMap = <MyMapComponent isMarkerShown googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg" loadingElement={<div style={{ height: `100%` }} />} containerElement={<div className="myMapComponent" style={{ height: `250px`, width: `400px`, borderRadius: `15px` }} />} mapElement={<div style={{ height: `100%`, borderRadius: `15px` }} />} />;
+      var renderMap = <MyMapComponent 
+                        isMarkerShown 
+                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg" 
+                        loadingElement={<div style={{ height: `100%` }} />} 
+                        containerElement={<div className="myMapComponent" style={{ height: `250px`, width: `400px`, borderRadius: `15px` }} />} 
+                        mapElement={<div style={{ height: `100%`, borderRadius: `15px` }} />} />;
 
       // console.log(this.state.latitude)
       // console.log(this.state.longitude)
@@ -152,9 +157,9 @@ class ShowSpot extends React.Component {
 
         var renderButtons = (
           <div className="info-buttons">
-            <Link to={`/spots/edit/${this.props.spot._id}`}>
+            {/* <Link to={`/spots/edit/${this.props.spot._id}`}>
               <input type="button" value="Edit Spot" id="show-spot-button"/>
-            </Link>
+            </Link> */}
 
             <input type="button" onClick={e => this.handleDelete(e)} value="Delete Spot" id="show-spot-button" />
           </div>
