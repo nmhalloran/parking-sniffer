@@ -33,7 +33,6 @@ class ShowSpot extends React.Component {
   }
 
   componentDidMount() {
-    //requesting spot from backend...
     this.props.fetchSpot(this.props.spotId);
   }
   componentWillUnmount() {
@@ -141,14 +140,14 @@ class ShowSpot extends React.Component {
       }
       // debugger
       if (this.props.user.id === this.props.spot.seller_id) {
-        
+
         var renderReservationInfo = (
           <div>
             <h3> Reservations </h3>
             <ReservationsContainer spotId={this.props.spotId} />
 
           </div>
-        ) 
+        )
 
         // var renderEdit = (
         //   <Link to={`/spots/edit/${this.props.spot._id}`}>
@@ -202,7 +201,7 @@ class ShowSpot extends React.Component {
                 <textarea onChange={e => this.handleChange(e, "message")} />
               </h5>
             </div>
-          
+
         );
 
         var renderSubmit = (
@@ -258,19 +257,19 @@ class ShowSpot extends React.Component {
                 </h5>
                 <h5 id="showspot-description">Description: {this.props.spot.description}</h5>
             </div>
-              
+
                 <div className="reservation-form">
 
                   {renderReservationInfo}
 
                   {renderSubmit}
-                  
+
                   {renderEdit}
 
                   {renderDelete}
 
                 </div>
-                
+
               </div>
 
 

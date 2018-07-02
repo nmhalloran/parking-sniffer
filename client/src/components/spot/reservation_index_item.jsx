@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 class ReservationIndexItem extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      loading:true
-    };
   }
   acceptReservation(){
     let newState={
@@ -14,11 +11,11 @@ class ReservationIndexItem extends React.Component {
       booking_status: 'accepted'
     };
     this.props.updateReservation(this.props.spotId,newState);
-    this.setState({loading:false});
+    window.location.reload(true);
   }
   delete(){
     this.props.deleteReservation(this.props.spotId,this.props.reservation);
-    this.setState({loading:false});
+    window.location.reload(true);
   }
   renderStatusButtons(){
     if ((this.props.currentUser.id === this.props.reservation.seller_id)&&(this.props.reservation.booking_status === "pending")){
