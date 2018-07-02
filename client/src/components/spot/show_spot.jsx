@@ -154,14 +154,14 @@ class ShowSpot extends React.Component {
           </div>
         ) 
 
-        var renderEdit = (
-          <Link to={`/spots/edit/${this.props.spot._id}`}>
-            <input type="button" value="Edit Spot" id="show-spot-button"/>
-          </Link>
-        );
+        var renderButtons = (
+          <div className="info-buttons">
+            <Link to={`/spots/edit/${this.props.spot._id}`}>
+              <input type="button" value="Edit Spot" id="show-spot-button"/>
+            </Link>
 
-        var renderDelete = (
-          <input type="button" onClick={e => this.handleDelete(e)} value="Delete Spot" id="show-spot-button" />
+            <input type="button" onClick={e => this.handleDelete(e)} value="Delete Spot" id="show-spot-button" />
+          </div>
         )
       } else {
 
@@ -219,11 +219,7 @@ class ShowSpot extends React.Component {
           </div>
         )
 
-        var renderEdit = (
-          <div></div>
-        )
-
-        var renderDelete = (
+        var renderButtons = (
           <div></div>
         )
       }
@@ -260,12 +256,9 @@ class ShowSpot extends React.Component {
                       Rate: ${this.props.spot.rental_rate} {this.props.spot.rental_type}
                     </h5>
                   </div>
-                  <div className="info-buttons">
 
-                    {renderEdit}
-                    {renderDelete}
+                    {renderButtons}
 
-                  </div>
                 </div>
 
                 <h5 id="showspot-description">

@@ -259,12 +259,12 @@ class CreateSpot extends React.Component {
                 isMarkerShown
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg"
                 loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div className="myMapComponent" style={{ height: `400px`, width: `800px` }} />}
+                containerElement={<div className="myMapComponent" style={{ height: `400px`, width: `600px` }} />}
                 mapElement={<div style={{ height: `100%` }} />} />
         } else {
             renderMap = <h3
                 className="noMapComponent"
-                style={{ height: `400px`, width: `800px` }}
+                style={{ height: `400px`, width: `600px` }}
               >
               </h3>;
         }
@@ -281,13 +281,14 @@ class CreateSpot extends React.Component {
             backgroundSize: 'cover',
       };
   }
-        return <div>
+        return <div className="create-spot-form" >
             <h4> Create a new Parking Spot </h4>
 
             <form>
               {this.state.img_url === null ? (
                 <div style={{fontSize:'20px',color:'#737373'}}>
-                  <span>Please, select parking photo</span>
+                  <span>Please, select parking photo:</span>
+                  <br />
                   <input type="file" onChange={ (e) => this.setImg(e) } />
                 </div>
               ) : (
