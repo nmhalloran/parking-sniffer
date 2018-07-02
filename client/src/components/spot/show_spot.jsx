@@ -87,8 +87,6 @@ class ShowSpot extends React.Component {
 
   render() {
 
-    debugger
-
     if (!this.props.spot && this.props.errors.length > 0) {
       //No spot available and some error occured...
       return (
@@ -142,7 +140,6 @@ class ShowSpot extends React.Component {
           backgroundSize: "cover"
         };
       }
-      // debugger
       if (this.props.user.id === this.props.spot.seller_id) {
 
         var renderReservationInfo = (
