@@ -3,7 +3,7 @@ import React from "react";
 import SignUpContainer from "./components/auth/signup_container";
 import SignInContainer from "./components/auth/signin_container";
 import TopNavBarContainer from "./components/topnavbar/topnavbar_container";
-import landingPage from "./components/landing/landing"
+import landingPage from "./components/landing/landing";
 import Footer from "./components/layout/Footer";
 import CreateSpotContainer from "./components/spot/create_spot_container";
 import CreateVehicleContainer from "./components/vehicles/create_vehicle_container";
@@ -23,8 +23,8 @@ const App = () => (
       <TopNavBarContainer />
     </header>
     <Switch>
-      <Route exact path="/signup" component={SignUpContainer} />
-      <Route exact path="/signin" component={SignInContainer} />
+      <AuthRoute exact path="/signup" component={SignUpContainer} />
+      <AuthRoute exact path="/signin" component={SignInContainer} />
       <Route exact path="/spots/new" component={CreateSpotContainer} />
       <Route exact path="/spots/edit/:id" component={EditSpotContainer} />
       <Route exact path="/vehicle/new" component={CreateVehicleContainer} />
@@ -36,9 +36,7 @@ const App = () => (
       <AuthRoute exact path="/" component={SearchListContainer} />
       <Redirect from="/*" to="/" />
     </Switch>
-    <footer>
-      <Footer />
-    </footer>
+    <footer />
   </div>
 );
 

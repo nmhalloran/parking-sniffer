@@ -83,7 +83,11 @@ class SignIn extends React.Component {
             onChange={this.onChange}
             error={errors.password}
           />
-          <input type="submit" className="btn btn-info btn-block mt-4" />
+          <input
+            type="submit"
+            className="btn btn-info btn-block mt-4"
+            value="LOG IN"
+          />
         </form>
         <Link className="generic-link-1" to={"/signup"}>
           {" "}

@@ -51,68 +51,66 @@ class SignUp extends React.Component {
 
   render() {
     const { errors } = this.state;
-    let style={
+    let style = {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-      width:"200px",
-      marginLeft:"auto",
-      marginRight:"auto"
-    }
-
+      width: "200px",
+      marginLeft: "auto",
+      marginRight: "auto"
+    };
 
     return (
-
-              <div style={style}>
-
-              <p className="lead text-center">
-                Create your account
-              </p>
-              <form noValidate onSubmit={this.onSubmit}>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.onChange}
-                  error={errors.name}
-                />
-                <input
-                  type="text"
-                  placeholder="Email"
-                  name="email"
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                  error={errors.email}
-                  info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
-                />
-                <input
-                  type="text"
-                  placeholder="Password"
-                  name="password"
-                  type="password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                  error={errors.password}
-                />
-                <input
-                  type="text"
-                  placeholder="Confirm Password"
-                  name="password2"
-                  type="password"
-                  value={this.state.password2}
-                  onChange={this.onChange}
-                  error={errors.password2}
-                />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
-              <Link className="generic-link-1" to={"/signin"}>
-                {" "}
-                I already have an account
-              </Link>
-            </div>
-
+      <div style={style}>
+        <p className="lead text-center">Create your account</p>
+        <form noValidate onSubmit={this.onSubmit}>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            value={this.state.name}
+            onChange={this.onChange}
+            error={errors.name}
+          />
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            type="email"
+            value={this.state.email}
+            onChange={this.onChange}
+            error={errors.email}
+            info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
+          />
+          <input
+            type="text"
+            placeholder="Password"
+            name="password"
+            type="password"
+            value={this.state.password}
+            onChange={this.onChange}
+            error={errors.password}
+          />
+          <input
+            type="text"
+            placeholder="Confirm Password"
+            name="password2"
+            type="password"
+            value={this.state.password2}
+            onChange={this.onChange}
+            error={errors.password2}
+          />
+          <input
+            type="submit"
+            className="btn btn-info btn-block mt-4"
+            value="SIGN UP"
+          />
+        </form>
+        <Link className="generic-link-1" to={"/signin"}>
+          {" "}
+          I already have an account
+        </Link>
+      </div>
     );
   }
 }

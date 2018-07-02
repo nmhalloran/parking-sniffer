@@ -35,18 +35,22 @@ class BuyerOrSeller extends React.Component {
         <div className="profile-body">
           <div className="index-title">
             Your Spots:
-            <Link to={"/spots/new"} className="button-styling">
-              CREATE A PARKING SPOT
-            </Link>
+            <span className="index-link">
+              <Link to={"/spots/new"} className="button-styling">
+                Create a parking spot
+              </Link>
+            </span>
           </div>
           <div className="index-wrapper">
             <SpotsIndexPage spots={user.spots} />
           </div>
           <div className="index-title">
             Your Vehicles:
-            <Link className="button-stying" to="/vehicle/new">
-              CREATE A NEW VEHICLE
-            </Link>
+            <span className="index-link">
+              <Link className="button-stying" to="/vehicle/new">
+                Create a vehicle
+              </Link>
+            </span>
           </div>
 
           <div className="index-wrapper">

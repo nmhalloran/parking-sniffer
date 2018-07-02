@@ -12,7 +12,7 @@ body {
 
 .profile-body {
   width: 100%;
-  background-image: url("https://imgur.com/2ZyNVoX.png");
+  background-color: white;
 }
 
 .index-title {
@@ -25,9 +25,17 @@ body {
   font-size: 30px;
 }
 
+.index-link {
+  font-size: 16px;
+  display: float;
+  float: right;
+  padding-right: 40px;
+  padding-top: 18px;
+}
+
 .index-wrapper {
   display: grid;
-  background-color: skyblue;
+  background: linear-gradient(#dadfdd, #f4f7f6);
   width: 90%;
   padding: 30px;
   max-width: 1280px;
@@ -35,7 +43,7 @@ body {
   margin: 0 auto;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-row-gap: 10px;
-  border: 1px solid grey;
+  border: 2px solid #35a2b5;
   border-radius: 25px;
 }
 
@@ -166,7 +174,7 @@ body {
 .spot-index-box {
   width: 250px;
   height: 250px;
-  background-color: lightgrey;
+  background-color: #35a2b5;
   margin: 0 auto;
   border-radius: 10px;
 }
@@ -187,12 +195,13 @@ body {
 }
 
 .spot-display-link {
+  background-color: #e87128l;
   color: black;
   font-size: 19px;
   text-decoration: none;
 }
 .spot-display-link:hover {
-  color: grey;
+  color: white;
   font-size: 19px;
   text-decoration: none;
 }
