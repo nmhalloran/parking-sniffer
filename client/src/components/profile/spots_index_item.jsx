@@ -9,12 +9,30 @@ class SpotsIndexItem extends React.Component {
 
   render() {
     let spot = this.props.spot;
+    let spotItemBgImgStyle = {
+      backgroundImage: "url(" + spot.img_url + ")",
+      backgroundSize: "contain",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      borderRadius: "10px"
+    };
+
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     return (
-      <Link to={`/spots/${spot._id}`}>
-        <li className="item-container">
-          <img src={spot.img_url} />
-          {/* <h3 className="indexed-title-text">{spot.description}</h3> */}
-        </li>
+      <Link
+        to={`/spots/${spot._id}`}
+        className="spot-display-link"
+        to={`/spots/${spot._id}`}
+      >
+        <div className="spot-index-box">
+          <div className="spot-item-img" style={spotItemBgImgStyle} />
+          <div className="spot-display-city">{spot.city}</div>
+          <div className="spot-display">
+            ${spot.rental_rate} / {capitalizeFirstLetter(spot.rental_type)}
+          </div>
+        </div>
       </Link>
     );
   }
