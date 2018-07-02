@@ -48,7 +48,7 @@
     "node": "8.4.0",
     "npm": "6.1.0"
   },
-    "presets": [
-      "env"
-    ]
+  "presets": [
+    "env"
+  ]
 }
