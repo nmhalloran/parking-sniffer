@@ -1,0 +1,71 @@
+.landing-main-container{
+  background-color: white;
+  height:100%;
+}
+
+.landing-first-image{
+  width:100%;
+  height:1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.landing-slogan{
+
+  width:100%;
+  height:75px;
+  background-color: #24A2B5;
+  display: flex;
+
+  justify-content: center;
+  padding: 15px
+}
+
+.landing-slogan span{
+font-size: 30px;
+color: white;
+}
+
+.landing-page-greeting{
+  padding-top: 0px;
+  height: 150px;
+  width:100%;
+  padding: 150px;
+
+}
+.landing-page-greeting span {
+  font-size: 40px;
+  color: #0c6d7a;
+  text-shadow: 2px 2px #FFFFFF;
+  font-weight: 600;
+}
+
+.landing-page-buttons{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-button{
+  margin-top: 100px;
+  width:300px;
+  margin-right: 25px;
+  margin-left: 25px;
+  box-shadow: none;
+  border-radius: 25px;
+  color: black;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  padding: 8px 13px;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 25px;
+  border: 3px solid #24A2B5;
+  cursor: pointer;
+}
+
+.landing-button:hover{
+    background-color: #24A2B5;
+      color: white;
+}

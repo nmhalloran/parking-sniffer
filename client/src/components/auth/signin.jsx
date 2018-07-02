@@ -48,17 +48,24 @@ class SignIn extends React.Component {
   }
 
   render() {
+
+    //col-md-8 m-auto
     const { errors } = this.state;
 
+let style={
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  width:"200px",
+  marginLeft:"auto",
+  marginRight:"auto"
+}
+
     return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">
-                Sign in to your DevConnector account
-              </p>
+
+            <div style={style}>
+              <h3 >&nbsp;&nbsp;&nbsp;Sign In</h3>
+
               <form onSubmit={this.onSubmit}>
                 <input type="text"
                   placeholder="Email Address"
@@ -80,9 +87,7 @@ class SignIn extends React.Component {
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
-          </div>
-        </div>
-      </div>
+
     );
   }
 }
