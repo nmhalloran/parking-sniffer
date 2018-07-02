@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "client-install": "npm install --prefix client",
-    "start": "node server.js",
+    "start": "webpack -w -d",
+    "postinstall": "webpack --optimize-minimize",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
@@ -15,10 +16,15 @@
   "license": "ISC",
   "dependencies": {
     "@google/maps": "^0.5.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cities": "^1.1.2",
     "concurrently": "^3.6.0",
+    "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "express-winston": "^2.5.1",
     "gps2zip": "^2.2.0",
@@ -34,7 +40,8 @@
     "winston": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "css-loader": "^0.28.11"
   },
   "engines": {
     "node": "8.4.0",
