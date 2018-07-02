@@ -18,6 +18,7 @@ export default function(state = initialState, action) {
         isAuthenticated: isAuthenticated,
         user: action.payload
       };
+
     default:
       return state;
   }

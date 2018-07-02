@@ -5,7 +5,6 @@ import { CLEAR_ERRORS, ADD_ERRORS } from './errors_actions'
 
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
-
 // sets current user
 export const setCurrentUser = decoded => ({
     type: SET_CURRENT_USER,

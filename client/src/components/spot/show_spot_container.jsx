@@ -1,6 +1,8 @@
 import { connect } from "react-redux";
 import React from "react";
-
+import{
+  fetchCurrentUser
+} from "../../actions/user_actions";
 import { fetchSpot, fetchSpotById, deleteSpot } from "../../actions/spot_actions";
 import { createReservation } from "../../actions/reservation_actions";
 import ShowSpot from "./show_spot";
@@ -22,7 +24,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteSpot: id => dispatch(deleteSpot(id)),
   clearErrors: () => dispatch(clearErrors()),
   createReservation: (spot_id, data) =>
-    dispatch(createReservation(spot_id, data))
+    dispatch(createReservation(spot_id, data)),
+  fetchCurrentUser: ()=> dispatch(fetchCurrentUser())
 });
 
 export default connect(
