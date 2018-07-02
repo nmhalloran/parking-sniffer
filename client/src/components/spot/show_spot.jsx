@@ -34,6 +34,7 @@ class ShowSpot extends React.Component {
 
   componentDidMount() {
     this.props.fetchSpot(this.props.spotId);
+    this.props.fetchVehicles();
   }
   componentWillUnmount() {
     //Erasing any errors...
@@ -85,6 +86,9 @@ class ShowSpot extends React.Component {
   }
 
   render() {
+
+    debugger
+
     if (!this.props.spot && this.props.errors.length > 0) {
       //No spot available and some error occured...
       return (
@@ -149,15 +153,15 @@ class ShowSpot extends React.Component {
           </div>
         )
 
-        // var renderEdit = (
-        //   <Link to={`/spots/edit/${this.props.spot._id}`}>
-        //     <input type="button" value="Edit Spot" id="show-spot-button"/>
-        //   </Link>
-        // );
+        var renderButtons = (
+          <div className="info-buttons">
+            <Link to={`/spots/edit/${this.props.spot._id}`}>
+              <input type="button" value="Edit Spot" id="show-spot-button"/>
+            </Link>
 
-        // var renderDelete = (
-        //   <input type="button" onClick={e => this.handleDelete(e)} value="Delete Spot" id="show-spot-button" />
-        // )
+            <input type="button" onClick={e => this.handleDelete(e)} value="Delete Spot" id="show-spot-button" />
+          </div>
+        )
       } else {
 
         var renderReservationInfo = (
@@ -185,11 +189,10 @@ class ShowSpot extends React.Component {
                     --Select One--
                       </option>
 
-                  {this.props.user.vehicles.map((vehicle, i) => {
+                  {this.props.vehicles.map((vehicle, i) => {
                     return (
                       <option key={i} value={vehicle._id}>
-                        {" "}
-                        {vehicle._id}{" "}
+                        {vehicle.model}
                       </option>
                     );
                   })}
@@ -215,19 +218,14 @@ class ShowSpot extends React.Component {
           </div>
         )
 
-        var renderEdit = (
-          <div></div>
-        )
-
-        var renderDelete = (
+        var renderButtons = (
           <div></div>
         )
       }
 
-      return (
-        <div>
+      return <div>
           <div className="backtosearch">
-            <Link to={`/user/profile`} >
+            <Link to={`/user/profile`}>
               <div>{"<< Back to User Profile Page"}</div>
             </Link>
           </div>
@@ -237,47 +235,44 @@ class ShowSpot extends React.Component {
               <div className="show-spot-main-img" style={imageStyle} />
               {renderMap}
 
-              <div id="reservations-list">
+              <div id="reservations-list" />
             </div>
-          </div>
 
             <div className="ShowSpot-Info">
               <div className="Spot-Info">
                 <h3> Parking Spot Information </h3>
-                <h5>
-                  Address: {this.props.spot.line1} {this.props.spot.line2} <br />
-                  {this.props.spot.city} {this.props.spot.state},{" "}
-                  {this.props.spot.zipcode}
-                </h5>
-                <h5>Type: {this.props.spot.spot_type}</h5>
-                <h5>Allowed: {this.props.spot.vehicle_types.join(", ")}</h5>
-                <h5>
-                  Rate: ${this.props.spot.rental_rate}{" "}
-                  {this.props.spot.rental_type}
-                </h5>
-                <h5 id="showspot-description">Description: {this.props.spot.description}</h5>
-            </div>
+                <div className="spot-info-body">
+                  <div className="info-body">
+                    <h5>
+                      Address: {this.props.spot.line1} {this.props.spot.line2} <br />
+                      {this.props.spot.city} {this.props.spot.state}, {this.props.spot.zipcode}
+                    </h5>
+                    <h5>Type: {this.props.spot.spot_type}</h5>
+                    <h5>
+                      Allowed: {this.props.spot.vehicle_types.join(", ")}
+                    </h5>
+                    <h5>
+                      Rate: ${this.props.spot.rental_rate} {this.props.spot.rental_type}
+                    </h5>
+                  </div>
 
-                <div className="reservation-form">
-
-                  {renderReservationInfo}
-
-                  {renderSubmit}
-
-                  {renderEdit}
-
-                  {renderDelete}
+                    {renderButtons}
 
                 </div>
 
+                <h5 id="showspot-description">
+                  Description: {this.props.spot.description}
+                </h5>
               </div>
 
+              <div className="reservation-form">
+                {renderReservationInfo}
 
-
+                {renderSubmit}
+              </div>
+            </div>
           </div>
-
-        </div>
-      );
+        </div>;
     }
   }
 }

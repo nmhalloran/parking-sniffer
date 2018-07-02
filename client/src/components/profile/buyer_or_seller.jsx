@@ -5,6 +5,7 @@ import SpotsIndexPage from "./spots_index_page";
 // import ReservationsIndexPage from "./reservations_index_page";
 import VehiclesIndexPage from "./vehicles_index_page";
 import SearchListContainer from "../search_list/search_list_container";
+import './buyer_or_seller.css'
 
 class BuyerOrSeller extends React.Component {
   render() {

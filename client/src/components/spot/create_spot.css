@@ -1,4 +1,9 @@
-.create-spot-main-img{
+.create-spot-form {
+  text-align: center;
+  align-content: center;
+}
+
+.create-spot-main-img {
   width: 400px;
   height: 200px;
   border-collapse:collapse;
