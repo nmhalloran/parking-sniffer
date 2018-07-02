@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "client-install": "npm install --prefix client",
-    "postinstall": "webpack",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -66,7 +65,6 @@
   },
   "presets": [
     "env"
-  ], 
+  ],
   "proxy": "http://localhost:5000"
 }
-
