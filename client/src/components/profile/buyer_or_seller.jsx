@@ -13,7 +13,7 @@ class BuyerOrSeller extends React.Component {
 
     if (!user.spots && !user.vehicles) {
       return (
-        <div>
+        <div className="profile-body">
           <SearchListContainer />
           <EmptyProfilePage />;
         </div>
@@ -33,7 +33,6 @@ class BuyerOrSeller extends React.Component {
     } else {
       return (
         <div className="profile-body">
-          <SearchListContainer />
           <div className="index-title">
             Your Spots:
             <Link to={"/spots/new"} className="button-styling">
