@@ -10,7 +10,6 @@ import {
   Marker
 } from "react-google-maps";
 import { LOADING_GIF } from "../../img/index";
-import "./edit_spot.css";
 
 class EditSpot extends React.Component {
   constructor(props) {
@@ -32,7 +31,6 @@ class EditSpot extends React.Component {
     this.renderMap = true;
 
     this.timeout = undefined;
-
   }
 
   componentDidMount() {
@@ -51,8 +49,7 @@ class EditSpot extends React.Component {
     this.state._id = this.props.spotId;
     this.state.seller_id = this.props.user.id;
 
-
-    debugger
+    debugger;
     this.props.updateSpot(this.state);
   }
 
@@ -72,23 +69,22 @@ class EditSpot extends React.Component {
 
   handleChange(val) {
     return e => {
-      if (this.timeout) { clearTimeout(this.timeout) }
-      
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
+
       if (val === "vehicle_type") {
         if (this.state.vehicle_types.includes(e.currentTarget.value)) {
-
-          let arr = this.state.vehicle_types
+          let arr = this.state.vehicle_types;
           let index = arr.indexOf(e.currentTarget.value);
 
-          arr.splice(index, 1)
-
+          arr.splice(index, 1);
         } else {
           this.state.vehicle_types.push(e.currentTarget.value);
         }
 
         this.forceUpdate();
       } else {
-
         this.setState({ [val]: e.currentTarget.value });
       }
 
@@ -102,7 +98,6 @@ class EditSpot extends React.Component {
   }
 
   geocode() {
-
     var location = `${this.state.line1} + ${this.state.line2} + ${
       this.state.city
     } + ${this.state.state} + ${this.state.zipcode}`;
@@ -137,7 +132,6 @@ class EditSpot extends React.Component {
     if (this.state) {
       this.geocode();
 
-  
       if (
         this.state.line1.length > 0 &&
         this.state.city.length > 0 &&
@@ -168,21 +162,23 @@ class EditSpot extends React.Component {
           if (props.markerPosition) {
             this.state.latitude = props.markerPosition.lat();
             this.state.longitude = props.markerPosition.lng();
-  
+
             console.log(this.state);
           }
-  
+
           return (
             <GoogleMap
               defaultZoom={18}
               defaultCenter={{ lat: this.lat, lng: this.lng }}
               onClick={props.onMapClick}
             >
-              {props.isMarkerShown && <Marker position={props.markerPosition} />}
+              {props.isMarkerShown && (
+                <Marker position={props.markerPosition} />
+              )}
             </GoogleMap>
           );
         });
-  
+
         renderMap = (
           <MyMapComponent
             isMarkerShown
@@ -206,12 +202,10 @@ class EditSpot extends React.Component {
         );
       }
 
-
       return (
-
         <div>
           <h4> Edit a Parking Spot </h4>
-  
+
           <form>
             <button>Upload Image</button>
             <div className="Address">
@@ -251,11 +245,10 @@ class EditSpot extends React.Component {
                 />
               </div>
             </div>
-  
+
             {renderMap}
-  
+
             <div id="fixed">
-  
               <div>
                 <label> Vehicle Types Allowed </label>
                 <input
@@ -263,42 +256,42 @@ class EditSpot extends React.Component {
                   id="motorcycle"
                   name="vehicletype"
                   value="motorcycle"
-                  checked={this.state.vehicle_types.includes('motorcycle')}
+                  checked={this.state.vehicle_types.includes("motorcycle")}
                   onClick={this.handleChange("vehicle_type")}
                 />
                 <label htmlFor="motorcycle">Motorcycle</label>
-  
+
                 <input
                   type="checkbox"
                   id="compact"
                   name="vehicletype"
                   value="compact"
-                  checked={this.state.vehicle_types.includes('compact')}
+                  checked={this.state.vehicle_types.includes("compact")}
                   onClick={this.handleChange("vehicle_type")}
                 />
                 <label htmlFor="compact">Compact</label>
-  
+
                 <input
                   type="checkbox"
                   id="fullsize"
                   name="vehicletype"
                   value="sedan"
-                  checked={this.state.vehicle_types.includes('sedan')}
+                  checked={this.state.vehicle_types.includes("sedan")}
                   onClick={this.handleChange("vehicle_type")}
                 />
                 <label htmlFor="fullsize">Sedan</label>
-  
+
                 <input
                   type="checkbox"
                   id="truck"
                   name="vehicletype"
                   value="truck"
-                  checked={this.state.vehicle_types.includes('truck')}
+                  checked={this.state.vehicle_types.includes("truck")}
                   onClick={this.handleChange("vehicle_type")}
                 />
                 <label htmlFor="truck">Truck</label>
               </div>
-  
+
               <div>
                 <label> Type of Parking </label>
                 <input
@@ -310,7 +303,7 @@ class EditSpot extends React.Component {
                   onClick={this.handleChange("spot_type")}
                 />
                 <label htmlFor="covered">Covered</label>
-  
+
                 <input
                   type="radio"
                   id="uncovered"
@@ -320,7 +313,7 @@ class EditSpot extends React.Component {
                   onClick={this.handleChange("spot_type")}
                 />
                 <label htmlFor="uncovered">Uncovered</label>
-  
+
                 <input
                   type="radio"
                   id="california_canopy"
@@ -330,34 +323,64 @@ class EditSpot extends React.Component {
                   onClick={this.handleChange("spot_type")}
                 />
                 <label htmlFor="california_canopy">California Canopy</label>
-
               </div>
-  
+
               <div>
                 <label> Term </label>
                 <select onChange={this.handleChange("rental_type")}>
                   <option hidden value="">
                     --Select One--
                   </option>
-                  <option value="daily" selected={this.state.rental_type == "daily"} >Daily</option>
-                  <option value="weekly" selected={this.state.rental_type == "weekly"} >Weekly</option>
-                  <option value="monthly" selected={this.state.rental_type == "monthly"} >Monthly</option>
-                  <option value="yearly" selected={this.state.rental_type == "yearly"} >Yearly</option>
+                  <option
+                    value="daily"
+                    selected={this.state.rental_type == "daily"}
+                  >
+                    Daily
+                  </option>
+                  <option
+                    value="weekly"
+                    selected={this.state.rental_type == "weekly"}
+                  >
+                    Weekly
+                  </option>
+                  <option
+                    value="monthly"
+                    selected={this.state.rental_type == "monthly"}
+                  >
+                    Monthly
+                  </option>
+                  <option
+                    value="yearly"
+                    selected={this.state.rental_type == "yearly"}
+                  >
+                    Yearly
+                  </option>
                 </select>
               </div>
-  
+
               <div>
                 <label> Rate ($ per term) </label>
-                <input type="number" onChange={this.handleChange("rental_rate")} value={this.state.rental_rate} />
+                <input
+                  type="number"
+                  onChange={this.handleChange("rental_rate")}
+                  value={this.state.rental_rate}
+                />
               </div>
-  
+
               <div>
                 <label> Additional Information / Description: </label>
-                <textarea onChange={this.handleChange("description")} value={this.state.description} />
+                <textarea
+                  onChange={this.handleChange("description")}
+                  value={this.state.description}
+                />
               </div>
             </div>
-  
-            <input type="submit" onClick={(e) => this.handleSubmit(e)} value="Update Parking Spot" />
+
+            <input
+              type="submit"
+              onClick={e => this.handleSubmit(e)}
+              value="Update Parking Spot"
+            />
           </form>
         </div>
       );
@@ -367,12 +390,10 @@ class EditSpot extends React.Component {
           <Image className="search-list-loading-gif" src={LOADING_GIF} />
           <span>One moment please...</span>
         </div>
-      )
+      );
     }
 
-
     // console.log(this.state) // for testing purposes
-
   }
 }
 

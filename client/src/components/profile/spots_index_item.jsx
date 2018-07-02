@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import './profile.css'
 // import ReservationsIndexPage from "./reservations_index_page";
 
 class SpotsIndexItem extends React.Component {

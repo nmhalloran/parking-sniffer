@@ -2,7 +2,7 @@ import React from "react";
 import $ from "jquery";
 import { withRouter } from "react-router-dom";
 import { compose, withStateHandlers } from "recompose";
-import "./create_vehicle.css";
+
 class CreateVehicle extends React.Component {
   constructor(props) {
     super(props);
@@ -10,14 +10,15 @@ class CreateVehicle extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-    handleSubmit(e) {
-        // debugger
-        e.preventDefault();
-        this.props.createVehicle(this.state)
-       .then((res)=>this.props.history
-       .push(`/vehicles/${res.vehicle.data.vehicles[0]._id}`));
-    }
-
+  handleSubmit(e) {
+    // debugger
+    e.preventDefault();
+    this.props
+      .createVehicle(this.state)
+      .then(res =>
+        this.props.history.push(`/vehicles/${res.vehicle.data.vehicles[0]._id}`)
+      );
+  }
 
   handleChange(val) {
     return e => {
@@ -42,13 +43,13 @@ class CreateVehicle extends React.Component {
         <div className="showVehicle-Info">
           <div className="vehicle-Info">
             <h3>Create a new Vehicle</h3>
-              <div className="vehicle-create-body">
-                <form>
-                  <div className="vehicle-check-box">
-                    <div>
+            <div className="vehicle-create-body">
+              <form>
+                <div className="vehicle-check-box">
+                  <div>
                     <label> Vehicle Type</label>
-                    </div>
-                    <div>
+                  </div>
+                  <div>
                     <input
                       type="checkbox"
                       id="motorcycle"
@@ -56,7 +57,9 @@ class CreateVehicle extends React.Component {
                       name="vehicletype"
                       value="motorcycle"
                     />
-                  <label className="checkboxes" htmlFor="motorcycle">Motorcycle</label>
+                    <label className="checkboxes" htmlFor="motorcycle">
+                      Motorcycle
+                    </label>
 
                     <input
                       type="checkbox"
@@ -65,7 +68,9 @@ class CreateVehicle extends React.Component {
                       name="vehicletype"
                       value="compact"
                     />
-                    <label className="checkboxes" htmlFor="compact">Compact</label>
+                    <label className="checkboxes" htmlFor="compact">
+                      Compact
+                    </label>
 
                     <input
                       type="checkbox"
@@ -74,7 +79,9 @@ class CreateVehicle extends React.Component {
                       name="vehicletype"
                       value="sedan"
                     />
-                    <label className="checkboxes" htmlFor="fullsize">Sedan</label>
+                    <label className="checkboxes" htmlFor="fullsize">
+                      Sedan
+                    </label>
 
                     <input
                       type="checkbox"
@@ -83,42 +90,46 @@ class CreateVehicle extends React.Component {
                       name="vehicletype"
                       value="truck"
                     />
-                    <label className="checkboxes" htmlFor="truck">Truck</label>
-                    </div>
+                    <label className="checkboxes" htmlFor="truck">
+                      Truck
+                    </label>
                   </div>
-                  <div className="rest">
+                </div>
+                <div className="rest">
                   <div>
                     <span className="create-Labels">
-                    <label > Plate No </label>
+                      <label> Plate No </label>
                     </span>
-                    <input onChange={this.handleChange("plate_no")} type="text" />
+                    <input
+                      onChange={this.handleChange("plate_no")}
+                      type="text"
+                    />
                   </div>
                   <div>
                     <span className="create-Labels">
-                    <label> Color </label>
+                      <label> Color </label>
                     </span>
                     <input onChange={this.handleChange("color")} type="text" />
                   </div>
                   <div>
                     <span className="create-Labels">
-                    <label> Model </label>
+                      <label> Model </label>
                     </span>
                     <input onChange={this.handleChange("model")} type="text" />
                   </div>
                   <div>
                     <span className="create-Labels">
-                    <label> Year </label>
+                      <label> Year </label>
                     </span>
                     <input onChange={this.handleChange("year")} type="text" />
                   </div>
-                  </div>
-                  <div className="vehicle-info-button">
-                  <button
-                    onClick={e => this.handleSubmit(e)}
-                    value=""
-                  >Create Vehicle</button>
-                  </div>
-                </form>
+                </div>
+                <div className="vehicle-info-button">
+                  <button onClick={e => this.handleSubmit(e)} value="">
+                    Create Vehicle
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

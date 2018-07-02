@@ -11,7 +11,6 @@ import {
   Marker
 } from "react-google-maps";
 import { LOADING_GIF } from "../../img/index";
-import "./show_spot.css";
 import ReservationsContainer from "./reservations_container";
 
 class ShowSpot extends React.Component {
@@ -26,10 +25,8 @@ class ShowSpot extends React.Component {
       parker_id: this.props.user.id,
       seller_id: "",
       optional_msg: "",
-      loading:true
+      loading: true
     };
-
-
   }
 
   componentDidMount() {
@@ -40,7 +37,6 @@ class ShowSpot extends React.Component {
     //Erasing any errors...
     this.props.clearErrors();
   }
-
 
   handleChange(e, val) {
     switch (val) {
@@ -80,13 +76,12 @@ class ShowSpot extends React.Component {
     } else {
       this.props
         .createReservation(this.props.spotId, this.state)
-        .then((_) => this.setState({loading:false}))
+        .then(_ => this.setState({ loading: false }))
         .catch(err => console.log(err));
     }
   }
 
   render() {
-
     if (!this.props.spot && this.props.errors.length > 0) {
       //No spot available and some error occured...
       return (
@@ -126,12 +121,20 @@ class ShowSpot extends React.Component {
         })
       );
 
-      var renderMap = <MyMapComponent
-                        isMarkerShown
-                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg"
-                        loadingElement={<div style={{ height: `100%` }} />}
-                        containerElement={<div className="myMapComponent" style={{ height: `250px`, width: `400px`, borderRadius: `15px` }} />}
-                        mapElement={<div style={{ height: `100%`, borderRadius: `15px` }} />} />;
+      var renderMap = (
+        <MyMapComponent
+          isMarkerShown
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={
+            <div
+              className="myMapComponent"
+              style={{ height: `250px`, width: `400px`, borderRadius: `15px` }}
+            />
+          }
+          mapElement={<div style={{ height: `100%`, borderRadius: `15px` }} />}
+        />
+      );
 
       // console.log(this.state.latitude)
       // console.log(this.state.longitude)
@@ -146,14 +149,12 @@ class ShowSpot extends React.Component {
         };
       }
       if (this.props.user.id === this.props.spot.seller_id) {
-
         var renderReservationInfo = (
           <div>
             <h3> Reservations </h3>
             <ReservationsContainer spotId={this.props.spotId} />
-
           </div>
-        )
+        );
 
         var renderButtons = (
           <div className="info-buttons">
@@ -161,52 +162,51 @@ class ShowSpot extends React.Component {
               <input type="button" value="Edit Spot" id="show-spot-button"/>
             </Link> */}
 
-            <input type="button" onClick={e => this.handleDelete(e)} value="Delete Spot" id="show-spot-button" />
+            <input
+              type="button"
+              onClick={e => this.handleDelete(e)}
+              value="Delete Spot"
+              id="show-spot-button"
+            />
           </div>
-        )
+        );
       } else {
-
         var renderReservationInfo = (
-            <div>
+          <div>
+            <h3> Book a Reservation </h3>
+            <h5>
+              <label> Date: </label>
+              <br />
+              from{" "}
+              <input type="date" onChange={e => this.handleChange(e, "from")} />
+              <br />
+              to{"    "}
+              <input type="date" onChange={e => this.handleChange(e, "to")} />
+            </h5>
 
-              <h3> Book a Reservation </h3>
-              <h5>
-                <label> Date: </label>
-                <br />
-                from{" "}
-                <input
-                  type="date"
-                  onChange={e => this.handleChange(e, "from")}
-                />
-                <br />
-                to{"    "}
-                <input type="date" onChange={e => this.handleChange(e, "to")} />
-              </h5>
+            <h5>
+              <label>Your Vehicle:</label>
+              <br />
+              <select onChange={e => this.handleChange(e, "vehicle")}>
+                <option hidden value="">
+                  --Select One--
+                </option>
 
-              <h5>
-                <label>Your Vehicle:</label>
-                <br />
-                <select onChange={e => this.handleChange(e, "vehicle")}>
-                  <option hidden value="">
-                    --Select One--
-                      </option>
+                {this.props.vehicles.map((vehicle, i) => {
+                  return (
+                    <option key={i} value={vehicle._id}>
+                      {vehicle.model}
+                    </option>
+                  );
+                })}
+              </select>
+            </h5>
 
-                  {this.props.vehicles.map((vehicle, i) => {
-                    return (
-                      <option key={i} value={vehicle._id}>
-                        {vehicle.model}
-                      </option>
-                    );
-                  })}
-                </select>
-              </h5>
-
-              <h5>
-                <label>Optional Message to Owner:</label>
-                <textarea onChange={e => this.handleChange(e, "message")} />
-              </h5>
-            </div>
-
+            <h5>
+              <label>Optional Message to Owner:</label>
+              <textarea onChange={e => this.handleChange(e, "message")} />
+            </h5>
+          </div>
         );
 
         var renderSubmit = (
@@ -218,17 +218,15 @@ class ShowSpot extends React.Component {
               id="show-spot-button"
             />
           </div>
-        )
+        );
 
-        var renderButtons = (
-          <div></div>
-        )
+        var renderButtons = <div />;
       }
 
-      return <div>
+      return (
+        <div>
           <h2 id="title-spot">Parking Spot Information</h2>
           <div className="ShowSpot">
-
             <div className="Image-Map">
               <div className="show-spot-main-img" style={imageStyle} />
               {renderMap}
@@ -242,26 +240,22 @@ class ShowSpot extends React.Component {
                 <div className="spot-info-body">
                   <div className="info-body">
                     <h5>
-                      Address: {this.props.spot.line1} {this.props.spot.line2} <br />
-                      {this.props.spot.city} {this.props.spot.state}, {this.props.spot.zipcode}
+                      Address: {this.props.spot.line1} {this.props.spot.line2}{" "}
+                      <br />
+                      {this.props.spot.city} {this.props.spot.state},{" "}
+                      {this.props.spot.zipcode}
                     </h5>
                     <h5>Type: {this.props.spot.spot_type}</h5>
+                    <h5>Allowed: {this.props.spot.vehicle_types.join(", ")}</h5>
                     <h5>
-                      Allowed: {this.props.spot.vehicle_types.join(", ")}
+                      Rate: ${this.props.spot.rental_rate}{" "}
+                      {this.props.spot.rental_type}
                     </h5>
-                    <h5>
-                      Rate: ${this.props.spot.rental_rate} {this.props.spot.rental_type}
-                    </h5>
-                    <h5 >
-                      Description: {this.props.spot.description}
-                    </h5>
+                    <h5>Description: {this.props.spot.description}</h5>
                   </div>
 
-                    {renderButtons}
-
+                  {renderButtons}
                 </div>
-
-
               </div>
 
               <div className="reservation-form">
@@ -271,7 +265,8 @@ class ShowSpot extends React.Component {
               </div>
             </div>
           </div>
-        </div>;
+        </div>
+      );
     }
   }
 }

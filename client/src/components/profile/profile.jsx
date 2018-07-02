@@ -1,10 +1,8 @@
 import React from "react";
-import axios from "axios";
-import ReactDOM from "react-dom";
-import { withRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
-import "./profile.css";
-import "./random.css";
+// import axios from "axios";
+// import ReactDOM from "react-dom";
+// import { withRouter } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import BuyerOrSeller from "./buyer_or_seller.jsx";
 
 class Profile extends React.Component {

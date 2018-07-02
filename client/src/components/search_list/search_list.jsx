@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import Image from "react-image";
-import "./searchlist.css";
 import { ARROW_DOWN, ARROW_UP, LOADING_GIF } from "../../img/index";
 import SpotIndexItem from "./spot_index_item";
 

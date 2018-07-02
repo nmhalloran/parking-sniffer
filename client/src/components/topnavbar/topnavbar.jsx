@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import Image from "react-image";
-import "./topnavbar.css";
 import { ARROW_DOWN } from "../../img/index";
 import { LOGO } from "../../img/index";
 

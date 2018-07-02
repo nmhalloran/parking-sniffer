@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
-import './auth.css';
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -63,11 +62,11 @@ class SignUp extends React.Component {
     return (
       <div>
         <h2 id="title-spot">Create your account</h2>
-          <div className="showSignUp">
-            <div className="showSignUp-Info">
-              <div className="signUp-Info">
-                <form noValidate onSubmit={this.onSubmit}>
-                  <div className="input-text">
+        <div className="showSignUp">
+          <div className="showSignUp-Info">
+            <div className="signUp-Info">
+              <form noValidate onSubmit={this.onSubmit}>
+                <div className="input-text">
                   <input
                     type="text"
                     placeholder="Name"
@@ -76,8 +75,8 @@ class SignUp extends React.Component {
                     onChange={this.onChange}
                     error={errors.name}
                   />
-                  </div>
-                  <div className="input-text">
+                </div>
+                <div className="input-text">
                   <input
                     type="text"
                     placeholder="Email"
@@ -88,8 +87,8 @@ class SignUp extends React.Component {
                     error={errors.email}
                     info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
                   />
-                  </div>
-                  <div className="input-text">
+                </div>
+                <div className="input-text">
                   <input
                     type="text"
                     placeholder="Password"
@@ -99,8 +98,8 @@ class SignUp extends React.Component {
                     onChange={this.onChange}
                     error={errors.password}
                   />
-                  </div>
-                  <div className="input-text">
+                </div>
+                <div className="input-text">
                   <input
                     type="text"
                     placeholder="Confirm Password"
@@ -110,22 +109,18 @@ class SignUp extends React.Component {
                     onChange={this.onChange}
                     error={errors.password2}
                   />
-                  </div>
-                  <div>
-                  <input
-                    type="submit"
-                    className="button"
-                    value="Sign Up"
-                  />
-                 </div>
-                </form>
-                <Link className="generic-link-1" to={"/signin"}>
-                  {" "}
-                  I already have an account
-                </Link>
-              </div>
+                </div>
+                <div>
+                  <input type="submit" className="button" value="Sign Up" />
+                </div>
+              </form>
+              <Link className="generic-link-1" to={"/signin"}>
+                {" "}
+                I already have an account
+              </Link>
             </div>
           </div>
+        </div>
       </div>
     );
   }
