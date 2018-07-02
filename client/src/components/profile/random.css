@@ -6,26 +6,37 @@
   box-sizing: border-box;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
+body {
+  background-color: lightgrey;
+}
 
 .profile-body {
   width: 100%;
-  justify-content: center;
+  background-image: url("https://imgur.com/2ZyNVoX.png");
 }
 
 .index-title {
-  text-align: center;
+  text-align: left;
+  padding-left: 10px;
   display: block;
   width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  font-size: 30px;
 }
 
 .index-wrapper {
   display: grid;
+  background-color: skyblue;
   width: 90%;
+  padding: 30px;
   max-width: 1280px;
   min-height: 200px;
   margin: 0 auto;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-row-gap: 10px;
+  border: 1px solid grey;
+  border-radius: 25px;
 }
 
 .main-content {
@@ -143,7 +154,7 @@
   flex-direction: column;
   justify-content: center;
 
-  height: 450px;
+  height: 100px;
   background-color: #f4f7f6;
 }
 
@@ -156,7 +167,7 @@
   width: 250px;
   height: 250px;
   background-color: lightgrey;
-  margin: 5px;
+  margin: 0 auto;
   border-radius: 10px;
 }
 .search-list-load-more {
@@ -181,12 +192,12 @@
   text-decoration: none;
 }
 .spot-display-link:hover {
-  color: #c6ccca;
+  color: grey;
   font-size: 19px;
   text-decoration: none;
 }
 .spot-display-link:active {
-  color: #c6ccca;
+  color: grey;
   font-size: 19px;
   text-decoration: none;
 }

@@ -1,16 +1,15 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
+import React from "react";
+import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      email: '',
-      password: '',
-      password2: '',
+      name: "",
+      email: "",
+      password: "",
+      password2: "",
       errors: {}
     };
 
@@ -18,9 +17,8 @@ class SignUp extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-
-  componentWillMount(){
-    this.props.clearErrors()
+  componentWillMount() {
+    this.props.clearErrors();
   }
 
   componentDidMount() {
@@ -41,7 +39,7 @@ class SignUp extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.clearErrors()
+    this.props.clearErrors();
     const newUser = {
       name: this.state.name,
       email: this.state.email,
@@ -64,14 +62,16 @@ class SignUp extends React.Component {
                 Create your Parking Sniffer account
               </p>
               <form noValidate onSubmit={this.onSubmit}>
-                <input type='text'
+                <input
+                  type="text"
                   placeholder="Name"
                   name="name"
                   value={this.state.name}
                   onChange={this.onChange}
                   error={errors.name}
                 />
-              <input type='text'
+                <input
+                  type="text"
                   placeholder="Email"
                   name="email"
                   type="email"
@@ -80,7 +80,8 @@ class SignUp extends React.Component {
                   error={errors.email}
                   info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
                 />
-              <input type='text'
+                <input
+                  type="text"
                   placeholder="Password"
                   name="password"
                   type="password"
@@ -88,7 +89,8 @@ class SignUp extends React.Component {
                   onChange={this.onChange}
                   error={errors.password}
                 />
-              <input type='text'
+                <input
+                  type="text"
                   placeholder="Confirm Password"
                   name="password2"
                   type="password"
@@ -98,6 +100,10 @@ class SignUp extends React.Component {
                 />
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
+              <Link className="generic-link-1" to={"/signin"}>
+                {" "}
+                I already have an account
+              </Link>
             </div>
           </div>
         </div>

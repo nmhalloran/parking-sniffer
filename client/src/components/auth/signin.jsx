@@ -1,14 +1,13 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
+import React from "react";
+import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class SignIn extends React.Component {
   constructor() {
     super();
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       errors: {}
     };
 
@@ -24,7 +23,7 @@ class SignIn extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push("/dashboard");
     }
 
     if (nextProps.errors) {
@@ -34,7 +33,7 @@ class SignIn extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.clearErrors()
+    this.props.clearErrors();
     const userData = {
       email: this.state.email,
       password: this.state.password
@@ -57,10 +56,11 @@ class SignIn extends React.Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
               <p className="lead text-center">
-                Sign in to your DevConnector account
+                Sign in to your Parking Sniffer account
               </p>
               <form onSubmit={this.onSubmit}>
-                <input type="text"
+                <input
+                  type="text"
                   placeholder="Email Address"
                   name="email"
                   type="email"
@@ -69,7 +69,8 @@ class SignIn extends React.Component {
                   error={errors.email}
                 />
 
-              <input type="text"
+                <input
+                  type="text"
                   placeholder="Password"
                   name="password"
                   type="password"
@@ -79,6 +80,10 @@ class SignIn extends React.Component {
                 />
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
+              <Link className="generic-link-1" to={"/signup"}>
+                {" "}
+                I don't have an account
+              </Link>
             </div>
           </div>
         </div>

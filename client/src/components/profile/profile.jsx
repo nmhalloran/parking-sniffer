@@ -10,19 +10,17 @@ import BuyerOrSeller from "./buyer_or_seller.jsx";
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    this.currentUser =this.props.user;
-    this.spots =this.props.spots;
+    this.currentUser = this.props.user;
+    this.spots = this.props.spots;
   }
-  componentWillMount(){
+  componentWillMount() {
     this.props.fetchCurrentUser();
   }
 
   render() {
-  
     return (
       <div className="user-profile">
         <div id="user-profile-nav">
-          <h4>Hello, {this.props.user.name}!</h4>
           <div>
             <BuyerOrSeller user={this.props.user} />
           </div>
