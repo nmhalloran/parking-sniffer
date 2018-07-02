@@ -19,7 +19,6 @@ class CreateVehicle extends React.Component {
 
 
   handleChange(val) {
-    debugger;
     return e => {
       if (val === "vehicle_type") {
         this.state.vehicle_type = e.currentTarget.value;

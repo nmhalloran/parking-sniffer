@@ -1,0 +1,12 @@
+.ShowVehicle {
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+    width: 1200px;
+    padding: 25px;
+    /* border: 1px solid black; */
+    background-color: #F4F7F6;
+
+}
