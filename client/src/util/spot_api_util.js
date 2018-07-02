@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 export const fetchSpotsByGPS = (gps) => (
     axios({
         method: 'get',
