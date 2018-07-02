@@ -161,7 +161,7 @@ class ShowSpot extends React.Component {
         // )
       } else {
 
-        var RenderReservationInfo = (
+        var renderReservationInfo = (
             <div>
 
               <h3> Book a Reservation </h3>
@@ -217,11 +217,11 @@ class ShowSpot extends React.Component {
         )
 
         var renderEdit = (
-          <div>can't edit</div>
+          <div></div>
         )
 
         var renderDelete = (
-          <div>can't delete</div>
+          <div></div>
         )
       }
 
