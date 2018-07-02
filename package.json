@@ -40,11 +40,16 @@
     "winston": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5",
-    "css-loader": "^0.28.11"
+    "babel-cli": "^6.26.0",
+    "css-loader": "^0.28.11",
+    "nodemon": "^1.17.5"
   },
   "engines": {
     "node": "8.4.0",
     "npm": "6.1.0"
+  }, 
+    "presets": [
+      "env"
+    ]
   }
 }
