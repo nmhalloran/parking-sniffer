@@ -8,7 +8,8 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "postinstall": "webpack"
   },
   "keywords": [],
   "author": "",
@@ -35,5 +36,11 @@
   },
   "devDependencies": {
     "nodemon": "^1.17.5"
+  },
+  {
+    "engines": {
+      "node": "8.4.0",
+      "npm": "6.1.0"
+    }
   }
 }
