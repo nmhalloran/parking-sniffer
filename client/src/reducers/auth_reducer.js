@@ -13,11 +13,8 @@ export default function(state = initialState, action) {
         isAuthenticated = true;
       }
 
-      return {
-        ...state,
-        isAuthenticated: isAuthenticated,
-        user: action.payload
-      };
+      let currState = Object.assign({},state,{isAuthenticated: isAuthenticated},  {user: action.payload})
+      return (currState);
 
     default:
       return state;
