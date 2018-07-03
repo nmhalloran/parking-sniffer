@@ -51,6 +51,13 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const port = process.env.PORT || 5000;
+app.set('port', (process.env.PORT || 5000));
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+// Start node server
+app.listen(app.get('port'), function () {
+  console.log('Node server is running on port ' + app.get('port'));
+});
+
+// const port = process.env.PORT || 5000;
+
+// app.listen(port, () => console.log(`Server running on port ${port}`));
