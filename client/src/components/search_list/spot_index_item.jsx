@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 const SpotIndexItem = props => {
   let spotItemBgImgStyle = {
     backgroundImage: "url(" + props.spot.img_url + ")",
-    backgroundSize: "contain",
-    borderRadius: "10px"
+    backgroundRepeat  : 'no-repeat',
+    backgroundPosition: 'center',
+    // backgroundWidth: '100%',
+    borderRadius: "10px",
+    backgroundSize: '100%'
+
   };
 
   function capitalizeFirstLetter(string) {

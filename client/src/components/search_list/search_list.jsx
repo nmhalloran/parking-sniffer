@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import Image from "react-image";
 import { ARROW_DOWN, ARROW_UP, LOADING_GIF } from "../../img/index";
 import SpotIndexItem from "./spot_index_item";
+import GoogleMapReact from 'google-map-react';
 
 import {
   withScriptjs,
@@ -527,6 +528,20 @@ class SearchList extends React.Component {
                     <SpotIndexItem key={idx} spot={spot} />
                   ))}
                 </div>
+                <div style={{ height: '400px', width: '400px',backgroundColor: 'green' }}>
+       <GoogleMapReact
+         bootstrapURLKeys={{ key:"AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg"}}
+         defaultCenter={{lat: this.state.pos.coords.latitude, lng: this.state.pos.coords.longitude}}
+         defaultZoom={{zoom:11}}
+       >
+        {listingsOnMain.map((spot, idx) =>( <SpotIndexItem key={idx} spot={spot}
+           lat={spot.geometry.coordinates[0]}
+           lng={spot.geometry.coordinates[1]}
+           text={'Kreyser Avrora'}
+         />))
+        }
+       </GoogleMapReact>
+     </div>
                 <div className="search-list-load-more-div">
                   {this.state.spots.length > listingsOnMain.length ? (
                     <button
