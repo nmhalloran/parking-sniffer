@@ -14,7 +14,7 @@ class ReservationIndexPage extends React.Component {
     if(this.props.reservations){
     const reservations= Array.from(this.props.reservations);
     if(reservations.length > 0){
-    return(<div>
+    return(<div className="item-containers">
         {reservations.map((res, i) => (
 
         <div>
@@ -23,7 +23,7 @@ class ReservationIndexPage extends React.Component {
           deleteReservation={this.props.deleteReservation}
           currentUser={this.props.currentUser}/>
         </div>
-      ))};
+      ))}
       </div>);
     }else{
       return(<div>

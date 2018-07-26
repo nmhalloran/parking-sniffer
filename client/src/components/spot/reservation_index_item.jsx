@@ -21,26 +21,29 @@ class ReservationIndexItem extends React.Component {
     if ((this.props.currentUser.id === this.props.reservation.seller_id)&&(this.props.reservation.booking_status === "pending")){
       return (
       <div>
-        <button onClick={() => this.acceptReservation()}>Accept</button>
-        <button
-          onClick={()=>this.delete()}>Decline</button>
+        <button className="reservation-btn" onClick={() => this.acceptReservation()}>Accept</button><br/>
+          <button className="reservation-btn" onClick={()=>this.delete()}>Decline</button>
       </div>);
     }else{
       return(
       <div>
-
       </div>);
     }
   }
   render() {
     let reservation = this.props.reservation;
+    let start_date = new Date(reservation.start_date)
+    let end_date = new Date(reservation.end_date)
+
     return (
       <li key={reservation._id} className="item-container">
-        <div>{reservation._id}</div>
-          <div>Start Date:  </div>
+        <div>
+          <div className="date" >Start : {start_date.toUTCString().slice(0, 16)}</div>
+          <div className="date" >End : {end_date.toUTCString().slice(0, 16)}</div>
+        </div>
         {this.renderStatusButtons()}
       </li>
-    );
+    )
   }
 }
 

@@ -1,11 +1,50 @@
-.item-container {
-  display: table-cell;
-  text-align: center;
-  height: 150px;
-  border-radius: 25px;
-  box-sizing: border-box;
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+.reservation-form h3 {
+  margin-bottom: 0px;
 }
+
+.item-container {
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-around;
+  list-style-type: none;
+  text-align: center;
+  height: auto;
+  box-sizing: border-box;
+  border-bottom: 1px solid black;
+}
+
+.item-containers div:last-child li {
+  border: none;
+}
+
+.item-container > div {
+  font-size: 18px;
+}
+
+.item-container .date {
+  margin: 10px 0;
+}
+
+.reservation-btn {
+  /* width: 100px;
+  margin: 5px; */
+  background-color: rgb(234, 112, 42);
+  color: white;
+  font-size: 16px;
+  text-shadow: 2px 2px black;
+  border: 1px solid black;
+  border-radius: 8px;
+  /* margin: 8px; */
+  margin: 5px 5px;
+  width: auto;
+  height: 35px;
+}
+
+.reservation-btn:last-child {
+  /* background-color: rgb(234, 112, 42); */
+  background-color: grey;
+}
+
 .root-container {
   background-color: white;
 }
