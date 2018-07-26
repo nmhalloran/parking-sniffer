@@ -50,7 +50,7 @@ router.get(
     let long = parseFloat(req.query.longitude);
     // Gets all users
     User.find()
-      .then(users => {
+      .then(users => {``
         users.forEach(user => {
           // Creates array of spots
           allSpots = allSpots.concat(user.spots);
@@ -60,7 +60,7 @@ router.get(
         allSpots.forEach(spot => {
           if (spot.geometry.coordinates) {
             let point = spot.geometry.coordinates;
-            if (distance(lat, long, point[0], point[1]) <= range) {
+            if (distance(lat, long, point[1], point[0]) <= range) {
               newSpots = Object.assign(newSpots, { [spot._id]: spot });
             }
           }

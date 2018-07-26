@@ -20,12 +20,17 @@ class TopNavBar extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
+    const demoUser = {
+      email: "superdad@gmail.com",
+      password: "123456"
+    };
     const userData = {
       email: this.state.email,
       password: this.state.password
     };
     this.props.clearErrors();
     this.props.loginUser(userData);
+    this.props.loginDemo();
   }
 
   onChange(e) {
@@ -38,6 +43,9 @@ class TopNavBar extends React.Component {
   }
 
   render() {
+
+    let currLocation = this.props.location.pathname
+
     return (
       <div>
         <div className="top-nav-bar">
@@ -52,10 +60,10 @@ class TopNavBar extends React.Component {
           <div className="top-nav-bar-info">
             {typeof this.props.currentUser.name === "undefined" ? (
               <div className="top-nav-bar-info-form">
-                <Link to={"/search"} className="top-nav-bar-search">
+                {(currLocation === '/search' || currLocation === '/') ? (null) : (<Link to={"/search"} className="top-nav-bar-search-logged">
                   Sniff parking spot
                 </Link>
-
+                <button className="top-nav-bar-login" onClick={() => this.props.loginDemo()}> Demo Login!</button>
                 <Link className="top-nav-bar-login" to={"/signup"}>
                   {" "}
                   Sign Up
@@ -67,17 +75,18 @@ class TopNavBar extends React.Component {
               </div>
             ) : (
               <div className="top-nav-bar-info-logged">
-                <Link to={"/search"} className="top-nav-bar-search-logged">
+                {(currLocation === '/search' || currLocation === '/') ? (null) : (<Link to={"/search"} className="top-nav-bar-search-logged">
                   Sniff parking spot
-                </Link>
+                </Link>)}
+
                 <div>
-                  <img src={this.props.currentUser.avatar} />
+                <Link to={'/user/profile'}>  <img src={this.props.currentUser.avatar} /></Link>
                 </div>
                 <div>
-                  <span>{this.props.currentUser.name}</span>
+                <Link to={'/user/profile'}>  <span>{this.props.currentUser.name}</span></Link>
                 </div>
                 <div className="top-nav-bar-info-buttons">
-                  <button
+                  &nbsp;<button
                     className="top-nav-bar-signout"
                     onClick={() => this.props.logoutUser()}
                   >

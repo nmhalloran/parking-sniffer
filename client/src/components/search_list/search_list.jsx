@@ -18,21 +18,21 @@ class SearchList extends React.Component {
 
     this.state = {
       searchDivVisible: "search-list-filters-off",
-      garage: false,
+      garage: true,
       openParking: true,
-      underground: false,
-      solar: false,
+      underground: true,
+      solar: true,
 
       daily: true,
-      weekly: false,
-      monthly: false,
-      yearly: false,
-      motorcycle: false,
-      truck: false,
+      weekly: true,
+      monthly: true,
+      yearly: true,
+      motorcycle: true,
+      truck: true,
       car: true,
       fullSize: true,
       compact: true,
-      other: false,
+      other: true,
 
       lat: "",
       long: "",
@@ -313,30 +313,34 @@ class SearchList extends React.Component {
     }
 
     console.log(this.state);
+    let bgstyle = {backgroundColor: '#F4F7F6'}
     return (
-      <div>
-        <div className={this.state.searchDivVisible}>
-          <div className="search-list-zip">
-            <div>
-              <span>Search</span>
-              <input
-                onChange={e => this.handleField(e, "range")}
-                value={this.state.range}
-                type="text"
-                style={{ width: "40px" }}
-              />
-              <span>miles</span>
-            </div>
-            <div>
-              <span>around</span>
-              <input
-                onChange={e => this.handleField(e, "zip")}
-                value={this.state.zip}
-                type="text"
-                style={{ width: "60px" }}
-              />
-            </div>
+      <div style={bgstyle}>
+
+        <div className="search-list-zip">
+          <div>
+            <span>Search parking in range of </span>
+            <input
+              onChange={e => this.handleField(e, "range")}
+              value={this.state.range}
+              type="text"
+              style={{ width: "40px" }}
+            />
+            <span>miles</span>
           </div>
+          <div>
+            <span>around</span>
+            <input
+              onChange={e => this.handleField(e, "zip")}
+              value={this.state.zip}
+              type="text"
+              style={{ width: "60px" }}
+            />
+          </div>
+        </div>
+
+        <div className={this.state.searchDivVisible}>
+
 
           <div className="search-list-checkbox-row">
             <div className="search-list-checkbox">
@@ -491,7 +495,7 @@ class SearchList extends React.Component {
           ) : (
             <Image className="search-list-arrow" src={ARROW_UP} />
           )}
-          <span>Apply filters</span>
+          <span>Advanced Search</span>
           {this.state.searchDivVisible === "search-list-filters-off" ? (
             <Image className="search-list-arrow" src={ARROW_DOWN} />
           ) : (

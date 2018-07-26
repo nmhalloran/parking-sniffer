@@ -15,6 +15,7 @@ const msp = (state,ownProps) =>({
 const mdp = (dispatch) =>({
 logoutUser: () => dispatch(logoutUser()),
 loginUser: (user) => dispatch(loginUser(user)),
+loginDemo: () => dispatch(loginUser({email: "superdad@gmail.com", password: "123456"})),
 clearErrors: () => dispatch(clearErrors()),
 })
 
