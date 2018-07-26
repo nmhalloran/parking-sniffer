@@ -4,8 +4,7 @@ import { withRouter } from "react-router";
 import Image from "react-image";
 import { ARROW_DOWN, ARROW_UP, LOADING_GIF } from "../../img/index";
 import SpotIndexItem from "./spot_index_item";
-import GoogleMapReact from 'google-map-react';
-
+import GMap from "./g_map";
 import {
   withScriptjs,
   withGoogleMap,
@@ -42,7 +41,10 @@ class SearchList extends React.Component {
       zip: this.props.zip,
       spots: [],
       allSpots: [],
-      listingsQuantity: this.props.listingsQuantity
+      listingsQuantity: this.props.listingsQuantity,
+      center: {lat:37.7749,long:-122.4194},
+      zoom:11,
+      gMapsKey: Math.floor(Math.random() * Math.floor(100000000000))
     };
 
     //If this.props.entities.spots.indexloading === true, no response from server was received.
@@ -53,6 +55,11 @@ class SearchList extends React.Component {
     this.receiveSpotsDelayed = this.receiveSpotsDelayed.bind(this);
     this.filterSpots = this.filterSpots.bind(this);
     this.loadMore = this.loadMore.bind(this);
+    this.radiusToZoom = this.radiusToZoom.bind(this);
+  }
+
+  radiusToZoom(radius){
+    return Math.round(14-Math.log(radius)/Math.LN2);
   }
 
   receiveSpotsDelayed() {
@@ -87,14 +94,18 @@ class SearchList extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.zip != this.state.zip) {
-      this.setState({ zip: nextProps.zip });
+    if (nextProps.center.long != this.state.center.long ||
+    nextProps.center.lat != this.state.center.lat ||
+    this.props.range != nextProps.range) {
+      this.setState({ zip: parseInt(nextProps.zip), center:nextProps.center, gMapsKey: Math.floor(Math.random() * Math.floor(100000000000)) });
     }
     let allSpots = Object.assign({}, nextProps.spots);
     let zip = allSpots.zip;
     let range = allSpots.range;
+    let center =  allSpots.center
     delete allSpots.zip;
     delete allSpots.range;
+    delete allSpots.center;
 
     allSpots = Object.values(allSpots);
 
@@ -313,11 +324,15 @@ class SearchList extends React.Component {
       noSearchResults = true;
     }
 
-    console.log(this.state);
+
     let bgstyle = {backgroundColor: '#F4F7F6'}
+    let center = {
+      lat: this.state.center.lat,
+      lng: this.state.center.long
+    }
+
     return (
       <div style={bgstyle}>
-
         <div className="search-list-zip">
           <div>
             <span>Search parking in range of </span>
@@ -523,37 +538,32 @@ class SearchList extends React.Component {
               </div>
             ) : (
               <div>
+              <div className="search-main-container">
+
                 <div className="search-list-container">
                   {listingsOnMain.map((spot, idx) => (
                     <SpotIndexItem key={idx} spot={spot} />
                   ))}
                 </div>
-                <div style={{ height: '400px', width: '400px',backgroundColor: 'green' }}>
-       <GoogleMapReact
-         bootstrapURLKeys={{ key:"AIzaSyAxvOQINmU2nBgyuOlHVaxpNsM8ISQpSeg"}}
-         defaultCenter={{lat: this.state.pos.coords.latitude, lng: this.state.pos.coords.longitude}}
-         defaultZoom={{zoom:11}}
-       >
-        {listingsOnMain.map((spot, idx) =>( <SpotIndexItem key={idx} spot={spot}
-           lat={spot.geometry.coordinates[0]}
-           lng={spot.geometry.coordinates[1]}
-           text={'Kreyser Avrora'}
-         />))
-        }
-       </GoogleMapReact>
-     </div>
-                <div className="search-list-load-more-div">
-                  {this.state.spots.length > listingsOnMain.length ? (
-                    <button
-                      className="search-list-load-more"
-                      onClick={() => this.loadMore()}
-                    >
-                      Load more
-                    </button>
-                  ) : null}
+
+                <div className="gmaps-container">
+                  <GMap key={this.state.gMapsKey} defaultCenter={center} defaultZoom={this.radiusToZoom(this.state.range)} listingsOnMain={listingsOnMain}/>
                 </div>
+
               </div>
-            )}
+              <div className="search-list-load-more-div">
+
+                {this.state.spots.length > listingsOnMain.length ? (
+                  <button
+                    className="search-list-load-more"
+                    onClick={() => this.loadMore()}
+                  >
+                    Load more
+                  </button>
+                    ) : null}
+                </div>
+            </div>
+              )}
           </div>
         )}
       </div>

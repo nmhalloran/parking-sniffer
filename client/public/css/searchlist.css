@@ -128,12 +128,7 @@ justify-content: center;
 .search-list-load-more{
 
 }
-.search-list-container{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
+
 
 .spot-item-img{
   width:250px;
@@ -203,4 +198,34 @@ outline: 0px;
 .search-list-load-more-div{
   display: flex;
   justify-content: center;
+}
+
+
+.search-main-container{
+  display: flex;
+  flex-direction: row;
+  /* justify-content: flex-start; */
+
+}
+.search-list-container{
+  width : 80%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+.gmaps-container{
+  width:20%;
+  height: 500px;
+  min-width: 500px;
+  margin-top: 20px;
+  margin-right: 5px;
+
+}
+.map-point{
+   border-radius: 50%;
+   background-color: #254980;
+   width: 20px;
+   height:20px;
 }
