@@ -46,12 +46,11 @@ class BuyerOrSeller extends React.Component {
           <div className="index-title">
             Your Vehicles:
             <span className="index-link">
-              <Link className="button-stying" to="/vehicle/new">
-                Create a vehicle
+              <Link to={"/spots/new"} className="button-styling">
+                Add a vehicle
               </Link>
             </span>
           </div>
-
           <div className="index-wrapper">
             <VehiclesIndexPage vehicles={user.vehicles} />
           </div>
