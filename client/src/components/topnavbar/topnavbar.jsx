@@ -20,12 +20,17 @@ class TopNavBar extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
+    const demoUser = {
+      email: "superdad@gmail.com",
+      password: "123456"
+    };
     const userData = {
       email: this.state.email,
       password: this.state.password
     };
     this.props.clearErrors();
     this.props.loginUser(userData);
+    this.props.loginDemo();
   }
 
   onChange(e) {
@@ -55,6 +60,8 @@ class TopNavBar extends React.Component {
                 <Link to={"/search"} className="top-nav-bar-search">
                   Sniff parking spot
                 </Link>
+                <button className="top-nav-bar-login" onClick={() => this.props.loginDemo()}> Demo Login!</button>>
+
 
                 <Link className="top-nav-bar-login" to={"/signup"}>
                   {" "}
