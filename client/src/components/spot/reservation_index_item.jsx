@@ -36,7 +36,8 @@ class ReservationIndexItem extends React.Component {
     let reservation = this.props.reservation;
     return (
       <li key={reservation._id} className="item-container">
-          {reservation._id}
+        <div>{reservation._id}</div>
+          <div>Start Date:  </div>
         {this.renderStatusButtons()}
       </li>
     );
