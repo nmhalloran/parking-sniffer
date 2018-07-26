@@ -540,14 +540,16 @@ class SearchList extends React.Component {
               <div>
               <div className="search-main-container">
 
+
+
+                <div className="gmaps-container">
+                  <GMap key={this.state.gMapsKey} defaultCenter={center} defaultZoom={this.radiusToZoom(this.state.range)} listingsOnMain={listingsOnMain}/>
+                </div>
+
                 <div className="search-list-container">
                   {listingsOnMain.map((spot, idx) => (
                     <SpotIndexItem key={idx} spot={spot} />
                   ))}
-                </div>
-
-                <div className="gmaps-container">
-                  <GMap key={this.state.gMapsKey} defaultCenter={center} defaultZoom={this.radiusToZoom(this.state.range)} listingsOnMain={listingsOnMain}/>
                 </div>
 
               </div>

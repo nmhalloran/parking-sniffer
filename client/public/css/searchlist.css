@@ -203,12 +203,12 @@ outline: 0px;
 
 .search-main-container{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   /* justify-content: flex-start; */
 
 }
 .search-list-container{
-  width : 80%;
+  width : 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -216,11 +216,12 @@ outline: 0px;
 }
 
 .gmaps-container{
-  width:20%;
+  width:100%;
   height: 500px;
   min-width: 500px;
-  margin-top: 20px;
-  margin-right: 5px;
+  /* margin-top: 20px; */
+  /* margin-right: 5px; */
+  /* margin-left: 5px; */
 
 }
 .map-point{
