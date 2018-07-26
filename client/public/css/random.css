@@ -26,22 +26,19 @@
 }
 
 .reservation-btn {
-  /* width: 100px;
-  margin: 5px; */
   background-color: rgb(234, 112, 42);
   color: white;
   font-size: 16px;
   text-shadow: 2px 2px black;
   border: 1px solid black;
   border-radius: 8px;
-  /* margin: 8px; */
   margin: 5px 5px;
   width: auto;
   height: 35px;
 }
 
 .reservation-btn:last-child {
-  /* background-color: rgb(234, 112, 42); */
+
   background-color: grey;
 }
 
@@ -238,7 +235,7 @@
 }
 
 .spot-display-link {
-  background-color: #e87128l;
+  /* background-color: #e87128l; */
   color: black;
   font-size: 19px;
   text-decoration: none;
