@@ -62,7 +62,7 @@ class TopNavBar extends React.Component {
               <div className="top-nav-bar-info-form">
                 {(currLocation === '/search' || currLocation === '/') ? (null) : (<Link to={"/search"} className="top-nav-bar-search-logged">
                   Sniff parking spot
-                </Link>
+                </Link>)}
                 <button className="top-nav-bar-login" onClick={() => this.props.loginDemo()}> Demo Login!</button>
                 <Link className="top-nav-bar-login" to={"/signup"}>
                   {" "}

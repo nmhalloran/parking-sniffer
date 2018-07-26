@@ -10,11 +10,6 @@ import ShowSpot from "./show_spot";
 import { clearErrors } from '../../actions/errors_actions';
 const mapStateToProps = (state, ownProps) => {
 
-<<<<<<< HEAD
-  // debugger
-=======
-
->>>>>>> 09c0a643f8d69be6082a7497d03b37b3e0029815
   return ({
       spotId: ownProps.match.params.id,
       spot: state.entities.spots[ownProps.match.params.id],
