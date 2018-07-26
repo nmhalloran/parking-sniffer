@@ -10,7 +10,7 @@ import ShowSpot from "./show_spot";
 import { clearErrors } from '../../actions/errors_actions';
 const mapStateToProps = (state, ownProps) => {
 
-  debugger
+
   return ({
       spotId: ownProps.match.params.id,
       spot: state.entities.spots[ownProps.match.params.id],
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   createReservation: (spot_id, data) =>
     dispatch(createReservation(spot_id, data)),
   fetchVehicles: () => dispatch(fetchVehicles())
-  
+
 });
 
 export default connect(
