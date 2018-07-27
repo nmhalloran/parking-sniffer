@@ -68,7 +68,8 @@ router.get(
         newSpots = Object.assign(
           newSpots,
           { zip: zip.zip_code.toString() },
-          { range: range }
+          { range: range },
+          {center: {lat:lat, long:long}}
         );
         res.json({ spots: newSpots });
       })
@@ -118,7 +119,8 @@ router.get(
         newSpots = Object.assign(
           newSpots,
           { zip: zip.zipcode.toString() },
-          { range: range }
+          { range: range },
+          {center: {lat:lat, long:long}}
         );
         res.json({ spots: newSpots });
       })

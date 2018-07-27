@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const SpotIndexItem = props => {
+const SpotMapItem = props => {
   let spotItemBgImgStyle = {
     backgroundImage: "url(" + props.spot.img_url + ")",
     backgroundRepeat  : 'no-repeat',
@@ -28,8 +28,10 @@ const SpotIndexItem = props => {
   // vehicle_types:[]
   // zipcode:94105
   // _id:"5b36d9aa8ec33babea85fb4e"
+
   return (
-    <Link className="spot-display-link" to={`/spots/${props.spot._id}`}>
+    <div className="spot-display-link">
+    { props.$hover ? (<Link className="spot-display-link" to={`/spots/${props.spot._id}`}>
       <div className="spot-index-box">
         <div className="spot-item-img" style={spotItemBgImgStyle} />
         <div className="spot-display-city">
@@ -40,8 +42,9 @@ const SpotIndexItem = props => {
           <span>{capitalizeFirstLetter(props.spot.rental_type)}</span>
         </div>
       </div>
-    </Link>
+    </Link>) : (<Link className="spot-display-link" to={`/spots/${props.spot._id}`}><div className="map-point"></div></Link>)}
+  </div>
   );
 };
 
-export default SpotIndexItem;
+export default SpotMapItem;
