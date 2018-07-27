@@ -20,7 +20,7 @@ const msp = (state, ownProps) => {
     range: state.entities.spots.range,
     center: state.entities.spots.center,
     indexfirstload: indexfirstload,
-    listingsQuantity:20,
+    listingsQuantity:25,
   };
 };
 

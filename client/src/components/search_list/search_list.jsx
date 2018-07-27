@@ -353,6 +353,15 @@ class SearchList extends React.Component {
               style={{ width: "60px" }}
             />
           </div>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;Displaying {listingsOnMain.length} results out of {this.state.spots.length}</span>
+            {this.state.spots.length > listingsOnMain.length ? (
+            <button
+              className="show-more-btn"
+              onClick={() => this.loadMore()}
+            >
+              Load more
+            </button>
+              ) : null}
         </div>
 
         <div className={this.state.searchDivVisible}>

@@ -230,3 +230,25 @@ outline: 0px;
    width: 20px;
    height:20px;
 }
+
+.show-more-btn {
+  box-shadow: none;
+  /* padding: 3px 3px; */
+  height:25px;
+  border-radius: 5px;
+  color: #dadfdd;
+  background-color: #16a2b6;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
+.show-more-btn:hover {
+  color: #f4f7f6;
+  background-color: #65bdcb;
+}
+.show-more-btn:active {
+  outline: 0px;
+}
