@@ -8,8 +8,8 @@ import BuyerOrSeller from "./buyer_or_seller.jsx";
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    this.currentUser = this.props.user;
-    this.spots = this.props.spots;
+    // this.currentUser = this.props.user;
+    // this.spots = this.props.spots;
   }
   componentWillMount() {
     this.props.fetchCurrentUser();
@@ -24,13 +24,13 @@ class Profile extends React.Component {
           </div>
         </div>
 
-        <div id="user-parking-spots">
+        {/* <div id="user-parking-spots">
           <ul>
             {this.spots.map(spot => {
-              //return <ProfileParkingItem spot={spot} />;
+              return <ProfileParkingItem spot={spot} />;
             })}
           </ul>
-        </div>
+        </div> */}
       </div>
     );
   }

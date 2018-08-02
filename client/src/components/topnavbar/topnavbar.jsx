@@ -38,7 +38,7 @@ class TopNavBar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    debugger
+
     if (nextProps.isAuthenticated != this.props.isAuthenticated) {
       this.props.history.push("/user/profile");
     }
